@@ -1,0 +1,44 @@
+# docker-compose.yaml
+version: '3.3'
+services:
+  user-db:
+    image: mariadb:${DB_VERSION}
+    restart: always
+    environment:
+      TZ: ${TZ}
+      MYSQL_USER: ${USER_DB_USER} # 设置用户名
+      MYSQL_PASSWORD: ${USER_DB_PASSWORD} # 设置用户民吗
+      MYSQL_DATABASE: ${USER_DB_DATABASE} # 初始数据库
+      MYSQL_ROOT_PASSWORD: ${USER_DB_ROOT_PASSWORD} # root用户密码
+    ports:
+      - ${USER_DB_PORT}:3306
+    volumes:
+      - ./data/server-db:/var/lib/mysql
+    networks:
+      - micro-network
+
+  etcd:
+    image: bitnami/etcd:${ETCD_VERSION}
+    environment:
+      TZ: ${TZ}
+      ALLOW_NONE_AUTHENTICATION: "yes"
+      ETCD_NAME: "etcd"
+      ETCD_INITIAL_ADVERTISE_PEER_URLS: "http://etcd:2380"
+      ETCD_LISTEN_PEER_URLS: "http://0.0.0.0:2380"
+      ETCD_LISTEN_CLIENT_URLS: "http://0.0.0.0:2379"
+      ETCD_ADVERTISE_CLIENT_URLS: "http://etcd:2379"
+      ETCD_INITIAL_CLUSTER_TOKEN: "etcd-cluster"
+      ETCD_INITIAL_CLUSTER: "etcd=http://etcd:2380"
+      ETCD_INITIAL_CLUSTER_STATE: "new"
+    volumes:
+      - ./data/etcd:/bitnami/etcd/data
+    ports:
+      - 23791:2379
+      - 23801:2380
+    restart: always
+    networks:
+      - micro-network
+
+networks:
+  micro-network:
+    external: true

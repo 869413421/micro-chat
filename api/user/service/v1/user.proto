@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package api.user.v1;
+
+option go_package = "github.com/869413421/micro-chat/api/user/server/v1;v1";
+
+// User 服务
+service User {
+  rpc CreateUser (CreateUserRequest) returns (UserInfoResponse);
+  rpc UpdateUser (UpdateUserRequest) returns (UserInfoResponse);
+  rpc DeleteUser (DeleteUserRequest) returns (UserInfoResponse);
+  rpc GetUser (GetUserRequest) returns (UserInfoResponse);
+  rpc ListUser (ListUserRequest) returns (ListUserResponse);
+}
+
+// UserInfoResponse 用户信息
+message UserInfoResponse {
+  uint64 id = 1;
+  string email = 2;
+  string name = 3;
+  string password = 4;
+}
+
+// CreateUserRequest 创建用户请求
+message CreateUserRequest {
+  string name = 1;
+  string password = 2;
+  string email = 3;
+}
+
+// UpdateUserRequest 更新用户请求
+message UpdateUserRequest {
+  uint64 id = 1;
+  string name = 2;
+  string password = 3;
+  string email = 4;
+}
+
+// DeleteUserRequest 删除用户请求
+message DeleteUserRequest {
+  uint64 id = 1;
+}
+
+// GetUserRequest 获取用户请求
+message GetUserRequest {
+  string email = 1;
+}
+
+// ListUserRequest 获取用户列表请求
+message ListUserRequest {
+  uint64 offset = 1;
+  uint64 limit = 2;
+}
+
+// ListUserReply 获取用户列表响应
+message ListUserResponse {
+  repeated UserInfoResponse users = 1;
+  uint64 total = 2;
+}
