@@ -11,6 +11,53 @@ service User {
   rpc DeleteUser (DeleteUserRequest) returns (UserInfoResponse);
   rpc GetUser (GetUserRequest) returns (UserInfoResponse);
   rpc ListUser (ListUserRequest) returns (ListUserResponse);
+  rpc CreateRole (CreateRoleRequest) returns (RoleInfoResponse);
+  rpc UpdateRole (UpdateRoleRequest) returns (RoleInfoResponse);
+  rpc DeleteRole (DeleteRoleRequest) returns (RoleInfoResponse);
+  rpc GetRole (GetRoleRequest) returns (RoleInfoResponse);
+  rpc ListRole (ListRoleRequest) returns (ListRoleResponse);
+}
+
+// Role 角色信息
+message RoleInfoResponse {
+  uint64 id = 1;
+  string name = 2;
+  string memo = 3;
+}
+
+// CreateRoleRequest 创建角色请求
+message CreateRoleRequest {
+  string name = 1;
+  string memo = 2;
+}
+
+// UpdateRoleRequest 更新角色请求
+message UpdateRoleRequest {
+  uint64 id = 1;
+  string name = 2;
+  string memo = 3;
+}
+
+// DeleteRoleRequest 删除角色请求
+message DeleteRoleRequest {
+  uint64 id = 1;
+}
+
+// GetRoleRequest 获取角色请求
+message GetRoleRequest {
+  uint64 id = 1;
+}
+
+// ListRoleRequest 获取角色列表请求
+message ListRoleRequest {
+  uint64 offset = 1;
+  uint64 limit = 2;
+}
+
+// ListRoleResponse 获取角色列表响应
+message ListRoleResponse {
+  repeated RoleInfoResponse roles = 1;
+  uint64 total = 2;
 }
 
 // UserInfoResponse 用户信息

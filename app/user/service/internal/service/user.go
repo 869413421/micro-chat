@@ -15,12 +15,13 @@ var _ v1.UserServer = (*UserService)(nil)
 type UserService struct {
 	v1.UnimplementedUserServer                 // 通过嵌入UnimplementedUserServer来实现UserServer接口
 	uc                         biz.UserUsecase // 业务逻辑
+	ruc                        biz.RoleUsecase // 角色业务逻辑
 	log                        *log.Helper     // 日志
 }
 
 // NewUserService 创建用户服务
-func NewUserService(uc biz.UserUsecase, logger log.Logger) *UserService {
-	return &UserService{uc: uc, log: log.NewHelper(logger)}
+func NewUserService(uc biz.UserUsecase, ruc biz.RoleUsecase, logger log.Logger) *UserService {
+	return &UserService{uc: uc, ruc: ruc, log: log.NewHelper(logger)}
 }
 
 // CreateUser 创建用户

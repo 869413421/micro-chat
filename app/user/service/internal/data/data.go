@@ -16,7 +16,7 @@ import (
 )
 
 // ProviderSet is data providers.
-var ProviderSet = wire.NewSet(NewData, NewDB, NewUserRepo)
+var ProviderSet = wire.NewSet(NewData, NewDB, NewUserRepo, NewRoleRepo)
 
 // Data .
 type Data struct {
@@ -25,7 +25,7 @@ type Data struct {
 
 // NewData .
 func NewData(c *conf.Data, logger log.Logger, db *gorm.DB) (*Data, func(), error) {
-	err := db.AutoMigrate(&User{})
+	err := db.AutoMigrate(&User{}, &UserRole{}, &Role{}, &RolePermission{}, &Permission{})
 	if err != nil {
 		return nil, nil, err
 	}

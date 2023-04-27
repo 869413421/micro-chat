@@ -10,10 +10,11 @@ import (
 // User 用户模型
 type User struct {
 	db.BaseModel
-	Name     string `gorm:"column:name;type:varchar(255)  comment '用户名';not null;default:''" valid:"name"`
-	Email    string `gorm:"column:email;type:varchar(50) comment '邮箱';not null;unique;default:''" valid:"email"`
-	Password string `gorm:"column:password;type:varchar(255) comment '密码';not null;default:''" valid:"password"`
-	RoleID   uint64 `gorm:"column:role_id;type:int comment '角色ID'; index;not null; default:0"`
+	Name      string      `gorm:"column:name;type:varchar(255)  comment '用户名';not null;default:''"`
+	Email     string      `gorm:"column:email;type:varchar(50) comment '邮箱';not null;unique;default:''"`
+	Password  string      `gorm:"column:password;type:varchar(255) comment '密码';not null;default:''" `
+	Status    int         `gorm:"column:status;type:tinyint comment '状态';not null;default:1"`
+	UserRoles []*UserRole `gorm:"foreignKey:UserID;references:ID"`
 }
 
 // BeforeSave 保存前模型事件

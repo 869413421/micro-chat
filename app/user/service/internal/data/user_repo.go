@@ -3,6 +3,7 @@ package data
 import (
 	"context"
 	"fmt"
+	"github.com/casbin/casbin/v2"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"google.golang.org/grpc/codes"
@@ -13,15 +14,17 @@ import (
 
 // userRepo 数据库操作层
 type userRepo struct {
-	data *Data
-	log  *log.Helper
+	data     *Data
+	enforcer *casbin.Enforcer
+	log      *log.Helper
 }
 
 // NewUserRepo 新建DAO操作仓库
-func NewUserRepo(data *Data, logger log.Logger) biz.UserRepo {
+func NewUserRepo(data *Data, enforcer *casbin.Enforcer, logger log.Logger) biz.UserRepo {
 	return &userRepo{
-		data: data,
-		log:  log.NewHelper(logger),
+		data:     data,
+		enforcer: enforcer,
+		log:      log.NewHelper(logger),
 	}
 }
 
@@ -35,7 +38,6 @@ func (r *userRepo) UserToBizUser(u *User) *biz.User {
 		Name:     u.Name,
 		Password: u.Password,
 		Email:    u.Email,
-		RoleId:   u.RoleID,
 	}
 }
 
@@ -69,9 +71,6 @@ func (r *userRepo) UpdateUser(ctx context.Context, user *biz.User) (*biz.User, e
 	}
 	if user.Password != "" {
 		dbUser.Password = user.Password
-	}
-	if user.RoleId != 0 {
-		dbUser.RoleID = user.RoleId
 	}
 
 	if err := r.data.db.Save(&dbUser).Error; err != nil {

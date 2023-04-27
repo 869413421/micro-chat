@@ -12,6 +12,7 @@ import (
 	"github.com/869413421/micro-chat/app/user/service/internal/data"
 	"github.com/869413421/micro-chat/app/user/service/internal/server"
 	"github.com/869413421/micro-chat/app/user/service/internal/service"
+	"github.com/869413421/micro-chat/pkg/enforcer"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 )
@@ -29,7 +30,12 @@ func wireApp(confServer *conf.Server, confData *conf.Data, registry *conf.Regist
 	if err != nil {
 		return nil, nil, err
 	}
-	userRepo := data.NewUserRepo(dataData, logger)
+	casbinEnforcer, err := enforcer.NewEnforcer(db)
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	userRepo := data.NewUserRepo(dataData, casbinEnforcer, logger)
 	userUsecase := biz.NewUserUsecase(userRepo, logger)
 	userService := service.NewUserService(userUsecase, logger)
 	grpcServer := server.NewGRPCServer(confServer, userService, logger)
