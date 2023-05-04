@@ -11,7 +11,7 @@ import (
 type User struct {
 	db.BaseModel
 	Name      string      `gorm:"column:name;type:varchar(255)  comment '用户名';not null;default:''"`
-	Email     string      `gorm:"column:email;type:varchar(50) comment '邮箱';not null;unique;default:''"`
+	Email     string      `gorm:"index:,unique uniqueIndex unique;column:email;type:varchar(50) comment '邮箱';not null;default:''"`
 	Password  string      `gorm:"column:password;type:varchar(255) comment '密码';not null;default:''" `
 	Status    int         `gorm:"column:status;type:tinyint comment '状态';not null;default:1"`
 	UserRoles []*UserRole `gorm:"foreignKey:UserID;references:ID"`

@@ -84,7 +84,7 @@ func TestUpdateRole_Err(t *testing.T) {
 
 		// 测试更新角色名称重复
 		r2.Name = "test1"
-		_, err = roleRepo.Update(context.Background(), r)
+		_, err = roleRepo.Update(context.Background(), r2)
 		st, _ = status.FromError(err)
 		convey.So(st.Code(), convey.ShouldEqual, codes.AlreadyExists)
 	}))

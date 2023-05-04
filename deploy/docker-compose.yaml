@@ -17,25 +17,24 @@ services:
     networks:
       - micro-network
 
-  etcd:
-    image: bitnami/etcd:${ETCD_VERSION}
-    environment:
-      TZ: ${TZ}
-      ALLOW_NONE_AUTHENTICATION: "yes"
-      ETCD_NAME: "etcd"
-      ETCD_INITIAL_ADVERTISE_PEER_URLS: "http://etcd:2380"
-      ETCD_LISTEN_PEER_URLS: "http://0.0.0.0:2380"
-      ETCD_LISTEN_CLIENT_URLS: "http://0.0.0.0:2379"
-      ETCD_ADVERTISE_CLIENT_URLS: "http://etcd:2379"
-      ETCD_INITIAL_CLUSTER_TOKEN: "etcd-cluster"
-      ETCD_INITIAL_CLUSTER: "etcd=http://etcd:2380"
-      ETCD_INITIAL_CLUSTER_STATE: "new"
-    volumes:
-      - ./data/etcd:/bitnami/etcd/data
+  consul:
+    image: consul
+    command: ["agent", "-dev", "-client=0.0.0.0"]
     ports:
-      - 23791:2379
-      - 23801:2380
+      - "8500:8500"
+      - "8300:8300"
+      - "8301:8301"
+      - "8302:8302"
+      - "8600:8600/udp"
     restart: always
+    environment:
+      CONSUL_LOCAL_CONFIG: |
+        {
+          "datacenter": "dc1",
+          "ui_config": {
+            "enabled": true
+          }
+        }
     networks:
       - micro-network
 

@@ -66,12 +66,13 @@ func (r *roleRepo) Update(ctx context.Context, bizRole *biz.Role) (*biz.Role, er
 		if role.ID != bizRole.ID {
 			return nil, status.Errorf(codes.AlreadyExists, "角色名重复")
 		}
+	} else {
+		result = r.data.db.Where("id = ?", bizRole.ID).First(&role)
+		if result.RowsAffected == 0 {
+			return nil, status.Errorf(codes.NotFound, "更新角色不存在")
+		}
 	}
 
-	result = r.data.db.Where("id = ?", bizRole.ID).First(&role)
-	if result.RowsAffected == 0 {
-		return nil, status.Errorf(codes.NotFound, "更新角色不存在")
-	}
 	role.Name = bizRole.Name
 	role.Memo = bizRole.Memo
 	res := r.data.db.Save(&role)

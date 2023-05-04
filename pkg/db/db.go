@@ -1,16 +1,14 @@
 package db
 
 import (
-	"gorm.io/gorm"
 	"strconv"
 	"time"
 )
 
 type BaseModel struct {
-	ID        uint64         "gorm:column:id;primaryKey;autoIncrement;not null"
-	CreatedAt time.Time      `gorm:"column:created_at;index;not null;default:CURRENT_TIMESTAMP"`
-	UpdatedAt time.Time      `gorm:"column:updated_at;index;not null;default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"`
-	DeletedAt gorm.DeletedAt `gorm:"index"`
+	ID        uint64    "gorm:column:id;primaryKey;autoIncrement;not null"
+	CreatedAt time.Time `gorm:"column:created_at;index:created_at;not null;default:CURRENT_TIMESTAMP"`
+	UpdatedAt time.Time `gorm:"column:updated_at;index:updated_at;not null;default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"`
 }
 
 //GetStringID 主键转字符串

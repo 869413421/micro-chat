@@ -21,7 +21,7 @@ type UserService struct {
 
 // NewUserService 创建用户服务
 func NewUserService(uc biz.UserUsecase, ruc biz.RoleUsecase, logger log.Logger) *UserService {
-	return &UserService{uc: uc, ruc: ruc, log: log.NewHelper(logger)}
+	return &UserService{uc: uc, ruc: ruc, log: log.NewHelper(log.With(logger, "module", "service/user"))}
 }
 
 // CreateUser 创建用户
@@ -65,7 +65,7 @@ func (s *UserService) DeleteUser(ctx context.Context, req *v1.DeleteUserRequest)
 
 // GetUser 获取用户
 func (s *UserService) GetUser(ctx context.Context, req *v1.GetUserRequest) (*v1.UserInfoResponse, error) {
-	user, err := s.uc.Get(ctx, map[string]interface{}{"email": req.Email})
+	user, err := s.uc.Get(ctx, map[string]interface{}{"id = ": req.Id})
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ func (s *UserService) GetUser(ctx context.Context, req *v1.GetUserRequest) (*v1.
 
 // ListUser 获取用户列表
 func (s *UserService) ListUser(ctx context.Context, req *v1.ListUserRequest) (*v1.ListUserResponse, error) {
-	users, err := s.uc.ListUser(ctx, map[string]interface{}{})
+	users, total, err := s.uc.List(ctx, map[string]interface{}{}, req.Page, req.PageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func (s *UserService) ListUser(ctx context.Context, req *v1.ListUserRequest) (*v
 
 	var usersResponse = &v1.ListUserResponse{
 		Users: newUsers,
-		Total: 100,
+		Total: total,
 	}
 
 	return usersResponse, nil
@@ -96,9 +96,11 @@ func (s *UserService) ListUser(ctx context.Context, req *v1.ListUserRequest) (*v
 // 	bizUserToProtoUser 将biz层的user转换为pb层的user
 func bizUserToProtoUser(user *biz.User) *v1.UserInfoResponse {
 	return &v1.UserInfoResponse{
-		Id:       user.ID,
-		Name:     user.Name,
-		Password: user.Password,
-		Email:    user.Email,
+		Id:        user.ID,
+		Name:      user.Name,
+		Password:  user.Password,
+		Email:     user.Email,
+		CreatedAt: user.CreateAt,
+		UpdatedAt: user.UpdateAt,
 	}
 }

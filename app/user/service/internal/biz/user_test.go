@@ -25,8 +25,7 @@ func TestBizUserUsecaseCreate(t *testing.T) {
 			ID:       1,
 			Name:     "清水泥沙",
 			Email:    "13528685024@163",
-			Password: "admin",
-			RoleId:   1,
+			Password: "server",
 		}
 		mUserRepo.EXPECT().CreateUser(ctx, gomock.Any()).Return(userInfo, nil)
 		result, err := userCase.Create(ctx, userInfo)
@@ -34,8 +33,7 @@ func TestBizUserUsecaseCreate(t *testing.T) {
 		So(result.ID, ShouldEqual, 1)
 		So(result.Name, ShouldEqual, "清水泥沙")
 		So(result.Email, ShouldEqual, "13528685024@163")
-		So(result.Password, ShouldEqual, "admin")
-		So(result.RoleId, ShouldEqual, 1)
+		So(result.Password, ShouldEqual, "server")
 	})
 }
 
@@ -52,8 +50,7 @@ func TestBizUserUsecaseUpdate(t *testing.T) {
 			ID:       1,
 			Name:     "清水泥沙",
 			Email:    "13528685024@163",
-			Password: "admin",
-			RoleId:   1,
+			Password: "server",
 		}
 		mUserRepo.EXPECT().UpdateUser(ctx, gomock.Any()).Return(userInfo, nil)
 		result, err := userCase.Update(ctx, userInfo)
@@ -61,8 +58,7 @@ func TestBizUserUsecaseUpdate(t *testing.T) {
 		So(result.ID, ShouldEqual, 1)
 		So(result.Name, ShouldEqual, "清水泥沙")
 		So(result.Email, ShouldEqual, "13528685024@163")
-		So(result.Password, ShouldEqual, "admin")
-		So(result.RoleId, ShouldEqual, 1)
+		So(result.Password, ShouldEqual, "server")
 	})
 }
 
@@ -79,8 +75,7 @@ func TestBizUserUsecaseDelete(t *testing.T) {
 			ID:       1,
 			Name:     "清水泥沙",
 			Email:    "13528685024@163",
-			Password: "admin",
-			RoleId:   1,
+			Password: "server",
 		}
 		mUserRepo.EXPECT().DeleteUser(ctx, gomock.Any()).Return(userInfo, nil)
 		result, err := userCase.Delete(ctx, userInfo.ID)
@@ -88,8 +83,7 @@ func TestBizUserUsecaseDelete(t *testing.T) {
 		So(result.ID, ShouldEqual, 1)
 		So(result.Name, ShouldEqual, "清水泥沙")
 		So(result.Email, ShouldEqual, "13528685024@163")
-		So(result.Password, ShouldEqual, "admin")
-		So(result.RoleId, ShouldEqual, 1)
+		So(result.Password, ShouldEqual, "server")
 	})
 }
 
@@ -106,8 +100,7 @@ func TestBizUserUsecaseGet(t *testing.T) {
 			ID:       1,
 			Name:     "清水泥沙",
 			Email:    "13528685024@163",
-			Password: "admin",
-			RoleId:   1,
+			Password: "server",
 		}
 		mUserRepo.EXPECT().GetUser(ctx, gomock.Any()).Return(userInfo, nil)
 		var where = map[string]interface{}{"id": 1}
@@ -116,8 +109,7 @@ func TestBizUserUsecaseGet(t *testing.T) {
 		So(result.ID, ShouldEqual, 1)
 		So(result.Name, ShouldEqual, "清水泥沙")
 		So(result.Email, ShouldEqual, "13528685024@163")
-		So(result.Password, ShouldEqual, "admin")
-		So(result.RoleId, ShouldEqual, 1)
+		So(result.Password, ShouldEqual, "server")
 	})
 }
 
@@ -136,14 +128,13 @@ func TestBizUserUsecaseList(t *testing.T) {
 				ID:       uint64(i),
 				Name:     "清水泥沙",
 				Email:    fmt.Sprintf("1352868502%s@163", strconv.Itoa(i)),
-				Password: "admin",
-				RoleId:   1,
+				Password: "server",
 			})
 		}
-		mUserRepo.EXPECT().ListUser(ctx, gomock.Any()).Return(list, nil)
+		mUserRepo.EXPECT().ListUser(ctx, gomock.Any(), gomock.Any(), gomock.Any()).Return(list, int64(10), nil)
 		var where = map[string]interface{}{"id": 1}
-		result, err := userCase.ListUser(ctx, where)
+		_, total, err := userCase.List(ctx, where, 1, 10)
 		So(err, ShouldBeNil)
-		So(len(result), ShouldEqual, 10)
+		So(total, ShouldEqual, 10)
 	})
 }

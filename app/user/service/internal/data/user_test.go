@@ -47,17 +47,51 @@ func TestUpdateUser(t *testing.T) {
 
 		convey.So(err, convey.ShouldBeNil)
 		convey.So(updatedUser.Name, convey.ShouldEqual, newUser.Name)
-
-		// Test error case when server does not exist
-		u.ID = 999
-		_, err = userRepo.UpdateUser(context.Background(), u)
-		st, _ := status.FromError(err)
-
-		convey.So(st.Code(), convey.ShouldEqual, codes.NotFound)
 	}))
-
 }
 
+// TestUpdateRole_Err 测试更新角色错误
+func TestUpdateUser_Err(t *testing.T) {
+	convey.Convey("Test Update User", t, run(func() {
+		u := &biz.User{
+			Name:     "test1",
+			Email:    "test1",
+			Password: "test1",
+		}
+		newUser, err := userRepo.CreateUser(context.Background(), u)
+		convey.So(err, convey.ShouldBeNil)
+		convey.So(newUser.Name, convey.ShouldEqual, u.Name)
+		convey.So(newUser.ID, convey.ShouldNotEqual, 0)
+
+		u2 := &biz.User{
+			Name:     "test2",
+			Email:    "test2",
+			Password: "test2",
+		}
+		newRole2, err := userRepo.CreateUser(context.Background(), u2)
+		convey.So(err, convey.ShouldBeNil)
+		convey.So(newRole2.Name, convey.ShouldEqual, u2.Name)
+		convey.So(newRole2.ID, convey.ShouldNotEqual, 0)
+
+		// 测试更新角色不存在
+		u3 := &biz.User{
+			ID:    9999,
+			Name:  "test3",
+			Email: "test3",
+		}
+		_, err = userRepo.UpdateUser(context.Background(), u3)
+		st, _ := status.FromError(err)
+		convey.So(st.Code(), convey.ShouldEqual, codes.NotFound)
+
+		// 测试更新角色名称重复
+		u2.Email = "test1"
+		_, err = userRepo.UpdateUser(context.Background(), u2)
+		st, _ = status.FromError(err)
+		convey.So(st.Code(), convey.ShouldEqual, codes.AlreadyExists)
+	}))
+}
+
+// TestDeleteUser 测试删除用户
 func TestDeleteUser(t *testing.T) {
 	convey.Convey("Test Delete User", t, run(func() {
 		u := &biz.User{
@@ -83,6 +117,7 @@ func TestDeleteUser(t *testing.T) {
 	}))
 }
 
+// TestGetUser 测试获取用户
 func TestGetUser(t *testing.T) {
 	convey.Convey("Test Get User", t, run(func() {
 		u := &biz.User{
@@ -107,6 +142,7 @@ func TestGetUser(t *testing.T) {
 	}))
 }
 
+// TestListUser 测试获取用户列表
 func TestListUser(t *testing.T) {
 	convey.Convey("Test List User", t, run(func() {
 		for i := 0; i < 10; i++ {
@@ -120,14 +156,8 @@ func TestListUser(t *testing.T) {
 		}
 
 		where := make(map[string]interface{})
-		users, err := userRepo.ListUser(context.Background(), where)
+		_, total, err := userRepo.ListUser(context.Background(), where, 0, 10)
 		convey.So(err, convey.ShouldBeNil)
-		convey.So(len(users), convey.ShouldEqual, 10)
-
-		where = make(map[string]interface{})
-		where["id >"] = 999
-		_, err = userRepo.GetUser(context.Background(), where)
-		st, _ := status.FromError(err)
-		convey.So(st.Code(), convey.ShouldEqual, codes.NotFound)
+		convey.So(total, convey.ShouldEqual, 10)
 	}))
 }

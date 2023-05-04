@@ -23,9 +23,35 @@ type Data struct {
 	db *gorm.DB
 }
 
+// migrate 模型迁移
+func migrate(db *gorm.DB) error {
+	//var err error
+	//// 手动创建唯一索引，因为gorm会重复创建唯一索引
+	//if !db.Migrator().HasIndex(&User{}, "email") {
+	//	err = db.Migrator().CreateIndex(&User{}, "email,unique")
+	//	if err != nil {
+	//		fmt.Printf("create user email index error: %v", err)
+	//		os.Exit(1)
+	//	}
+	//}
+	//
+	//if !db.Migrator().HasIndex(&Role{}, "name") {
+	//	err = db.Migrator().CreateIndex(&Role{}, "name,unique")
+	//	if err != nil {
+	//		fmt.Printf("create user name index error: %v", err)
+	//	}
+	//}
+	err := db.AutoMigrate(&User{}, &UserRole{}, &Role{}, &RolePermission{}, &Permission{})
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // NewData .
 func NewData(c *conf.Data, logger log.Logger, db *gorm.DB) (*Data, func(), error) {
-	err := db.AutoMigrate(&User{}, &UserRole{}, &Role{}, &RolePermission{}, &Permission{})
+	err := migrate(db)
 	if err != nil {
 		return nil, nil, err
 	}

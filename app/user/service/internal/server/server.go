@@ -1,12 +1,10 @@
 package server
 
 import (
-	"log"
-
-	"github.com/go-kratos/kratos/contrib/registry/etcd/v2"
+	"github.com/go-kratos/kratos/contrib/registry/consul/v2"
 	"github.com/go-kratos/kratos/v2/registry"
 	"github.com/google/wire"
-	"go.etcd.io/etcd/client/v3"
+	consulAPI "github.com/hashicorp/consul/api"
 
 	"github.com/869413421/micro-chat/app/user/service/internal/conf"
 )
@@ -14,14 +12,14 @@ import (
 // ProviderSet is server providers.
 var ProviderSet = wire.NewSet(NewGRPCServer, NewRegistrar)
 
-// NewRegistrar 使用ETCD注册中心
 func NewRegistrar(conf *conf.Registry) registry.Registrar {
-	etcdClient, err := clientv3.New(clientv3.Config{
-		Endpoints: []string{conf.Etcd.Address},
-	})
+	c := consulAPI.DefaultConfig()
+	c.Address = conf.Consul.Address
+	c.Scheme = conf.Consul.Scheme
+	cli, err := consulAPI.NewClient(c)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
-	c := etcd.New(etcdClient)
-	return c
+	r := consul.New(cli, consul.WithHealthCheck(false))
+	return r
 }

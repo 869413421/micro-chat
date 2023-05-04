@@ -11,6 +11,7 @@ service User {
   rpc DeleteUser (DeleteUserRequest) returns (UserInfoResponse);
   rpc GetUser (GetUserRequest) returns (UserInfoResponse);
   rpc ListUser (ListUserRequest) returns (ListUserResponse);
+
   rpc CreateRole (CreateRoleRequest) returns (RoleInfoResponse);
   rpc UpdateRole (UpdateRoleRequest) returns (RoleInfoResponse);
   rpc DeleteRole (DeleteRoleRequest) returns (RoleInfoResponse);
@@ -66,6 +67,8 @@ message UserInfoResponse {
   string email = 2;
   string name = 3;
   string password = 4;
+  string created_at = 5;
+  string updated_at = 6;
 }
 
 // CreateUserRequest 创建用户请求
@@ -90,17 +93,17 @@ message DeleteUserRequest {
 
 // GetUserRequest 获取用户请求
 message GetUserRequest {
-  string email = 1;
+  uint64 id = 1;
 }
 
 // ListUserRequest 获取用户列表请求
 message ListUserRequest {
-  uint64 offset = 1;
-  uint64 limit = 2;
+  int64 page = 1;
+  int64 pageSize = 2;
 }
 
 // ListUserReply 获取用户列表响应
 message ListUserResponse {
   repeated UserInfoResponse users = 1;
-  uint64 total = 2;
+  int64 total = 2;
 }

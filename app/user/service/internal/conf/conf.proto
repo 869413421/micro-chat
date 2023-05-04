@@ -41,8 +41,9 @@ message Data {
 }
 
 message Registry{
-  message Etcd{
+  message Consul{
     string address = 1;
+    string scheme = 2;
   }
-  Etcd etcd = 1;
+  Consul consul = 1;
 }

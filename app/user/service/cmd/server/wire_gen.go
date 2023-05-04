@@ -37,7 +37,9 @@ func wireApp(confServer *conf.Server, confData *conf.Data, registry *conf.Regist
 	}
 	userRepo := data.NewUserRepo(dataData, casbinEnforcer, logger)
 	userUsecase := biz.NewUserUsecase(userRepo, logger)
-	userService := service.NewUserService(userUsecase, logger)
+	roleRepo := data.NewRoleRepo(dataData, casbinEnforcer, logger)
+	roleUsecase := biz.NewRoleUsecase(roleRepo, logger)
+	userService := service.NewUserService(userUsecase, roleUsecase, logger)
 	grpcServer := server.NewGRPCServer(confServer, userService, logger)
 	registrar := server.NewRegistrar(registry)
 	app := newApp(logger, grpcServer, registrar)

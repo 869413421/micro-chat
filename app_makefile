@@ -26,6 +26,15 @@ grpc:
            --go-grpc_out=paths=source_relative:. \
            $(API_PROTO_FILES)
 
+.PHONY: validate
+# generate validate proto
+validate:
+	 cd ../../../api/$(APP_RELATIVE_PATH) && protoc --proto_path=. \
+           --proto_path=../../../third_party \
+           --go_out=paths=source_relative:. \
+           --validate_out=paths=source_relative,lang=go:.  \
+           $(API_PROTO_FILES)
+
 .PHONY: http
 # generate http code
 http:
@@ -95,7 +104,7 @@ wire:
 
 .PHONY: api
 # generate api proto
-api: grpc http swagger errors
+api: grpc http swagger errors validate
 
 .PHONY: all
 # generate all

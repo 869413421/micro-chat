@@ -199,7 +199,7 @@ func TestUserService_GetUser(t *testing.T) {
 
 	Convey("Test Service GetUser", t, func() {
 		resp, err := svc.GetUser(context.Background(), &v1.GetUserRequest{
-			Email: "test@example.com",
+			Id: 1,
 		})
 
 		So(err, ShouldBeNil)
@@ -222,7 +222,7 @@ func TestUserService_GetUser_Error(t *testing.T) {
 
 	Convey("Test Service GetUser Error", t, func() {
 		resp, err := svc.GetUser(context.Background(), &v1.GetUserRequest{
-			Email: "test@example.com",
+			Id: 10086,
 		})
 
 		So(resp, ShouldBeNil)
@@ -245,18 +245,19 @@ func TestUserService_ListUser(t *testing.T) {
 	}
 
 	mockUsecase := mock_biz.NewMockUserUsecase(ctrl)
-	mockUsecase.EXPECT().ListUser(gomock.Any(), gomock.Any()).Return(mockUsers, nil)
+	mockUsecase.EXPECT().List(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(mockUsers, int64(10), nil)
 
 	svc := service.NewUserService(mockUsecase, nil, nil)
-	Convey("Test Service GetUser Error", t, func() {
+	Convey("Test Service GetUserLIst Error", t, func() {
 		resp, err := svc.ListUser(context.Background(), &v1.ListUserRequest{
-			Offset: 0,
-			Limit:  10,
+			Page:     0,
+			PageSize: 10,
 		})
 
 		So(err, ShouldBeNil)
 		So(resp, ShouldNotBeNil)
 		So(len(resp.Users), ShouldEqual, 10)
+		So(resp.Total, ShouldEqual, 10)
 	})
 }
 
@@ -266,13 +267,13 @@ func TestUserService_ListUser_Error(t *testing.T) {
 	defer ctrl.Finish()
 
 	mockUsecase := mock_biz.NewMockUserUsecase(ctrl)
-	mockUsecase.EXPECT().ListUser(gomock.Any(), gomock.Any()).Return(nil, errors.New("not found server"))
+	mockUsecase.EXPECT().List(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil, int64(0), errors.New("not found users"))
 
 	svc := service.NewUserService(mockUsecase, nil, nil)
 	Convey("Test Service GetUser Error", t, func() {
 		resp, err := svc.ListUser(context.Background(), &v1.ListUserRequest{
-			Offset: 0,
-			Limit:  10,
+			Page:     0,
+			PageSize: 10,
 		})
 
 		So(err, ShouldNotBeNil)

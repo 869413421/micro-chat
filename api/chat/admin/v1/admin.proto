@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package api.chat.admin.v1;
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/869413421/micro-chat/api/chat/server/v1;v1";
+
+service ChatAdmin {
+  rpc CreateUser (CreateUserRequest) returns (UserInfoResponse) {
+    option (google.api.http) = {
+      post: "/admin/v1/user"
+      body: "*"
+    };
+  }
+
+  rpc UpdateUser (UpdateUserRequest) returns (UserInfoResponse) {
+    option (google.api.http) = {
+      put: "/admin/v1/user/{id}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteUser (DeleteUserRequest) returns (UserInfoResponse) {
+    option (google.api.http) = {
+      delete: "/admin/v1/user/{id}"
+    };
+  }
+
+  rpc UserInfo (UserInfoRequest) returns (UserInfoResponse) {
+    option (google.api.http) = {
+      get: "/admin/v1/user/{id}"
+    };
+  }
+
+  rpc UserList (UserListRequest) returns (UserListResponse) {
+    option (google.api.http) = {
+      get: "/admin/v1/user"
+    };
+  }
+}
+
+// 用户信息响应
+message UserInfoResponse{
+  uint64 id = 1;
+  string name = 2;
+  string email = 3;
+  string created_at = 4;
+  string updated_at = 5;
+}
+
+// 用户列表响应
+message UserListResponse{
+  int64 total = 1;
+  repeated UserInfoResponse users = 2;
+}
+
+// 创建用户请求
+message CreateUserRequest {
+  string name = 1 [(validate.rules).string = {
+    min_len:   2,
+    max_len: 12,
+  }];
+  string password = 2 [(validate.rules).string.min_len = 6];
+  string email = 3 [(validate.rules).string.email = true];
+}
+
+// 更新用户请求
+message UpdateUserRequest {
+  uint64 id = 1 [(validate.rules).uint64.gt = 0];
+  string name = 2 [(validate.rules).string = {
+    min_len:   2,
+    max_len: 12,
+  }];
+  string password = 3 [(validate.rules).string.min_len = 6];
+  string email = 4 [(validate.rules).string.email = true];
+}
+
+// 删除用户请求
+message DeleteUserRequest {
+  uint64 id = 1 [(validate.rules).uint64.gt = 0];
+}
+
+// 用户信息请求
+message UserInfoRequest {
+  uint64 id = 1 [(validate.rules).uint64.gt = 0];
+}
+
+// 用户列表请求
+message UserListRequest {
+  int64 page = 1 ;
+  int64 page_size = 2;
+}
+
