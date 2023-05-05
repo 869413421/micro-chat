@@ -36,9 +36,11 @@ func (r *roleRepo) RoleToBizRole(role *Role) *biz.Role {
 		return nil
 	}
 	return &biz.Role{
-		ID:   role.ID,
-		Name: role.Name,
-		Memo: role.Memo,
+		ID:       role.ID,
+		Name:     role.Name,
+		Memo:     role.Memo,
+		CreateAt: role.CreatedAtDate(),
+		UpdateAt: role.UpdatedAtDate(),
 	}
 }
 
@@ -113,7 +115,7 @@ func (r *roleRepo) Get(ctx context.Context, where map[string]interface{}) (*biz.
 }
 
 // List 列出角色
-func (r *roleRepo) List(ctx context.Context, where map[string]interface{}, order map[string]bool, offset, limit int64) ([]*biz.Role, int64, error) {
+func (r *roleRepo) List(ctx context.Context, where map[string]interface{}, order map[string]bool, page, pageSize int64) ([]*biz.Role, int64, error) {
 	var dbRole []*Role
 	db := r.data.db
 	for key, value := range where {
@@ -126,7 +128,7 @@ func (r *roleRepo) List(ctx context.Context, where map[string]interface{}, order
 			db = db.Order(fmt.Sprintf("%s asc", key))
 		}
 	}
-	res := db.Offset(int(offset)).Limit(int(limit)).Find(&dbRole)
+	res := db.Offset(int((page - 1) * pageSize)).Limit(int(pageSize)).Find(&dbRole)
 	if res.Error != nil {
 		return nil, 0, status.Errorf(codes.Internal, res.Error.Error())
 	}

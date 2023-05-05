@@ -12,9 +12,11 @@ var _ RoleUsecase = (*roleUsecase)(nil)
 
 // Role 角色
 type Role struct {
-	ID   uint64
-	Name string
-	Memo string
+	ID       uint64
+	Name     string
+	Memo     string
+	CreateAt string
+	UpdateAt string
 }
 
 // RoleRepo 注意这一行新增的 mock 数据的命令
@@ -59,6 +61,7 @@ func (r *roleUsecase) Create(ctx context.Context, req *v1.CreateRoleRequest) (*R
 // Update 更新角色
 func (r *roleUsecase) Update(ctx context.Context, req *v1.UpdateRoleRequest) (*Role, error) {
 	return r.repo.Update(ctx, &Role{
+		ID:   req.Id,
 		Name: req.Name,
 		Memo: req.Memo,
 	})
@@ -72,7 +75,7 @@ func (r *roleUsecase) Delete(ctx context.Context, id uint64) (*Role, error) {
 // Get 获取角色
 func (r *roleUsecase) Get(ctx context.Context, req *v1.GetRoleRequest) (*Role, error) {
 	where := make(map[string]interface{})
-	where["id"] = req.Id
+	where["id = "] = req.Id
 	return r.repo.Get(ctx, where)
 }
 
@@ -82,5 +85,5 @@ func (r *roleUsecase) List(ctx context.Context, req *v1.ListRoleRequest) ([]*Rol
 	order := map[string]bool{
 		"id": true,
 	}
-	return r.repo.List(ctx, where, order, int64(req.Offset), int64(req.Limit))
+	return r.repo.List(ctx, where, order, req.Page, req.PageSize)
 }

@@ -58,7 +58,7 @@
         },
         "total": {
           "type": "string",
-          "format": "uint64"
+          "format": "int64"
         }
       },
       "title": "ListRoleResponse 获取角色列表响应"
@@ -90,6 +90,12 @@
           "type": "string"
         },
         "memo": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
           "type": "string"
         }
       },

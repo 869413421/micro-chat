@@ -24,6 +24,8 @@ message RoleInfoResponse {
   uint64 id = 1;
   string name = 2;
   string memo = 3;
+  string created_at = 4;
+  string updated_at = 5;
 }
 
 // CreateRoleRequest 创建角色请求
@@ -51,14 +53,14 @@ message GetRoleRequest {
 
 // ListRoleRequest 获取角色列表请求
 message ListRoleRequest {
-  uint64 offset = 1;
-  uint64 limit = 2;
+  int64 page = 1;
+  int64 pageSize = 2;
 }
 
 // ListRoleResponse 获取角色列表响应
 message ListRoleResponse {
   repeated RoleInfoResponse roles = 1;
-  uint64 total = 2;
+  int64 total = 2;
 }
 
 // UserInfoResponse 用户信息

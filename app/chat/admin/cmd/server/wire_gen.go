@@ -32,7 +32,9 @@ func wireApp(confServer *conf.Server, confData *conf.Data, registry *conf.Regist
 	}
 	userRepo := data.NewUserRepo(dataData, logger)
 	userUsecase := biz.NewUserUseCase(userRepo, logger)
-	chatAdmin := service.NewChatAdmin(userUsecase, logger)
+	roleRepo := data.NewRoleRepo(dataData, logger)
+	roleUsecase := biz.NewRoleUseCase(roleRepo, logger)
+	chatAdmin := service.NewChatAdmin(userUsecase, roleUsecase, logger)
 	grpcServer := server.NewGRPCServer(confServer, chatAdmin, logger)
 	httpServer := server.NewHTTPServer(confServer, chatAdmin, logger)
 	registrar := data.NewRegistrar(registry)

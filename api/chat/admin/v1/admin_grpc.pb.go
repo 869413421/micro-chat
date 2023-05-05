@@ -24,6 +24,11 @@ const (
 	ChatAdmin_DeleteUser_FullMethodName = "/api.chat.admin.v1.ChatAdmin/DeleteUser"
 	ChatAdmin_UserInfo_FullMethodName   = "/api.chat.admin.v1.ChatAdmin/UserInfo"
 	ChatAdmin_UserList_FullMethodName   = "/api.chat.admin.v1.ChatAdmin/UserList"
+	ChatAdmin_CreateRole_FullMethodName = "/api.chat.admin.v1.ChatAdmin/CreateRole"
+	ChatAdmin_UpdateRole_FullMethodName = "/api.chat.admin.v1.ChatAdmin/UpdateRole"
+	ChatAdmin_DeleteRole_FullMethodName = "/api.chat.admin.v1.ChatAdmin/DeleteRole"
+	ChatAdmin_RoleInfo_FullMethodName   = "/api.chat.admin.v1.ChatAdmin/RoleInfo"
+	ChatAdmin_RoleList_FullMethodName   = "/api.chat.admin.v1.ChatAdmin/RoleList"
 )
 
 // ChatAdminClient is the client API for ChatAdmin service.
@@ -35,6 +40,11 @@ type ChatAdminClient interface {
 	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*UserInfoResponse, error)
 	UserInfo(ctx context.Context, in *UserInfoRequest, opts ...grpc.CallOption) (*UserInfoResponse, error)
 	UserList(ctx context.Context, in *UserListRequest, opts ...grpc.CallOption) (*UserListResponse, error)
+	CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*RoleInfoResponse, error)
+	UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*RoleInfoResponse, error)
+	DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*RoleInfoResponse, error)
+	RoleInfo(ctx context.Context, in *RoleInfoRequest, opts ...grpc.CallOption) (*RoleInfoResponse, error)
+	RoleList(ctx context.Context, in *RoleListRequest, opts ...grpc.CallOption) (*RoleListResponse, error)
 }
 
 type chatAdminClient struct {
@@ -90,6 +100,51 @@ func (c *chatAdminClient) UserList(ctx context.Context, in *UserListRequest, opt
 	return out, nil
 }
 
+func (c *chatAdminClient) CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*RoleInfoResponse, error) {
+	out := new(RoleInfoResponse)
+	err := c.cc.Invoke(ctx, ChatAdmin_CreateRole_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *chatAdminClient) UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*RoleInfoResponse, error) {
+	out := new(RoleInfoResponse)
+	err := c.cc.Invoke(ctx, ChatAdmin_UpdateRole_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *chatAdminClient) DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*RoleInfoResponse, error) {
+	out := new(RoleInfoResponse)
+	err := c.cc.Invoke(ctx, ChatAdmin_DeleteRole_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *chatAdminClient) RoleInfo(ctx context.Context, in *RoleInfoRequest, opts ...grpc.CallOption) (*RoleInfoResponse, error) {
+	out := new(RoleInfoResponse)
+	err := c.cc.Invoke(ctx, ChatAdmin_RoleInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *chatAdminClient) RoleList(ctx context.Context, in *RoleListRequest, opts ...grpc.CallOption) (*RoleListResponse, error) {
+	out := new(RoleListResponse)
+	err := c.cc.Invoke(ctx, ChatAdmin_RoleList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ChatAdminServer is the server API for ChatAdmin service.
 // All implementations must embed UnimplementedChatAdminServer
 // for forward compatibility
@@ -99,6 +154,11 @@ type ChatAdminServer interface {
 	DeleteUser(context.Context, *DeleteUserRequest) (*UserInfoResponse, error)
 	UserInfo(context.Context, *UserInfoRequest) (*UserInfoResponse, error)
 	UserList(context.Context, *UserListRequest) (*UserListResponse, error)
+	CreateRole(context.Context, *CreateRoleRequest) (*RoleInfoResponse, error)
+	UpdateRole(context.Context, *UpdateRoleRequest) (*RoleInfoResponse, error)
+	DeleteRole(context.Context, *DeleteRoleRequest) (*RoleInfoResponse, error)
+	RoleInfo(context.Context, *RoleInfoRequest) (*RoleInfoResponse, error)
+	RoleList(context.Context, *RoleListRequest) (*RoleListResponse, error)
 	mustEmbedUnimplementedChatAdminServer()
 }
 
@@ -120,6 +180,21 @@ func (UnimplementedChatAdminServer) UserInfo(context.Context, *UserInfoRequest) 
 }
 func (UnimplementedChatAdminServer) UserList(context.Context, *UserListRequest) (*UserListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserList not implemented")
+}
+func (UnimplementedChatAdminServer) CreateRole(context.Context, *CreateRoleRequest) (*RoleInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
+}
+func (UnimplementedChatAdminServer) UpdateRole(context.Context, *UpdateRoleRequest) (*RoleInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateRole not implemented")
+}
+func (UnimplementedChatAdminServer) DeleteRole(context.Context, *DeleteRoleRequest) (*RoleInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
+}
+func (UnimplementedChatAdminServer) RoleInfo(context.Context, *RoleInfoRequest) (*RoleInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RoleInfo not implemented")
+}
+func (UnimplementedChatAdminServer) RoleList(context.Context, *RoleListRequest) (*RoleListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RoleList not implemented")
 }
 func (UnimplementedChatAdminServer) mustEmbedUnimplementedChatAdminServer() {}
 
@@ -224,6 +299,96 @@ func _ChatAdmin_UserList_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ChatAdmin_CreateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChatAdminServer).CreateRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ChatAdmin_CreateRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChatAdminServer).CreateRole(ctx, req.(*CreateRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ChatAdmin_UpdateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChatAdminServer).UpdateRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ChatAdmin_UpdateRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChatAdminServer).UpdateRole(ctx, req.(*UpdateRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ChatAdmin_DeleteRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChatAdminServer).DeleteRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ChatAdmin_DeleteRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChatAdminServer).DeleteRole(ctx, req.(*DeleteRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ChatAdmin_RoleInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RoleInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChatAdminServer).RoleInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ChatAdmin_RoleInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChatAdminServer).RoleInfo(ctx, req.(*RoleInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ChatAdmin_RoleList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RoleListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChatAdminServer).RoleList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ChatAdmin_RoleList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChatAdminServer).RoleList(ctx, req.(*RoleListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ChatAdmin_ServiceDesc is the grpc.ServiceDesc for ChatAdmin service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -250,6 +415,26 @@ var ChatAdmin_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserList",
 			Handler:    _ChatAdmin_UserList_Handler,
+		},
+		{
+			MethodName: "CreateRole",
+			Handler:    _ChatAdmin_CreateRole_Handler,
+		},
+		{
+			MethodName: "UpdateRole",
+			Handler:    _ChatAdmin_UpdateRole_Handler,
+		},
+		{
+			MethodName: "DeleteRole",
+			Handler:    _ChatAdmin_DeleteRole_Handler,
+		},
+		{
+			MethodName: "RoleInfo",
+			Handler:    _ChatAdmin_RoleInfo_Handler,
+		},
+		{
+			MethodName: "RoleList",
+			Handler:    _ChatAdmin_RoleList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

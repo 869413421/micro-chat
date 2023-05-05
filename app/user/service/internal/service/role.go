@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"github.com/869413421/micro-chat/app/user/service/internal/biz"
 
 	v1 "github.com/869413421/micro-chat/api/user/service/v1"
 )
@@ -13,11 +14,7 @@ func (s *UserService) CreateRole(ctx context.Context, req *v1.CreateRoleRequest)
 		return nil, err
 	}
 
-	return &v1.RoleInfoResponse{
-		Id:   role.ID,
-		Name: role.Name,
-		Memo: role.Memo,
-	}, nil
+	return bizRoleToProtoRole(role), nil
 }
 
 // UpdateRole 更新角色
@@ -27,11 +24,7 @@ func (s *UserService) UpdateRole(ctx context.Context, req *v1.UpdateRoleRequest)
 		return nil, err
 	}
 
-	return &v1.RoleInfoResponse{
-		Id:   role.ID,
-		Name: role.Name,
-		Memo: role.Memo,
-	}, nil
+	return bizRoleToProtoRole(role), nil
 }
 
 // DeleteRole 删除角色
@@ -41,11 +34,7 @@ func (s *UserService) DeleteRole(ctx context.Context, req *v1.DeleteRoleRequest)
 		return nil, err
 	}
 
-	return &v1.RoleInfoResponse{
-		Id:   role.ID,
-		Name: role.Name,
-		Memo: role.Memo,
-	}, nil
+	return bizRoleToProtoRole(role), nil
 }
 
 // GetRole 获取角色
@@ -55,11 +44,7 @@ func (s *UserService) GetRole(ctx context.Context, req *v1.GetRoleRequest) (*v1.
 		return nil, err
 	}
 
-	return &v1.RoleInfoResponse{
-		Id:   role.ID,
-		Name: role.Name,
-		Memo: role.Memo,
-	}, nil
+	return bizRoleToProtoRole(role), nil
 }
 
 // ListRole 获取角色列表
@@ -71,15 +56,22 @@ func (s *UserService) ListRole(ctx context.Context, req *v1.ListRoleRequest) (*v
 
 	var list []*v1.RoleInfoResponse
 	for _, role := range roles {
-		list = append(list, &v1.RoleInfoResponse{
-			Id:   role.ID,
-			Name: role.Name,
-			Memo: role.Memo,
-		})
+		list = append(list, bizRoleToProtoRole(role))
 	}
 
 	return &v1.ListRoleResponse{
-		Total: uint64(total),
+		Total: total,
 		Roles: list,
 	}, nil
+}
+
+// bizRoleToProtoRole biz角色转proto角色
+func bizRoleToProtoRole(role *biz.Role) *v1.RoleInfoResponse {
+	return &v1.RoleInfoResponse{
+		Id:        role.ID,
+		Name:      role.Name,
+		Memo:      role.Memo,
+		CreatedAt: role.CreateAt,
+		UpdatedAt: role.UpdateAt,
+	}
 }

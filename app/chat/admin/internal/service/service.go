@@ -17,12 +17,14 @@ type ChatAdmin struct {
 	v1.UnimplementedChatAdminServer
 	log *log.Helper
 	uc  biz.UserUsecase
+	rc  biz.RoleUsecase
 }
 
 // NewChatAdmin 创建用户服务。
-func NewChatAdmin(uc biz.UserUsecase, logger log.Logger) *ChatAdmin {
+func NewChatAdmin(uc biz.UserUsecase, rc biz.RoleUsecase, logger log.Logger) *ChatAdmin {
 	return &ChatAdmin{
 		uc:  uc,
+		rc:  rc,
 		log: log.NewHelper(log.With(logger, "module", "service/interface")),
 	}
 }

@@ -39,6 +39,95 @@ service ChatAdmin {
       get: "/admin/v1/user"
     };
   }
+
+  rpc CreateRole (CreateRoleRequest) returns (RoleInfoResponse) {
+    option (google.api.http) = {
+      post: "/admin/v1/role"
+      body: "*"
+    };
+  }
+
+  rpc UpdateRole (UpdateRoleRequest) returns (RoleInfoResponse) {
+    option (google.api.http) = {
+      put: "/admin/v1/role/{id}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteRole (DeleteRoleRequest) returns (RoleInfoResponse) {
+    option (google.api.http) = {
+      delete: "/admin/v1/role/{id}"
+    };
+  }
+
+  rpc RoleInfo (RoleInfoRequest) returns (RoleInfoResponse) {
+    option (google.api.http) = {
+      get: "/admin/v1/role/{id}"
+    };
+  }
+
+  rpc RoleList (RoleListRequest) returns (RoleListResponse) {
+    option (google.api.http) = {
+      get: "/admin/v1/role"
+    };
+  }
+
+}
+
+// 角色信息响应
+message RoleInfoResponse{
+  uint64 id = 1;
+  string name = 2;
+  string memo = 3;
+  string created_at = 4;
+  string updated_at = 5;
+}
+
+// 创建角色请求
+message CreateRoleRequest {
+  string name = 1 [(validate.rules).string = {
+    min_len:   2,
+    max_len: 12,
+  }];
+  string memo = 2 [(validate.rules).string = {
+    min_len:   2,
+    max_len: 200,
+  }];
+}
+
+// 更新角色请求
+message UpdateRoleRequest {
+  uint64 id = 1 [(validate.rules).uint64.gt = 0];
+  string name = 2 [(validate.rules).string = {
+    min_len:   2,
+    max_len: 12,
+  }];
+  string memo = 3 [(validate.rules).string = {
+    min_len:   2,
+    max_len: 200,
+  }];
+}
+
+// 删除角色请求
+message DeleteRoleRequest {
+  uint64 id = 1 [(validate.rules).uint64.gt = 0];
+}
+
+// 角色信息请求
+message RoleInfoRequest {
+  uint64 id = 1 [(validate.rules).uint64.gt = 0];
+}
+
+// 角色列表请求
+message RoleListRequest {
+  int64 page = 1 ;
+  int64 pageSize = 2;
+}
+
+// 角色列表响应
+message RoleListResponse{
+  int64 total = 1;
+  repeated RoleInfoResponse roles = 2;
 }
 
 // 用户信息响应
@@ -90,6 +179,6 @@ message UserInfoRequest {
 // 用户列表请求
 message UserListRequest {
   int64 page = 1 ;
-  int64 page_size = 2;
+  int64 pageSize = 2;
 }
 

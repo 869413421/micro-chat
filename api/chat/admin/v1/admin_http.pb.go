@@ -19,15 +19,25 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
+const OperationChatAdminCreateRole = "/api.chat.admin.v1.ChatAdmin/CreateRole"
 const OperationChatAdminCreateUser = "/api.chat.admin.v1.ChatAdmin/CreateUser"
+const OperationChatAdminDeleteRole = "/api.chat.admin.v1.ChatAdmin/DeleteRole"
 const OperationChatAdminDeleteUser = "/api.chat.admin.v1.ChatAdmin/DeleteUser"
+const OperationChatAdminRoleInfo = "/api.chat.admin.v1.ChatAdmin/RoleInfo"
+const OperationChatAdminRoleList = "/api.chat.admin.v1.ChatAdmin/RoleList"
+const OperationChatAdminUpdateRole = "/api.chat.admin.v1.ChatAdmin/UpdateRole"
 const OperationChatAdminUpdateUser = "/api.chat.admin.v1.ChatAdmin/UpdateUser"
 const OperationChatAdminUserInfo = "/api.chat.admin.v1.ChatAdmin/UserInfo"
 const OperationChatAdminUserList = "/api.chat.admin.v1.ChatAdmin/UserList"
 
 type ChatAdminHTTPServer interface {
+	CreateRole(context.Context, *CreateRoleRequest) (*RoleInfoResponse, error)
 	CreateUser(context.Context, *CreateUserRequest) (*UserInfoResponse, error)
+	DeleteRole(context.Context, *DeleteRoleRequest) (*RoleInfoResponse, error)
 	DeleteUser(context.Context, *DeleteUserRequest) (*UserInfoResponse, error)
+	RoleInfo(context.Context, *RoleInfoRequest) (*RoleInfoResponse, error)
+	RoleList(context.Context, *RoleListRequest) (*RoleListResponse, error)
+	UpdateRole(context.Context, *UpdateRoleRequest) (*RoleInfoResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UserInfoResponse, error)
 	UserInfo(context.Context, *UserInfoRequest) (*UserInfoResponse, error)
 	UserList(context.Context, *UserListRequest) (*UserListResponse, error)
@@ -40,6 +50,11 @@ func RegisterChatAdminHTTPServer(s *http.Server, srv ChatAdminHTTPServer) {
 	r.DELETE("/admin/v1/user/{id}", _ChatAdmin_DeleteUser0_HTTP_Handler(srv))
 	r.GET("/admin/v1/user/{id}", _ChatAdmin_UserInfo0_HTTP_Handler(srv))
 	r.GET("/admin/v1/user", _ChatAdmin_UserList0_HTTP_Handler(srv))
+	r.POST("/admin/v1/role", _ChatAdmin_CreateRole0_HTTP_Handler(srv))
+	r.PUT("/admin/v1/role/{id}", _ChatAdmin_UpdateRole0_HTTP_Handler(srv))
+	r.DELETE("/admin/v1/role/{id}", _ChatAdmin_DeleteRole0_HTTP_Handler(srv))
+	r.GET("/admin/v1/role/{id}", _ChatAdmin_RoleInfo0_HTTP_Handler(srv))
+	r.GET("/admin/v1/role", _ChatAdmin_RoleList0_HTTP_Handler(srv))
 }
 
 func _ChatAdmin_CreateUser0_HTTP_Handler(srv ChatAdminHTTPServer) func(ctx http.Context) error {
@@ -146,9 +161,118 @@ func _ChatAdmin_UserList0_HTTP_Handler(srv ChatAdminHTTPServer) func(ctx http.Co
 	}
 }
 
+func _ChatAdmin_CreateRole0_HTTP_Handler(srv ChatAdminHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CreateRoleRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationChatAdminCreateRole)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateRole(ctx, req.(*CreateRoleRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*RoleInfoResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _ChatAdmin_UpdateRole0_HTTP_Handler(srv ChatAdminHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in UpdateRoleRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationChatAdminUpdateRole)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateRole(ctx, req.(*UpdateRoleRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*RoleInfoResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _ChatAdmin_DeleteRole0_HTTP_Handler(srv ChatAdminHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in DeleteRoleRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationChatAdminDeleteRole)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DeleteRole(ctx, req.(*DeleteRoleRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*RoleInfoResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _ChatAdmin_RoleInfo0_HTTP_Handler(srv ChatAdminHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in RoleInfoRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationChatAdminRoleInfo)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.RoleInfo(ctx, req.(*RoleInfoRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*RoleInfoResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _ChatAdmin_RoleList0_HTTP_Handler(srv ChatAdminHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in RoleListRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationChatAdminRoleList)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.RoleList(ctx, req.(*RoleListRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*RoleListResponse)
+		return ctx.Result(200, reply)
+	}
+}
+
 type ChatAdminHTTPClient interface {
+	CreateRole(ctx context.Context, req *CreateRoleRequest, opts ...http.CallOption) (rsp *RoleInfoResponse, err error)
 	CreateUser(ctx context.Context, req *CreateUserRequest, opts ...http.CallOption) (rsp *UserInfoResponse, err error)
+	DeleteRole(ctx context.Context, req *DeleteRoleRequest, opts ...http.CallOption) (rsp *RoleInfoResponse, err error)
 	DeleteUser(ctx context.Context, req *DeleteUserRequest, opts ...http.CallOption) (rsp *UserInfoResponse, err error)
+	RoleInfo(ctx context.Context, req *RoleInfoRequest, opts ...http.CallOption) (rsp *RoleInfoResponse, err error)
+	RoleList(ctx context.Context, req *RoleListRequest, opts ...http.CallOption) (rsp *RoleListResponse, err error)
+	UpdateRole(ctx context.Context, req *UpdateRoleRequest, opts ...http.CallOption) (rsp *RoleInfoResponse, err error)
 	UpdateUser(ctx context.Context, req *UpdateUserRequest, opts ...http.CallOption) (rsp *UserInfoResponse, err error)
 	UserInfo(ctx context.Context, req *UserInfoRequest, opts ...http.CallOption) (rsp *UserInfoResponse, err error)
 	UserList(ctx context.Context, req *UserListRequest, opts ...http.CallOption) (rsp *UserListResponse, err error)
@@ -160,6 +284,19 @@ type ChatAdminHTTPClientImpl struct {
 
 func NewChatAdminHTTPClient(client *http.Client) ChatAdminHTTPClient {
 	return &ChatAdminHTTPClientImpl{client}
+}
+
+func (c *ChatAdminHTTPClientImpl) CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...http.CallOption) (*RoleInfoResponse, error) {
+	var out RoleInfoResponse
+	pattern := "/admin/v1/role"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationChatAdminCreateRole))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
 }
 
 func (c *ChatAdminHTTPClientImpl) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...http.CallOption) (*UserInfoResponse, error) {
@@ -175,6 +312,19 @@ func (c *ChatAdminHTTPClientImpl) CreateUser(ctx context.Context, in *CreateUser
 	return &out, err
 }
 
+func (c *ChatAdminHTTPClientImpl) DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...http.CallOption) (*RoleInfoResponse, error) {
+	var out RoleInfoResponse
+	pattern := "/admin/v1/role/{id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationChatAdminDeleteRole))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
 func (c *ChatAdminHTTPClientImpl) DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...http.CallOption) (*UserInfoResponse, error) {
 	var out UserInfoResponse
 	pattern := "/admin/v1/user/{id}"
@@ -182,6 +332,45 @@ func (c *ChatAdminHTTPClientImpl) DeleteUser(ctx context.Context, in *DeleteUser
 	opts = append(opts, http.Operation(OperationChatAdminDeleteUser))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ChatAdminHTTPClientImpl) RoleInfo(ctx context.Context, in *RoleInfoRequest, opts ...http.CallOption) (*RoleInfoResponse, error) {
+	var out RoleInfoResponse
+	pattern := "/admin/v1/role/{id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationChatAdminRoleInfo))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ChatAdminHTTPClientImpl) RoleList(ctx context.Context, in *RoleListRequest, opts ...http.CallOption) (*RoleListResponse, error) {
+	var out RoleListResponse
+	pattern := "/admin/v1/role"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationChatAdminRoleList))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ChatAdminHTTPClientImpl) UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...http.CallOption) (*RoleInfoResponse, error) {
+	var out RoleInfoResponse
+	pattern := "/admin/v1/role/{id}"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationChatAdminUpdateRole))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}
