@@ -25,7 +25,7 @@ func TestUserService_CreateRole(t *testing.T) {
 	mockUsecase := mock_biz.NewMockRoleUsecase(ctrl)
 	mockUsecase.EXPECT().Create(gomock.Any(), gomock.Any()).Return(mockRole, nil)
 
-	svc := NewUserService(nil, mockUsecase, nil)
+	svc := NewUserService(nil, mockUsecase, nil, nil)
 	Convey("Test Service CreateRole", t, func() {
 		resp, err := svc.CreateRole(context.Background(), &v1.CreateRoleRequest{
 			Name: mockRole.Name,
@@ -51,7 +51,7 @@ func TestUserService_UpdateRole(t *testing.T) {
 	mockUsecase := mock_biz.NewMockRoleUsecase(ctrl)
 	mockUsecase.EXPECT().Update(gomock.Any(), gomock.Any()).Return(mockRole, nil)
 
-	svc := NewUserService(nil, mockUsecase, nil)
+	svc := NewUserService(nil, mockUsecase, nil, nil)
 	Convey("Test Service UpdateRole", t, func() {
 		resp, err := svc.UpdateRole(context.Background(), &v1.UpdateRoleRequest{
 			Id:   1,
@@ -78,7 +78,7 @@ func TestUserService_DeleteRole(t *testing.T) {
 	mockUsecase := mock_biz.NewMockRoleUsecase(ctrl)
 	mockUsecase.EXPECT().Delete(gomock.Any(), gomock.Any()).Return(role, nil)
 
-	svc := NewUserService(nil, mockUsecase, nil)
+	svc := NewUserService(nil, mockUsecase, nil, nil)
 	Convey("Test Service DeleteRole", t, func() {
 		dRole, err := svc.DeleteRole(context.Background(), &v1.DeleteRoleRequest{
 			Id: 1,
@@ -103,7 +103,7 @@ func TestUserService_GetRole(t *testing.T) {
 	mockUsecase := mock_biz.NewMockRoleUsecase(ctrl)
 	mockUsecase.EXPECT().Get(gomock.Any(), gomock.Any()).Return(role, nil)
 
-	svc := NewUserService(nil, mockUsecase, nil)
+	svc := NewUserService(nil, mockUsecase, nil, nil)
 	Convey("Test Service GetRole", t, func() {
 		gRole, err := svc.GetRole(context.Background(), &v1.GetRoleRequest{
 			Id: 1,
@@ -128,11 +128,11 @@ func TestUserService_ListRole(t *testing.T) {
 	mockUsecase := mock_biz.NewMockRoleUsecase(ctrl)
 	mockUsecase.EXPECT().List(gomock.Any(), gomock.Any()).Return([]*biz.Role{role}, int64(1), nil)
 
-	svc := NewUserService(nil, mockUsecase, nil)
+	svc := NewUserService(nil, mockUsecase, nil, nil)
 	Convey("Test Service ListRole", t, func() {
 		response, err := svc.ListRole(context.Background(), &v1.ListRoleRequest{
-			Offset: 0,
-			Limit:  10,
+			Page:     0,
+			PageSize: 10,
 		})
 		So(err, ShouldBeNil)
 		So(response.Total, ShouldEqual, 1)

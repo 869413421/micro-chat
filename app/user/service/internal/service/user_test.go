@@ -29,7 +29,7 @@ func TestUserService_CreateUser(t *testing.T) {
 	mockUsecase := mock_biz.NewMockUserUsecase(ctrl)
 	mockUsecase.EXPECT().Create(gomock.Any(), gomock.Any()).Return(mockUser, nil)
 
-	svc := service.NewUserService(mockUsecase, nil, nil)
+	svc := service.NewUserService(mockUsecase, nil, nil, nil)
 
 	Convey("Test Service CreateUser", t, func() {
 		resp, err := svc.CreateUser(context.Background(), &v1.CreateUserRequest{
@@ -54,7 +54,7 @@ func TestUserService_CreateUser_Error(t *testing.T) {
 	mockUsecase := mock_biz.NewMockUserUsecase(ctrl)
 	mockUsecase.EXPECT().Create(gomock.Any(), gomock.Any()).Return(nil, errors.New("Create server error"))
 
-	svc := service.NewUserService(mockUsecase, nil, nil)
+	svc := service.NewUserService(mockUsecase, nil, nil, nil)
 
 	Convey("Test Service CreateUser Error", t, func() {
 		resp, err := svc.CreateUser(context.Background(), &v1.CreateUserRequest{
@@ -83,7 +83,7 @@ func TestUserService_UpdateUser(t *testing.T) {
 	mockUsecase := mock_biz.NewMockUserUsecase(ctrl)
 	mockUsecase.EXPECT().Update(gomock.Any(), gomock.Any()).Return(mockUser, nil)
 
-	svc := service.NewUserService(mockUsecase, nil, nil)
+	svc := service.NewUserService(mockUsecase, nil, nil, nil)
 
 	Convey("Test Service UpdateUser Error", t, func() {
 		resp, err := svc.UpdateUser(context.Background(), &v1.UpdateUserRequest{
@@ -116,7 +116,7 @@ func TestUserService_UpdateUser_Error(t *testing.T) {
 	mockUsecase := mock_biz.NewMockUserUsecase(ctrl)
 	mockUsecase.EXPECT().Update(gomock.Any(), gomock.Any()).Return(nil, errors.New("server update error"))
 
-	svc := service.NewUserService(mockUsecase, nil, nil)
+	svc := service.NewUserService(mockUsecase, nil, nil, nil)
 
 	Convey("Test Service UpdateUser Error", t, func() {
 		resp, err := svc.UpdateUser(context.Background(), &v1.UpdateUserRequest{
@@ -145,7 +145,7 @@ func TestUserService_DeleteUser(t *testing.T) {
 	mockUsecase := mock_biz.NewMockUserUsecase(ctrl)
 	mockUsecase.EXPECT().Delete(gomock.Any(), gomock.Any()).Return(mockUser, nil)
 
-	svc := service.NewUserService(mockUsecase, nil, nil)
+	svc := service.NewUserService(mockUsecase, nil, nil, nil)
 
 	Convey("Test Service DeleteUser", t, func() {
 		resp, err := svc.DeleteUser(context.Background(), &v1.DeleteUserRequest{
@@ -168,7 +168,7 @@ func TestUserService_DeleteUser_Error(t *testing.T) {
 	mockUsecase := mock_biz.NewMockUserUsecase(ctrl)
 	mockUsecase.EXPECT().Delete(gomock.Any(), gomock.Any()).Return(nil, errors.New("server delete error"))
 
-	svc := service.NewUserService(mockUsecase, nil, nil)
+	svc := service.NewUserService(mockUsecase, nil, nil, nil)
 
 	Convey("Test Service DeleteUser Error", t, func() {
 		resp, err := svc.DeleteUser(context.Background(), &v1.DeleteUserRequest{
@@ -195,7 +195,7 @@ func TestUserService_GetUser(t *testing.T) {
 	mockUsecase := mock_biz.NewMockUserUsecase(ctrl)
 	mockUsecase.EXPECT().Get(gomock.Any(), gomock.Any()).Return(mockUser, nil)
 
-	svc := service.NewUserService(mockUsecase, nil, nil)
+	svc := service.NewUserService(mockUsecase, nil, nil, nil)
 
 	Convey("Test Service GetUser", t, func() {
 		resp, err := svc.GetUser(context.Background(), &v1.GetUserRequest{
@@ -218,7 +218,7 @@ func TestUserService_GetUser_Error(t *testing.T) {
 	mockUsecase := mock_biz.NewMockUserUsecase(ctrl)
 	mockUsecase.EXPECT().Get(gomock.Any(), gomock.Any()).Return(nil, errors.New("server get error"))
 
-	svc := service.NewUserService(mockUsecase, nil, nil)
+	svc := service.NewUserService(mockUsecase, nil, nil, nil)
 
 	Convey("Test Service GetUser Error", t, func() {
 		resp, err := svc.GetUser(context.Background(), &v1.GetUserRequest{
@@ -247,7 +247,7 @@ func TestUserService_ListUser(t *testing.T) {
 	mockUsecase := mock_biz.NewMockUserUsecase(ctrl)
 	mockUsecase.EXPECT().List(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(mockUsers, int64(10), nil)
 
-	svc := service.NewUserService(mockUsecase, nil, nil)
+	svc := service.NewUserService(mockUsecase, nil, nil, nil)
 	Convey("Test Service GetUserLIst Error", t, func() {
 		resp, err := svc.ListUser(context.Background(), &v1.ListUserRequest{
 			Page:     0,
@@ -269,7 +269,7 @@ func TestUserService_ListUser_Error(t *testing.T) {
 	mockUsecase := mock_biz.NewMockUserUsecase(ctrl)
 	mockUsecase.EXPECT().List(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil, int64(0), errors.New("not found users"))
 
-	svc := service.NewUserService(mockUsecase, nil, nil)
+	svc := service.NewUserService(mockUsecase, nil, nil, nil)
 	Convey("Test Service GetUser Error", t, func() {
 		resp, err := svc.ListUser(context.Background(), &v1.ListUserRequest{
 			Page:     0,

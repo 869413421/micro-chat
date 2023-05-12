@@ -16,7 +16,7 @@ import (
 )
 
 // ProviderSet is data providers.
-var ProviderSet = wire.NewSet(NewData, NewDB, NewUserRepo, NewRoleRepo)
+var ProviderSet = wire.NewSet(NewData, NewDB, NewUserRepo, NewRoleRepo, NewPermissionRepo)
 
 // Data .
 type Data struct {
@@ -25,22 +25,6 @@ type Data struct {
 
 // migrate 模型迁移
 func migrate(db *gorm.DB) error {
-	//var err error
-	//// 手动创建唯一索引，因为gorm会重复创建唯一索引
-	//if !db.Migrator().HasIndex(&User{}, "email") {
-	//	err = db.Migrator().CreateIndex(&User{}, "email,unique")
-	//	if err != nil {
-	//		fmt.Printf("create user email index error: %v", err)
-	//		os.Exit(1)
-	//	}
-	//}
-	//
-	//if !db.Migrator().HasIndex(&Role{}, "name") {
-	//	err = db.Migrator().CreateIndex(&Role{}, "name,unique")
-	//	if err != nil {
-	//		fmt.Printf("create user name index error: %v", err)
-	//	}
-	//}
 	err := db.AutoMigrate(&User{}, &UserRole{}, &Role{}, &RolePermission{}, &Permission{})
 	if err != nil {
 		return err
@@ -61,7 +45,7 @@ func NewData(c *conf.Data, logger log.Logger, db *gorm.DB) (*Data, func(), error
 	return &Data{db: db}, cleanup, nil
 }
 
-func NewDB(c *conf.Data) *gorm.DB {
+func NewDB(c *conf.Data) (*gorm.DB, error) {
 	newLogger := logger.New(
 		slog.New(os.Stdout, "\r\n", slog.LstdFlags),
 		logger.Config{
@@ -80,8 +64,8 @@ func NewDB(c *conf.Data) *gorm.DB {
 	})
 
 	if err != nil {
-		log.Errorf("connection to database error: %v", err)
+		return nil, err
 	}
 
-	return db
+	return db, nil
 }

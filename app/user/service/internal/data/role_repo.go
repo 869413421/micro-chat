@@ -26,7 +26,7 @@ func NewRoleRepo(data *Data, enforcer *casbin.Enforcer, logger log.Logger) biz.R
 	return &roleRepo{
 		data:     data,
 		enforcer: enforcer,
-		log:      log.NewHelper(logger),
+		log:      log.NewHelper(log.With(logger, "module", "repo/role")),
 	}
 }
 

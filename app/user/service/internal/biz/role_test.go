@@ -135,8 +135,8 @@ func TestBizRoleUsecaseList(t *testing.T) {
 		roles := []*biz.Role{roleInfo}
 		mRoleRepo.EXPECT().List(ctx, gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(roles, int64(1), nil)
 		req := &v1.ListRoleRequest{
-			Offset: 0,
-			Limit:  10,
+			Page:     1,
+			PageSize: 10,
 		}
 		result, total, err := roleCase.List(ctx, req)
 		So(err, ShouldBeNil)

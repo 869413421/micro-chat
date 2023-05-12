@@ -47,7 +47,7 @@ type roleUsecase struct {
 
 // NewRoleUsecase 创建用户业务逻辑
 func NewRoleUsecase(repo RoleRepo, logger log.Logger) RoleUsecase {
-	return &roleUsecase{repo: repo, log: log.NewHelper(logger)}
+	return &roleUsecase{repo: repo, log: log.NewHelper(log.With(logger, "module", "usecase/role"))}
 }
 
 // Create 创建角色

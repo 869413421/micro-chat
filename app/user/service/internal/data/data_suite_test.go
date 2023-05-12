@@ -11,6 +11,7 @@ import (
 
 var userRepo biz.UserRepo
 var roleRepo biz.RoleRepo
+var permissionRepo biz.PermissionRepo
 var db *gorm.DB
 
 // init 初始化测试依赖项
@@ -21,6 +22,7 @@ func init() {
 	newData, _, _ := data.NewData(config, nil, db)
 	userRepo = data.NewUserRepo(newData, enforcer, nil)
 	roleRepo = data.NewRoleRepo(newData, enforcer, nil)
+	permissionRepo = data.NewPermissionRepo(newData, enforcer, nil)
 }
 
 // run 闭包用于删除测试数据
@@ -29,6 +31,7 @@ func run(f func()) func() {
 		defer func() {
 			db.Unscoped().Where("id > ?", 0).Delete(&data.User{})
 			db.Unscoped().Where("id > ?", 0).Delete(&data.Role{})
+			db.Unscoped().Where("id > ?", 0).Delete(&data.Permission{})
 		}()
 		f()
 	}

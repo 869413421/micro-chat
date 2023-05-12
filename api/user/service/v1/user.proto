@@ -17,6 +17,66 @@ service User {
   rpc DeleteRole (DeleteRoleRequest) returns (RoleInfoResponse);
   rpc GetRole (GetRoleRequest) returns (RoleInfoResponse);
   rpc ListRole (ListRoleRequest) returns (ListRoleResponse);
+
+  rpc CreatePermission (CreatePermissionRequest) returns (PermissionInfoResponse);
+  rpc UpdatePermission (UpdatePermissionRequest) returns (PermissionInfoResponse);
+  rpc DeletePermission (DeletePermissionRequest) returns (PermissionInfoResponse);
+  rpc GetPermission (GetPermissionRequest) returns (PermissionInfoResponse);
+  rpc ListPermission (ListPermissionRequest) returns (ListPermissionResponse);
+}
+
+// Permission 权限信息
+message PermissionInfoResponse {
+  uint64 id = 1;
+  string name = 2;
+  string memo = 3;
+  string path = 4;
+  string method = 5;
+  uint64 parentId = 6;
+  string parentIds = 7;
+  string created_at = 8;
+  string updated_at = 9;
+}
+
+// CreatePermissionRequest 创建权限请求
+message CreatePermissionRequest {
+  string name = 1;
+  string memo = 2;
+  string path = 3;
+  string method = 4;
+  uint64 parentId = 5;
+}
+
+// UpdatePermissionRequest 更新权限请求
+message UpdatePermissionRequest {
+  uint64 id = 1;
+  string name = 2;
+  string memo = 3;
+  string path = 4;
+  string method = 5;
+  uint64 parentId = 6;
+}
+
+// DeletePermissionRequest 删除权限请求
+message DeletePermissionRequest {
+  uint64 id = 1;
+}
+
+// GetPermissionRequest 获取权限请求
+message GetPermissionRequest {
+  uint64 id = 1;
+}
+
+// ListPermissionRequest 获取权限列表请求
+message ListPermissionRequest {
+  int64 page = 1;
+  int64 pageSize = 2;
+}
+
+// ListPermissionResponse 获取权限列表响应
+message ListPermissionResponse {
+  repeated PermissionInfoResponse permissions = 1;
+  int64 total = 2;
 }
 
 // Role 角色信息

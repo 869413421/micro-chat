@@ -47,6 +47,22 @@
         }
       }
     },
+    "v1ListPermissionResponse": {
+      "type": "object",
+      "properties": {
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PermissionInfoResponse"
+          }
+        },
+        "total": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "ListPermissionResponse 获取权限列表响应"
+    },
     "v1ListRoleResponse": {
       "type": "object",
       "properties": {
@@ -78,6 +94,41 @@
         }
       },
       "title": "ListUserReply 获取用户列表响应"
+    },
+    "v1PermissionInfoResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "memo": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "parentId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "parentIds": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      },
+      "title": "Permission 权限信息"
     },
     "v1RoleInfoResponse": {
       "type": "object",

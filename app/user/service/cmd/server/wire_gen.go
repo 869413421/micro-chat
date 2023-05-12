@@ -25,7 +25,10 @@ import (
 
 // wireApp init kratos application.
 func wireApp(confServer *conf.Server, confData *conf.Data, registry *conf.Registry, logger log.Logger) (*kratos.App, func(), error) {
-	db := data.NewDB(confData)
+	db, err := data.NewDB(confData)
+	if err != nil {
+		return nil, nil, err
+	}
 	dataData, cleanup, err := data.NewData(confData, logger, db)
 	if err != nil {
 		return nil, nil, err
@@ -39,7 +42,9 @@ func wireApp(confServer *conf.Server, confData *conf.Data, registry *conf.Regist
 	userUsecase := biz.NewUserUsecase(userRepo, logger)
 	roleRepo := data.NewRoleRepo(dataData, casbinEnforcer, logger)
 	roleUsecase := biz.NewRoleUsecase(roleRepo, logger)
-	userService := service.NewUserService(userUsecase, roleUsecase, logger)
+	permissionRepo := data.NewPermissionRepo(dataData, casbinEnforcer, logger)
+	permissionUsecase := biz.NewPermissionUsecase(permissionRepo, logger)
+	userService := service.NewUserService(userUsecase, roleUsecase, permissionUsecase, logger)
 	grpcServer := server.NewGRPCServer(confServer, userService, logger)
 	registrar := server.NewRegistrar(registry)
 	app := newApp(logger, grpcServer, registrar)
