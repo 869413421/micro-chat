@@ -49,7 +49,7 @@ func NewRoleUseCase(repo RoleRepo, logger log.Logger) RoleUsecase {
 	}
 }
 
-// Create 创建用户
+// Create 创建角色
 func (r *roleUsecase) Create(ctx context.Context, request *v1.CreateRoleRequest) (*Role, error) {
 	role := &Role{
 		Name: request.Name,
@@ -58,7 +58,7 @@ func (r *roleUsecase) Create(ctx context.Context, request *v1.CreateRoleRequest)
 	return r.repo.Create(ctx, role)
 }
 
-// Update 更新用户
+// Update 更新角色
 func (r *roleUsecase) Update(ctx context.Context, request *v1.UpdateRoleRequest) (*Role, error) {
 	role := &Role{
 		ID:   request.Id,
@@ -68,19 +68,19 @@ func (r *roleUsecase) Update(ctx context.Context, request *v1.UpdateRoleRequest)
 	return r.repo.Update(ctx, role)
 }
 
-// Delete 删除用户
+// Delete 删除角色
 func (r *roleUsecase) Delete(ctx context.Context, request *v1.DeleteRoleRequest) (*Role, error) {
 	return r.repo.Delete(ctx, request.Id)
 }
 
-// Get 获取用户信息
+// Get 获取角色信息
 func (r *roleUsecase) Get(ctx context.Context, request *v1.RoleInfoRequest) (*Role, error) {
 	return r.repo.Get(ctx, map[string]interface{}{
 		"id": request.Id,
 	})
 }
 
-// List 获取用户列表
+// List 获取角色列表
 func (r *roleUsecase) List(ctx context.Context, request *v1.RoleListRequest) ([]*Role, int64, error) {
 	return r.repo.List(ctx, map[string]interface{}{}, request.Page, request.PageSize)
 }

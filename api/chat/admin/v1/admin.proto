@@ -72,6 +72,115 @@ service ChatAdmin {
     };
   }
 
+  rpc CreatePermission (CreatePermissionRequest) returns (PermissionInfoResponse) {
+    option (google.api.http) = {
+      post: "/admin/v1/permission"
+      body: "*"
+    };
+  }
+
+  rpc UpdatePermission (UpdatePermissionRequest) returns (PermissionInfoResponse) {
+    option (google.api.http) = {
+      put: "/admin/v1/permission/{id}"
+      body: "*"
+    };
+  }
+
+  rpc DeletePermission (DeletePermissionRequest) returns (PermissionInfoResponse) {
+    option (google.api.http) = {
+      delete: "/admin/v1/permission/{id}"
+    };
+  }
+
+  rpc PermissionInfo (PermissionInfoRequest) returns (PermissionInfoResponse) {
+    option (google.api.http) = {
+      get: "/admin/v1/permission/{id}"
+    };
+  }
+
+  rpc PermissionList (PermissionListRequest) returns (PermissionListResponse) {
+    option (google.api.http) = {
+      get: "/admin/v1/permission"
+    };
+  }
+}
+
+// 权限创建请求
+message CreatePermissionRequest {
+  string name = 1 [(validate.rules).string = {
+    min_len:   2,
+    max_len: 12,
+  }];
+  string memo = 2 [(validate.rules).string = {
+    min_len:   2,
+    max_len: 200,
+  }];
+  string path = 3 [(validate.rules).string = {
+    min_len:   2,
+    max_len: 200,
+  }];
+  string method = 4 [(validate.rules).string = {
+    min_len:   2,
+    max_len: 12,
+  }];
+  uint64 parentId = 5;
+}
+
+// 权限更新请求
+message UpdatePermissionRequest {
+  uint64 id = 1 [(validate.rules).uint64.gt = 0];
+  string name = 2 [(validate.rules).string = {
+    min_len:   2,
+    max_len: 12,
+  }];
+  string memo = 3 [(validate.rules).string = {
+    min_len:   2,
+    max_len: 200,
+  }];
+  string path = 4 [(validate.rules).string = {
+    min_len:   2,
+    max_len: 200,
+  }];
+  string method = 5 [(validate.rules).string = {
+    min_len:   2,
+    max_len: 12,
+  }];
+  uint64 parentId = 6;
+}
+
+// 权限删除请求
+message DeletePermissionRequest {
+  uint64 id = 1 [(validate.rules).uint64.gt = 0];
+}
+
+// 权限信息请求
+message PermissionInfoRequest {
+  uint64 id = 1 [(validate.rules).uint64.gt = 0];
+}
+
+// 权限列表请求
+message PermissionListRequest {
+  int64 page = 1 ;
+  int64 pageSize = 2;
+}
+
+// 权限列表响应
+message PermissionListResponse {
+  int64 total = 1;
+  repeated PermissionInfoResponse permissions = 2;
+}
+
+// 权限信息响应
+message PermissionInfoResponse{
+  uint64 id = 1;
+  string name = 2;
+  string memo = 3;
+  string path = 4;
+  string method = 5;
+  uint64 parentId = 6;
+  string parentIds = 7;
+  string created_at = 8;
+  string updated_at = 9;
 }
 
 // 角色信息响应

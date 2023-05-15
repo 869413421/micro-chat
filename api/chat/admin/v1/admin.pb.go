@@ -22,6 +22,494 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 权限创建请求
+type CreatePermissionRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name     string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Memo     string `protobuf:"bytes,2,opt,name=memo,proto3" json:"memo,omitempty"`
+	Path     string `protobuf:"bytes,3,opt,name=path,proto3" json:"path,omitempty"`
+	Method   string `protobuf:"bytes,4,opt,name=method,proto3" json:"method,omitempty"`
+	ParentId uint64 `protobuf:"varint,5,opt,name=parentId,proto3" json:"parentId,omitempty"`
+}
+
+func (x *CreatePermissionRequest) Reset() {
+	*x = CreatePermissionRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_v1_admin_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreatePermissionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreatePermissionRequest) ProtoMessage() {}
+
+func (x *CreatePermissionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_v1_admin_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreatePermissionRequest.ProtoReflect.Descriptor instead.
+func (*CreatePermissionRequest) Descriptor() ([]byte, []int) {
+	return file_v1_admin_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *CreatePermissionRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *CreatePermissionRequest) GetMemo() string {
+	if x != nil {
+		return x.Memo
+	}
+	return ""
+}
+
+func (x *CreatePermissionRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *CreatePermissionRequest) GetMethod() string {
+	if x != nil {
+		return x.Method
+	}
+	return ""
+}
+
+func (x *CreatePermissionRequest) GetParentId() uint64 {
+	if x != nil {
+		return x.ParentId
+	}
+	return 0
+}
+
+// 权限更新请求
+type UpdatePermissionRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id       uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name     string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Memo     string `protobuf:"bytes,3,opt,name=memo,proto3" json:"memo,omitempty"`
+	Path     string `protobuf:"bytes,4,opt,name=path,proto3" json:"path,omitempty"`
+	Method   string `protobuf:"bytes,5,opt,name=method,proto3" json:"method,omitempty"`
+	ParentId uint64 `protobuf:"varint,6,opt,name=parentId,proto3" json:"parentId,omitempty"`
+}
+
+func (x *UpdatePermissionRequest) Reset() {
+	*x = UpdatePermissionRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_v1_admin_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdatePermissionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdatePermissionRequest) ProtoMessage() {}
+
+func (x *UpdatePermissionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_v1_admin_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdatePermissionRequest.ProtoReflect.Descriptor instead.
+func (*UpdatePermissionRequest) Descriptor() ([]byte, []int) {
+	return file_v1_admin_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *UpdatePermissionRequest) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *UpdatePermissionRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *UpdatePermissionRequest) GetMemo() string {
+	if x != nil {
+		return x.Memo
+	}
+	return ""
+}
+
+func (x *UpdatePermissionRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *UpdatePermissionRequest) GetMethod() string {
+	if x != nil {
+		return x.Method
+	}
+	return ""
+}
+
+func (x *UpdatePermissionRequest) GetParentId() uint64 {
+	if x != nil {
+		return x.ParentId
+	}
+	return 0
+}
+
+// 权限删除请求
+type DeletePermissionRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *DeletePermissionRequest) Reset() {
+	*x = DeletePermissionRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_v1_admin_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeletePermissionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeletePermissionRequest) ProtoMessage() {}
+
+func (x *DeletePermissionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_v1_admin_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeletePermissionRequest.ProtoReflect.Descriptor instead.
+func (*DeletePermissionRequest) Descriptor() ([]byte, []int) {
+	return file_v1_admin_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *DeletePermissionRequest) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+// 权限信息请求
+type PermissionInfoRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *PermissionInfoRequest) Reset() {
+	*x = PermissionInfoRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_v1_admin_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PermissionInfoRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PermissionInfoRequest) ProtoMessage() {}
+
+func (x *PermissionInfoRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_v1_admin_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PermissionInfoRequest.ProtoReflect.Descriptor instead.
+func (*PermissionInfoRequest) Descriptor() ([]byte, []int) {
+	return file_v1_admin_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *PermissionInfoRequest) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+// 权限列表请求
+type PermissionListRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Page     int64 `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	PageSize int64 `protobuf:"varint,2,opt,name=pageSize,proto3" json:"pageSize,omitempty"`
+}
+
+func (x *PermissionListRequest) Reset() {
+	*x = PermissionListRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_v1_admin_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PermissionListRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PermissionListRequest) ProtoMessage() {}
+
+func (x *PermissionListRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_v1_admin_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PermissionListRequest.ProtoReflect.Descriptor instead.
+func (*PermissionListRequest) Descriptor() ([]byte, []int) {
+	return file_v1_admin_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *PermissionListRequest) GetPage() int64 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *PermissionListRequest) GetPageSize() int64 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+// 权限列表响应
+type PermissionListResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Total       int64                     `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
+	Permissions []*PermissionInfoResponse `protobuf:"bytes,2,rep,name=permissions,proto3" json:"permissions,omitempty"`
+}
+
+func (x *PermissionListResponse) Reset() {
+	*x = PermissionListResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_v1_admin_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PermissionListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PermissionListResponse) ProtoMessage() {}
+
+func (x *PermissionListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_v1_admin_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PermissionListResponse.ProtoReflect.Descriptor instead.
+func (*PermissionListResponse) Descriptor() ([]byte, []int) {
+	return file_v1_admin_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *PermissionListResponse) GetTotal() int64 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *PermissionListResponse) GetPermissions() []*PermissionInfoResponse {
+	if x != nil {
+		return x.Permissions
+	}
+	return nil
+}
+
+// 权限信息响应
+type PermissionInfoResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id        uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name      string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Memo      string `protobuf:"bytes,3,opt,name=memo,proto3" json:"memo,omitempty"`
+	Path      string `protobuf:"bytes,4,opt,name=path,proto3" json:"path,omitempty"`
+	Method    string `protobuf:"bytes,5,opt,name=method,proto3" json:"method,omitempty"`
+	ParentId  uint64 `protobuf:"varint,6,opt,name=parentId,proto3" json:"parentId,omitempty"`
+	ParentIds string `protobuf:"bytes,7,opt,name=parentIds,proto3" json:"parentIds,omitempty"`
+	CreatedAt string `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt string `protobuf:"bytes,9,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+}
+
+func (x *PermissionInfoResponse) Reset() {
+	*x = PermissionInfoResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_v1_admin_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PermissionInfoResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PermissionInfoResponse) ProtoMessage() {}
+
+func (x *PermissionInfoResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_v1_admin_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PermissionInfoResponse.ProtoReflect.Descriptor instead.
+func (*PermissionInfoResponse) Descriptor() ([]byte, []int) {
+	return file_v1_admin_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *PermissionInfoResponse) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *PermissionInfoResponse) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *PermissionInfoResponse) GetMemo() string {
+	if x != nil {
+		return x.Memo
+	}
+	return ""
+}
+
+func (x *PermissionInfoResponse) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *PermissionInfoResponse) GetMethod() string {
+	if x != nil {
+		return x.Method
+	}
+	return ""
+}
+
+func (x *PermissionInfoResponse) GetParentId() uint64 {
+	if x != nil {
+		return x.ParentId
+	}
+	return 0
+}
+
+func (x *PermissionInfoResponse) GetParentIds() string {
+	if x != nil {
+		return x.ParentIds
+	}
+	return ""
+}
+
+func (x *PermissionInfoResponse) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+func (x *PermissionInfoResponse) GetUpdatedAt() string {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return ""
+}
+
 // 角色信息响应
 type RoleInfoResponse struct {
 	state         protoimpl.MessageState
@@ -38,7 +526,7 @@ type RoleInfoResponse struct {
 func (x *RoleInfoResponse) Reset() {
 	*x = RoleInfoResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v1_admin_proto_msgTypes[0]
+		mi := &file_v1_admin_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -51,7 +539,7 @@ func (x *RoleInfoResponse) String() string {
 func (*RoleInfoResponse) ProtoMessage() {}
 
 func (x *RoleInfoResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_v1_admin_proto_msgTypes[0]
+	mi := &file_v1_admin_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -64,7 +552,7 @@ func (x *RoleInfoResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RoleInfoResponse.ProtoReflect.Descriptor instead.
 func (*RoleInfoResponse) Descriptor() ([]byte, []int) {
-	return file_v1_admin_proto_rawDescGZIP(), []int{0}
+	return file_v1_admin_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *RoleInfoResponse) GetId() uint64 {
@@ -115,7 +603,7 @@ type CreateRoleRequest struct {
 func (x *CreateRoleRequest) Reset() {
 	*x = CreateRoleRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v1_admin_proto_msgTypes[1]
+		mi := &file_v1_admin_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -128,7 +616,7 @@ func (x *CreateRoleRequest) String() string {
 func (*CreateRoleRequest) ProtoMessage() {}
 
 func (x *CreateRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_v1_admin_proto_msgTypes[1]
+	mi := &file_v1_admin_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -141,7 +629,7 @@ func (x *CreateRoleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateRoleRequest.ProtoReflect.Descriptor instead.
 func (*CreateRoleRequest) Descriptor() ([]byte, []int) {
-	return file_v1_admin_proto_rawDescGZIP(), []int{1}
+	return file_v1_admin_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *CreateRoleRequest) GetName() string {
@@ -172,7 +660,7 @@ type UpdateRoleRequest struct {
 func (x *UpdateRoleRequest) Reset() {
 	*x = UpdateRoleRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v1_admin_proto_msgTypes[2]
+		mi := &file_v1_admin_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -185,7 +673,7 @@ func (x *UpdateRoleRequest) String() string {
 func (*UpdateRoleRequest) ProtoMessage() {}
 
 func (x *UpdateRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_v1_admin_proto_msgTypes[2]
+	mi := &file_v1_admin_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -198,7 +686,7 @@ func (x *UpdateRoleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateRoleRequest.ProtoReflect.Descriptor instead.
 func (*UpdateRoleRequest) Descriptor() ([]byte, []int) {
-	return file_v1_admin_proto_rawDescGZIP(), []int{2}
+	return file_v1_admin_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *UpdateRoleRequest) GetId() uint64 {
@@ -234,7 +722,7 @@ type DeleteRoleRequest struct {
 func (x *DeleteRoleRequest) Reset() {
 	*x = DeleteRoleRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v1_admin_proto_msgTypes[3]
+		mi := &file_v1_admin_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -247,7 +735,7 @@ func (x *DeleteRoleRequest) String() string {
 func (*DeleteRoleRequest) ProtoMessage() {}
 
 func (x *DeleteRoleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_v1_admin_proto_msgTypes[3]
+	mi := &file_v1_admin_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -260,7 +748,7 @@ func (x *DeleteRoleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteRoleRequest.ProtoReflect.Descriptor instead.
 func (*DeleteRoleRequest) Descriptor() ([]byte, []int) {
-	return file_v1_admin_proto_rawDescGZIP(), []int{3}
+	return file_v1_admin_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *DeleteRoleRequest) GetId() uint64 {
@@ -282,7 +770,7 @@ type RoleInfoRequest struct {
 func (x *RoleInfoRequest) Reset() {
 	*x = RoleInfoRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v1_admin_proto_msgTypes[4]
+		mi := &file_v1_admin_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -295,7 +783,7 @@ func (x *RoleInfoRequest) String() string {
 func (*RoleInfoRequest) ProtoMessage() {}
 
 func (x *RoleInfoRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_v1_admin_proto_msgTypes[4]
+	mi := &file_v1_admin_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -308,7 +796,7 @@ func (x *RoleInfoRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RoleInfoRequest.ProtoReflect.Descriptor instead.
 func (*RoleInfoRequest) Descriptor() ([]byte, []int) {
-	return file_v1_admin_proto_rawDescGZIP(), []int{4}
+	return file_v1_admin_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *RoleInfoRequest) GetId() uint64 {
@@ -331,7 +819,7 @@ type RoleListRequest struct {
 func (x *RoleListRequest) Reset() {
 	*x = RoleListRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v1_admin_proto_msgTypes[5]
+		mi := &file_v1_admin_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -344,7 +832,7 @@ func (x *RoleListRequest) String() string {
 func (*RoleListRequest) ProtoMessage() {}
 
 func (x *RoleListRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_v1_admin_proto_msgTypes[5]
+	mi := &file_v1_admin_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -357,7 +845,7 @@ func (x *RoleListRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RoleListRequest.ProtoReflect.Descriptor instead.
 func (*RoleListRequest) Descriptor() ([]byte, []int) {
-	return file_v1_admin_proto_rawDescGZIP(), []int{5}
+	return file_v1_admin_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *RoleListRequest) GetPage() int64 {
@@ -387,7 +875,7 @@ type RoleListResponse struct {
 func (x *RoleListResponse) Reset() {
 	*x = RoleListResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v1_admin_proto_msgTypes[6]
+		mi := &file_v1_admin_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -400,7 +888,7 @@ func (x *RoleListResponse) String() string {
 func (*RoleListResponse) ProtoMessage() {}
 
 func (x *RoleListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_v1_admin_proto_msgTypes[6]
+	mi := &file_v1_admin_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -413,7 +901,7 @@ func (x *RoleListResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RoleListResponse.ProtoReflect.Descriptor instead.
 func (*RoleListResponse) Descriptor() ([]byte, []int) {
-	return file_v1_admin_proto_rawDescGZIP(), []int{6}
+	return file_v1_admin_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *RoleListResponse) GetTotal() int64 {
@@ -446,7 +934,7 @@ type UserInfoResponse struct {
 func (x *UserInfoResponse) Reset() {
 	*x = UserInfoResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v1_admin_proto_msgTypes[7]
+		mi := &file_v1_admin_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -459,7 +947,7 @@ func (x *UserInfoResponse) String() string {
 func (*UserInfoResponse) ProtoMessage() {}
 
 func (x *UserInfoResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_v1_admin_proto_msgTypes[7]
+	mi := &file_v1_admin_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -472,7 +960,7 @@ func (x *UserInfoResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserInfoResponse.ProtoReflect.Descriptor instead.
 func (*UserInfoResponse) Descriptor() ([]byte, []int) {
-	return file_v1_admin_proto_rawDescGZIP(), []int{7}
+	return file_v1_admin_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *UserInfoResponse) GetId() uint64 {
@@ -523,7 +1011,7 @@ type UserListResponse struct {
 func (x *UserListResponse) Reset() {
 	*x = UserListResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v1_admin_proto_msgTypes[8]
+		mi := &file_v1_admin_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -536,7 +1024,7 @@ func (x *UserListResponse) String() string {
 func (*UserListResponse) ProtoMessage() {}
 
 func (x *UserListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_v1_admin_proto_msgTypes[8]
+	mi := &file_v1_admin_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -549,7 +1037,7 @@ func (x *UserListResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserListResponse.ProtoReflect.Descriptor instead.
 func (*UserListResponse) Descriptor() ([]byte, []int) {
-	return file_v1_admin_proto_rawDescGZIP(), []int{8}
+	return file_v1_admin_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *UserListResponse) GetTotal() int64 {
@@ -580,7 +1068,7 @@ type CreateUserRequest struct {
 func (x *CreateUserRequest) Reset() {
 	*x = CreateUserRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v1_admin_proto_msgTypes[9]
+		mi := &file_v1_admin_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -593,7 +1081,7 @@ func (x *CreateUserRequest) String() string {
 func (*CreateUserRequest) ProtoMessage() {}
 
 func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_v1_admin_proto_msgTypes[9]
+	mi := &file_v1_admin_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -606,7 +1094,7 @@ func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserRequest.ProtoReflect.Descriptor instead.
 func (*CreateUserRequest) Descriptor() ([]byte, []int) {
-	return file_v1_admin_proto_rawDescGZIP(), []int{9}
+	return file_v1_admin_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *CreateUserRequest) GetName() string {
@@ -645,7 +1133,7 @@ type UpdateUserRequest struct {
 func (x *UpdateUserRequest) Reset() {
 	*x = UpdateUserRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v1_admin_proto_msgTypes[10]
+		mi := &file_v1_admin_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -658,7 +1146,7 @@ func (x *UpdateUserRequest) String() string {
 func (*UpdateUserRequest) ProtoMessage() {}
 
 func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_v1_admin_proto_msgTypes[10]
+	mi := &file_v1_admin_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -671,7 +1159,7 @@ func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateUserRequest.ProtoReflect.Descriptor instead.
 func (*UpdateUserRequest) Descriptor() ([]byte, []int) {
-	return file_v1_admin_proto_rawDescGZIP(), []int{10}
+	return file_v1_admin_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *UpdateUserRequest) GetId() uint64 {
@@ -714,7 +1202,7 @@ type DeleteUserRequest struct {
 func (x *DeleteUserRequest) Reset() {
 	*x = DeleteUserRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v1_admin_proto_msgTypes[11]
+		mi := &file_v1_admin_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -727,7 +1215,7 @@ func (x *DeleteUserRequest) String() string {
 func (*DeleteUserRequest) ProtoMessage() {}
 
 func (x *DeleteUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_v1_admin_proto_msgTypes[11]
+	mi := &file_v1_admin_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -740,7 +1228,7 @@ func (x *DeleteUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteUserRequest.ProtoReflect.Descriptor instead.
 func (*DeleteUserRequest) Descriptor() ([]byte, []int) {
-	return file_v1_admin_proto_rawDescGZIP(), []int{11}
+	return file_v1_admin_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *DeleteUserRequest) GetId() uint64 {
@@ -762,7 +1250,7 @@ type UserInfoRequest struct {
 func (x *UserInfoRequest) Reset() {
 	*x = UserInfoRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v1_admin_proto_msgTypes[12]
+		mi := &file_v1_admin_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -775,7 +1263,7 @@ func (x *UserInfoRequest) String() string {
 func (*UserInfoRequest) ProtoMessage() {}
 
 func (x *UserInfoRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_v1_admin_proto_msgTypes[12]
+	mi := &file_v1_admin_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -788,7 +1276,7 @@ func (x *UserInfoRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserInfoRequest.ProtoReflect.Descriptor instead.
 func (*UserInfoRequest) Descriptor() ([]byte, []int) {
-	return file_v1_admin_proto_rawDescGZIP(), []int{12}
+	return file_v1_admin_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *UserInfoRequest) GetId() uint64 {
@@ -811,7 +1299,7 @@ type UserListRequest struct {
 func (x *UserListRequest) Reset() {
 	*x = UserListRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_v1_admin_proto_msgTypes[13]
+		mi := &file_v1_admin_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -824,7 +1312,7 @@ func (x *UserListRequest) String() string {
 func (*UserListRequest) ProtoMessage() {}
 
 func (x *UserListRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_v1_admin_proto_msgTypes[13]
+	mi := &file_v1_admin_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -837,7 +1325,7 @@ func (x *UserListRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserListRequest.ProtoReflect.Descriptor instead.
 func (*UserListRequest) Descriptor() ([]byte, []int) {
-	return file_v1_admin_proto_rawDescGZIP(), []int{13}
+	return file_v1_admin_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *UserListRequest) GetPage() int64 {
@@ -862,7 +1350,66 @@ var file_v1_admin_proto_rawDesc = []byte{
 	0x2e, 0x76, 0x31, 0x1a, 0x1c, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x61, 0x70, 0x69, 0x2f,
 	0x61, 0x6e, 0x6e, 0x6f, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74,
 	0x6f, 0x1a, 0x17, 0x76, 0x61, 0x6c, 0x69, 0x64, 0x61, 0x74, 0x65, 0x2f, 0x76, 0x61, 0x6c, 0x69,
-	0x64, 0x61, 0x74, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x88, 0x01, 0x0a, 0x10, 0x52,
+	0x64, 0x61, 0x74, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xb7, 0x01, 0x0a, 0x17, 0x43,
+	0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1d, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x42, 0x09, 0xfa, 0x42, 0x06, 0x72, 0x04, 0x10, 0x02, 0x18, 0x0c, 0x52,
+	0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1e, 0x0a, 0x04, 0x6d, 0x65, 0x6d, 0x6f, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x09, 0x42, 0x0a, 0xfa, 0x42, 0x07, 0x72, 0x05, 0x10, 0x02, 0x18, 0xc8, 0x01, 0x52,
+	0x04, 0x6d, 0x65, 0x6d, 0x6f, 0x12, 0x1e, 0x0a, 0x04, 0x70, 0x61, 0x74, 0x68, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x09, 0x42, 0x0a, 0xfa, 0x42, 0x07, 0x72, 0x05, 0x10, 0x02, 0x18, 0xc8, 0x01, 0x52,
+	0x04, 0x70, 0x61, 0x74, 0x68, 0x12, 0x21, 0x0a, 0x06, 0x6d, 0x65, 0x74, 0x68, 0x6f, 0x64, 0x18,
+	0x04, 0x20, 0x01, 0x28, 0x09, 0x42, 0x09, 0xfa, 0x42, 0x06, 0x72, 0x04, 0x10, 0x02, 0x18, 0x0c,
+	0x52, 0x06, 0x6d, 0x65, 0x74, 0x68, 0x6f, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61, 0x72, 0x65,
+	0x6e, 0x74, 0x49, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x04, 0x52, 0x08, 0x70, 0x61, 0x72, 0x65,
+	0x6e, 0x74, 0x49, 0x64, 0x22, 0xd0, 0x01, 0x0a, 0x17, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50,
+	0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x17, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x42, 0x07, 0xfa, 0x42,
+	0x04, 0x32, 0x02, 0x20, 0x00, 0x52, 0x02, 0x69, 0x64, 0x12, 0x1d, 0x0a, 0x04, 0x6e, 0x61, 0x6d,
+	0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x42, 0x09, 0xfa, 0x42, 0x06, 0x72, 0x04, 0x10, 0x02,
+	0x18, 0x0c, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1e, 0x0a, 0x04, 0x6d, 0x65, 0x6d, 0x6f,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0a, 0xfa, 0x42, 0x07, 0x72, 0x05, 0x10, 0x02, 0x18,
+	0xc8, 0x01, 0x52, 0x04, 0x6d, 0x65, 0x6d, 0x6f, 0x12, 0x1e, 0x0a, 0x04, 0x70, 0x61, 0x74, 0x68,
+	0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0a, 0xfa, 0x42, 0x07, 0x72, 0x05, 0x10, 0x02, 0x18,
+	0xc8, 0x01, 0x52, 0x04, 0x70, 0x61, 0x74, 0x68, 0x12, 0x21, 0x0a, 0x06, 0x6d, 0x65, 0x74, 0x68,
+	0x6f, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x42, 0x09, 0xfa, 0x42, 0x06, 0x72, 0x04, 0x10,
+	0x02, 0x18, 0x0c, 0x52, 0x06, 0x6d, 0x65, 0x74, 0x68, 0x6f, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x70,
+	0x61, 0x72, 0x65, 0x6e, 0x74, 0x49, 0x64, 0x18, 0x06, 0x20, 0x01, 0x28, 0x04, 0x52, 0x08, 0x70,
+	0x61, 0x72, 0x65, 0x6e, 0x74, 0x49, 0x64, 0x22, 0x32, 0x0a, 0x17, 0x44, 0x65, 0x6c, 0x65, 0x74,
+	0x65, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x17, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x42, 0x07,
+	0xfa, 0x42, 0x04, 0x32, 0x02, 0x20, 0x00, 0x52, 0x02, 0x69, 0x64, 0x22, 0x30, 0x0a, 0x15, 0x50,
+	0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x12, 0x17, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04,
+	0x42, 0x07, 0xfa, 0x42, 0x04, 0x32, 0x02, 0x20, 0x00, 0x52, 0x02, 0x69, 0x64, 0x22, 0x47, 0x0a,
+	0x15, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x67, 0x65, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x04, 0x70, 0x61, 0x67, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61,
+	0x67, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x70, 0x61,
+	0x67, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x22, 0x7b, 0x0a, 0x16, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73,
+	0x73, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52,
+	0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x12, 0x4b, 0x0a, 0x0b, 0x70, 0x65, 0x72, 0x6d, 0x69, 0x73,
+	0x73, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x29, 0x2e, 0x61, 0x70,
+	0x69, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2e, 0x76, 0x31, 0x2e,
+	0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52, 0x0b, 0x70, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69,
+	0x6f, 0x6e, 0x73, 0x22, 0xf4, 0x01, 0x0a, 0x16, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69,
+	0x6f, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e,
+	0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12,
+	0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61,
+	0x6d, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x6d, 0x65, 0x6d, 0x6f, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x04, 0x6d, 0x65, 0x6d, 0x6f, 0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x74, 0x68, 0x18, 0x04,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x70, 0x61, 0x74, 0x68, 0x12, 0x16, 0x0a, 0x06, 0x6d, 0x65,
+	0x74, 0x68, 0x6f, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x6d, 0x65, 0x74, 0x68,
+	0x6f, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x49, 0x64, 0x18, 0x06,
+	0x20, 0x01, 0x28, 0x04, 0x52, 0x08, 0x70, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x49, 0x64, 0x12, 0x1c,
+	0x0a, 0x09, 0x70, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x49, 0x64, 0x73, 0x18, 0x07, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x09, 0x70, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x49, 0x64, 0x73, 0x12, 0x1d, 0x0a, 0x0a,
+	0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x08, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12, 0x1d, 0x0a, 0x0a, 0x75,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x09, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x09, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x22, 0x88, 0x01, 0x0a, 0x10, 0x52,
 	0x6f, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
 	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x12,
 	0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e,
@@ -941,7 +1488,7 @@ var file_v1_admin_proto_rawDesc = []byte{
 	0x74, 0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52,
 	0x04, 0x70, 0x61, 0x67, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61, 0x67, 0x65, 0x53, 0x69, 0x7a,
 	0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x70, 0x61, 0x67, 0x65, 0x53, 0x69, 0x7a,
-	0x65, 0x32, 0x8f, 0x09, 0x0a, 0x09, 0x43, 0x68, 0x61, 0x74, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x12,
+	0x65, 0x32, 0xce, 0x0e, 0x0a, 0x09, 0x43, 0x68, 0x61, 0x74, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x12,
 	0x72, 0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x12, 0x24, 0x2e,
 	0x61, 0x70, 0x69, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2e, 0x76,
 	0x31, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75,
@@ -1014,11 +1561,55 @@ var file_v1_admin_proto_rawDesc = []byte{
 	0x74, 0x2e, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x6f, 0x6c, 0x65, 0x4c,
 	0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x16, 0x82, 0xd3, 0xe4,
 	0x93, 0x02, 0x10, 0x12, 0x0e, 0x2f, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2f, 0x76, 0x31, 0x2f, 0x72,
-	0x6f, 0x6c, 0x65, 0x42, 0x37, 0x5a, 0x35, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
-	0x6d, 0x2f, 0x38, 0x36, 0x39, 0x34, 0x31, 0x33, 0x34, 0x32, 0x31, 0x2f, 0x6d, 0x69, 0x63, 0x72,
-	0x6f, 0x2d, 0x63, 0x68, 0x61, 0x74, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x63, 0x68, 0x61, 0x74, 0x2f,
-	0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+	0x6f, 0x6c, 0x65, 0x12, 0x8a, 0x01, 0x0a, 0x10, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x65,
+	0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x2a, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x63,
+	0x68, 0x61, 0x74, 0x2e, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x72, 0x65,
+	0x61, 0x74, 0x65, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x29, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x2e,
+	0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73,
+	0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
+	0x1f, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x19, 0x3a, 0x01, 0x2a, 0x22, 0x14, 0x2f, 0x61, 0x64, 0x6d,
+	0x69, 0x6e, 0x2f, 0x76, 0x31, 0x2f, 0x70, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e,
+	0x12, 0x8f, 0x01, 0x0a, 0x10, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x65, 0x72, 0x6d, 0x69,
+	0x73, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x2a, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x63, 0x68, 0x61, 0x74,
+	0x2e, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
+	0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x29, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x61, 0x64, 0x6d,
+	0x69, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e,
+	0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x24, 0x82, 0xd3,
+	0xe4, 0x93, 0x02, 0x1e, 0x3a, 0x01, 0x2a, 0x1a, 0x19, 0x2f, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2f,
+	0x76, 0x31, 0x2f, 0x70, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x2f, 0x7b, 0x69,
+	0x64, 0x7d, 0x12, 0x8c, 0x01, 0x0a, 0x10, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x65, 0x72,
+	0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x2a, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x63, 0x68,
+	0x61, 0x74, 0x2e, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x65, 0x6c, 0x65,
+	0x74, 0x65, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x29, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x61,
+	0x64, 0x6d, 0x69, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69,
+	0x6f, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x21,
+	0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1b, 0x2a, 0x19, 0x2f, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2f, 0x76,
+	0x31, 0x2f, 0x70, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x2f, 0x7b, 0x69, 0x64,
+	0x7d, 0x12, 0x88, 0x01, 0x0a, 0x0e, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e,
+	0x49, 0x6e, 0x66, 0x6f, 0x12, 0x28, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x2e,
+	0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73,
+	0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x29,
+	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2e,
+	0x76, 0x31, 0x2e, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x66,
+	0x6f, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x21, 0x82, 0xd3, 0xe4, 0x93, 0x02,
+	0x1b, 0x12, 0x19, 0x2f, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2f, 0x76, 0x31, 0x2f, 0x70, 0x65, 0x72,
+	0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x2f, 0x7b, 0x69, 0x64, 0x7d, 0x12, 0x83, 0x01, 0x0a,
+	0x0e, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x12,
+	0x28, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x61, 0x64, 0x6d, 0x69, 0x6e,
+	0x2e, 0x76, 0x31, 0x2e, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x4c, 0x69,
+	0x73, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x29, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x63, 0x68, 0x61, 0x74, 0x2e, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x65,
+	0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x1c, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x16, 0x12, 0x14, 0x2f, 0x61,
+	0x64, 0x6d, 0x69, 0x6e, 0x2f, 0x76, 0x31, 0x2f, 0x70, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69,
+	0x6f, 0x6e, 0x42, 0x37, 0x5a, 0x35, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d,
+	0x2f, 0x38, 0x36, 0x39, 0x34, 0x31, 0x33, 0x34, 0x32, 0x31, 0x2f, 0x6d, 0x69, 0x63, 0x72, 0x6f,
+	0x2d, 0x63, 0x68, 0x61, 0x74, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x63, 0x68, 0x61, 0x74, 0x2f, 0x73,
+	0x65, 0x72, 0x76, 0x65, 0x72, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1033,51 +1624,69 @@ func file_v1_admin_proto_rawDescGZIP() []byte {
 	return file_v1_admin_proto_rawDescData
 }
 
-var file_v1_admin_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_v1_admin_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
 var file_v1_admin_proto_goTypes = []interface{}{
-	(*RoleInfoResponse)(nil),  // 0: api.chat.admin.v1.RoleInfoResponse
-	(*CreateRoleRequest)(nil), // 1: api.chat.admin.v1.CreateRoleRequest
-	(*UpdateRoleRequest)(nil), // 2: api.chat.admin.v1.UpdateRoleRequest
-	(*DeleteRoleRequest)(nil), // 3: api.chat.admin.v1.DeleteRoleRequest
-	(*RoleInfoRequest)(nil),   // 4: api.chat.admin.v1.RoleInfoRequest
-	(*RoleListRequest)(nil),   // 5: api.chat.admin.v1.RoleListRequest
-	(*RoleListResponse)(nil),  // 6: api.chat.admin.v1.RoleListResponse
-	(*UserInfoResponse)(nil),  // 7: api.chat.admin.v1.UserInfoResponse
-	(*UserListResponse)(nil),  // 8: api.chat.admin.v1.UserListResponse
-	(*CreateUserRequest)(nil), // 9: api.chat.admin.v1.CreateUserRequest
-	(*UpdateUserRequest)(nil), // 10: api.chat.admin.v1.UpdateUserRequest
-	(*DeleteUserRequest)(nil), // 11: api.chat.admin.v1.DeleteUserRequest
-	(*UserInfoRequest)(nil),   // 12: api.chat.admin.v1.UserInfoRequest
-	(*UserListRequest)(nil),   // 13: api.chat.admin.v1.UserListRequest
+	(*CreatePermissionRequest)(nil), // 0: api.chat.admin.v1.CreatePermissionRequest
+	(*UpdatePermissionRequest)(nil), // 1: api.chat.admin.v1.UpdatePermissionRequest
+	(*DeletePermissionRequest)(nil), // 2: api.chat.admin.v1.DeletePermissionRequest
+	(*PermissionInfoRequest)(nil),   // 3: api.chat.admin.v1.PermissionInfoRequest
+	(*PermissionListRequest)(nil),   // 4: api.chat.admin.v1.PermissionListRequest
+	(*PermissionListResponse)(nil),  // 5: api.chat.admin.v1.PermissionListResponse
+	(*PermissionInfoResponse)(nil),  // 6: api.chat.admin.v1.PermissionInfoResponse
+	(*RoleInfoResponse)(nil),        // 7: api.chat.admin.v1.RoleInfoResponse
+	(*CreateRoleRequest)(nil),       // 8: api.chat.admin.v1.CreateRoleRequest
+	(*UpdateRoleRequest)(nil),       // 9: api.chat.admin.v1.UpdateRoleRequest
+	(*DeleteRoleRequest)(nil),       // 10: api.chat.admin.v1.DeleteRoleRequest
+	(*RoleInfoRequest)(nil),         // 11: api.chat.admin.v1.RoleInfoRequest
+	(*RoleListRequest)(nil),         // 12: api.chat.admin.v1.RoleListRequest
+	(*RoleListResponse)(nil),        // 13: api.chat.admin.v1.RoleListResponse
+	(*UserInfoResponse)(nil),        // 14: api.chat.admin.v1.UserInfoResponse
+	(*UserListResponse)(nil),        // 15: api.chat.admin.v1.UserListResponse
+	(*CreateUserRequest)(nil),       // 16: api.chat.admin.v1.CreateUserRequest
+	(*UpdateUserRequest)(nil),       // 17: api.chat.admin.v1.UpdateUserRequest
+	(*DeleteUserRequest)(nil),       // 18: api.chat.admin.v1.DeleteUserRequest
+	(*UserInfoRequest)(nil),         // 19: api.chat.admin.v1.UserInfoRequest
+	(*UserListRequest)(nil),         // 20: api.chat.admin.v1.UserListRequest
 }
 var file_v1_admin_proto_depIdxs = []int32{
-	0,  // 0: api.chat.admin.v1.RoleListResponse.roles:type_name -> api.chat.admin.v1.RoleInfoResponse
-	7,  // 1: api.chat.admin.v1.UserListResponse.users:type_name -> api.chat.admin.v1.UserInfoResponse
-	9,  // 2: api.chat.admin.v1.ChatAdmin.CreateUser:input_type -> api.chat.admin.v1.CreateUserRequest
-	10, // 3: api.chat.admin.v1.ChatAdmin.UpdateUser:input_type -> api.chat.admin.v1.UpdateUserRequest
-	11, // 4: api.chat.admin.v1.ChatAdmin.DeleteUser:input_type -> api.chat.admin.v1.DeleteUserRequest
-	12, // 5: api.chat.admin.v1.ChatAdmin.UserInfo:input_type -> api.chat.admin.v1.UserInfoRequest
-	13, // 6: api.chat.admin.v1.ChatAdmin.UserList:input_type -> api.chat.admin.v1.UserListRequest
-	1,  // 7: api.chat.admin.v1.ChatAdmin.CreateRole:input_type -> api.chat.admin.v1.CreateRoleRequest
-	2,  // 8: api.chat.admin.v1.ChatAdmin.UpdateRole:input_type -> api.chat.admin.v1.UpdateRoleRequest
-	3,  // 9: api.chat.admin.v1.ChatAdmin.DeleteRole:input_type -> api.chat.admin.v1.DeleteRoleRequest
-	4,  // 10: api.chat.admin.v1.ChatAdmin.RoleInfo:input_type -> api.chat.admin.v1.RoleInfoRequest
-	5,  // 11: api.chat.admin.v1.ChatAdmin.RoleList:input_type -> api.chat.admin.v1.RoleListRequest
-	7,  // 12: api.chat.admin.v1.ChatAdmin.CreateUser:output_type -> api.chat.admin.v1.UserInfoResponse
-	7,  // 13: api.chat.admin.v1.ChatAdmin.UpdateUser:output_type -> api.chat.admin.v1.UserInfoResponse
-	7,  // 14: api.chat.admin.v1.ChatAdmin.DeleteUser:output_type -> api.chat.admin.v1.UserInfoResponse
-	7,  // 15: api.chat.admin.v1.ChatAdmin.UserInfo:output_type -> api.chat.admin.v1.UserInfoResponse
-	8,  // 16: api.chat.admin.v1.ChatAdmin.UserList:output_type -> api.chat.admin.v1.UserListResponse
-	0,  // 17: api.chat.admin.v1.ChatAdmin.CreateRole:output_type -> api.chat.admin.v1.RoleInfoResponse
-	0,  // 18: api.chat.admin.v1.ChatAdmin.UpdateRole:output_type -> api.chat.admin.v1.RoleInfoResponse
-	0,  // 19: api.chat.admin.v1.ChatAdmin.DeleteRole:output_type -> api.chat.admin.v1.RoleInfoResponse
-	0,  // 20: api.chat.admin.v1.ChatAdmin.RoleInfo:output_type -> api.chat.admin.v1.RoleInfoResponse
-	6,  // 21: api.chat.admin.v1.ChatAdmin.RoleList:output_type -> api.chat.admin.v1.RoleListResponse
-	12, // [12:22] is the sub-list for method output_type
-	2,  // [2:12] is the sub-list for method input_type
-	2,  // [2:2] is the sub-list for extension type_name
-	2,  // [2:2] is the sub-list for extension extendee
-	0,  // [0:2] is the sub-list for field type_name
+	6,  // 0: api.chat.admin.v1.PermissionListResponse.permissions:type_name -> api.chat.admin.v1.PermissionInfoResponse
+	7,  // 1: api.chat.admin.v1.RoleListResponse.roles:type_name -> api.chat.admin.v1.RoleInfoResponse
+	14, // 2: api.chat.admin.v1.UserListResponse.users:type_name -> api.chat.admin.v1.UserInfoResponse
+	16, // 3: api.chat.admin.v1.ChatAdmin.CreateUser:input_type -> api.chat.admin.v1.CreateUserRequest
+	17, // 4: api.chat.admin.v1.ChatAdmin.UpdateUser:input_type -> api.chat.admin.v1.UpdateUserRequest
+	18, // 5: api.chat.admin.v1.ChatAdmin.DeleteUser:input_type -> api.chat.admin.v1.DeleteUserRequest
+	19, // 6: api.chat.admin.v1.ChatAdmin.UserInfo:input_type -> api.chat.admin.v1.UserInfoRequest
+	20, // 7: api.chat.admin.v1.ChatAdmin.UserList:input_type -> api.chat.admin.v1.UserListRequest
+	8,  // 8: api.chat.admin.v1.ChatAdmin.CreateRole:input_type -> api.chat.admin.v1.CreateRoleRequest
+	9,  // 9: api.chat.admin.v1.ChatAdmin.UpdateRole:input_type -> api.chat.admin.v1.UpdateRoleRequest
+	10, // 10: api.chat.admin.v1.ChatAdmin.DeleteRole:input_type -> api.chat.admin.v1.DeleteRoleRequest
+	11, // 11: api.chat.admin.v1.ChatAdmin.RoleInfo:input_type -> api.chat.admin.v1.RoleInfoRequest
+	12, // 12: api.chat.admin.v1.ChatAdmin.RoleList:input_type -> api.chat.admin.v1.RoleListRequest
+	0,  // 13: api.chat.admin.v1.ChatAdmin.CreatePermission:input_type -> api.chat.admin.v1.CreatePermissionRequest
+	1,  // 14: api.chat.admin.v1.ChatAdmin.UpdatePermission:input_type -> api.chat.admin.v1.UpdatePermissionRequest
+	2,  // 15: api.chat.admin.v1.ChatAdmin.DeletePermission:input_type -> api.chat.admin.v1.DeletePermissionRequest
+	3,  // 16: api.chat.admin.v1.ChatAdmin.PermissionInfo:input_type -> api.chat.admin.v1.PermissionInfoRequest
+	4,  // 17: api.chat.admin.v1.ChatAdmin.PermissionList:input_type -> api.chat.admin.v1.PermissionListRequest
+	14, // 18: api.chat.admin.v1.ChatAdmin.CreateUser:output_type -> api.chat.admin.v1.UserInfoResponse
+	14, // 19: api.chat.admin.v1.ChatAdmin.UpdateUser:output_type -> api.chat.admin.v1.UserInfoResponse
+	14, // 20: api.chat.admin.v1.ChatAdmin.DeleteUser:output_type -> api.chat.admin.v1.UserInfoResponse
+	14, // 21: api.chat.admin.v1.ChatAdmin.UserInfo:output_type -> api.chat.admin.v1.UserInfoResponse
+	15, // 22: api.chat.admin.v1.ChatAdmin.UserList:output_type -> api.chat.admin.v1.UserListResponse
+	7,  // 23: api.chat.admin.v1.ChatAdmin.CreateRole:output_type -> api.chat.admin.v1.RoleInfoResponse
+	7,  // 24: api.chat.admin.v1.ChatAdmin.UpdateRole:output_type -> api.chat.admin.v1.RoleInfoResponse
+	7,  // 25: api.chat.admin.v1.ChatAdmin.DeleteRole:output_type -> api.chat.admin.v1.RoleInfoResponse
+	7,  // 26: api.chat.admin.v1.ChatAdmin.RoleInfo:output_type -> api.chat.admin.v1.RoleInfoResponse
+	13, // 27: api.chat.admin.v1.ChatAdmin.RoleList:output_type -> api.chat.admin.v1.RoleListResponse
+	6,  // 28: api.chat.admin.v1.ChatAdmin.CreatePermission:output_type -> api.chat.admin.v1.PermissionInfoResponse
+	6,  // 29: api.chat.admin.v1.ChatAdmin.UpdatePermission:output_type -> api.chat.admin.v1.PermissionInfoResponse
+	6,  // 30: api.chat.admin.v1.ChatAdmin.DeletePermission:output_type -> api.chat.admin.v1.PermissionInfoResponse
+	6,  // 31: api.chat.admin.v1.ChatAdmin.PermissionInfo:output_type -> api.chat.admin.v1.PermissionInfoResponse
+	5,  // 32: api.chat.admin.v1.ChatAdmin.PermissionList:output_type -> api.chat.admin.v1.PermissionListResponse
+	18, // [18:33] is the sub-list for method output_type
+	3,  // [3:18] is the sub-list for method input_type
+	3,  // [3:3] is the sub-list for extension type_name
+	3,  // [3:3] is the sub-list for extension extendee
+	0,  // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_v1_admin_proto_init() }
@@ -1087,7 +1696,7 @@ func file_v1_admin_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_v1_admin_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RoleInfoResponse); i {
+			switch v := v.(*CreatePermissionRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1099,7 +1708,7 @@ func file_v1_admin_proto_init() {
 			}
 		}
 		file_v1_admin_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateRoleRequest); i {
+			switch v := v.(*UpdatePermissionRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1111,7 +1720,7 @@ func file_v1_admin_proto_init() {
 			}
 		}
 		file_v1_admin_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateRoleRequest); i {
+			switch v := v.(*DeletePermissionRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1123,7 +1732,7 @@ func file_v1_admin_proto_init() {
 			}
 		}
 		file_v1_admin_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteRoleRequest); i {
+			switch v := v.(*PermissionInfoRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1135,7 +1744,7 @@ func file_v1_admin_proto_init() {
 			}
 		}
 		file_v1_admin_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RoleInfoRequest); i {
+			switch v := v.(*PermissionListRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1147,7 +1756,7 @@ func file_v1_admin_proto_init() {
 			}
 		}
 		file_v1_admin_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RoleListRequest); i {
+			switch v := v.(*PermissionListResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1159,7 +1768,7 @@ func file_v1_admin_proto_init() {
 			}
 		}
 		file_v1_admin_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RoleListResponse); i {
+			switch v := v.(*PermissionInfoResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1171,7 +1780,7 @@ func file_v1_admin_proto_init() {
 			}
 		}
 		file_v1_admin_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UserInfoResponse); i {
+			switch v := v.(*RoleInfoResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1183,7 +1792,7 @@ func file_v1_admin_proto_init() {
 			}
 		}
 		file_v1_admin_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UserListResponse); i {
+			switch v := v.(*CreateRoleRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1195,7 +1804,7 @@ func file_v1_admin_proto_init() {
 			}
 		}
 		file_v1_admin_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateUserRequest); i {
+			switch v := v.(*UpdateRoleRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1207,7 +1816,7 @@ func file_v1_admin_proto_init() {
 			}
 		}
 		file_v1_admin_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateUserRequest); i {
+			switch v := v.(*DeleteRoleRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1219,7 +1828,7 @@ func file_v1_admin_proto_init() {
 			}
 		}
 		file_v1_admin_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteUserRequest); i {
+			switch v := v.(*RoleInfoRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1231,7 +1840,7 @@ func file_v1_admin_proto_init() {
 			}
 		}
 		file_v1_admin_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UserInfoRequest); i {
+			switch v := v.(*RoleListRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1243,6 +1852,90 @@ func file_v1_admin_proto_init() {
 			}
 		}
 		file_v1_admin_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RoleListResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_v1_admin_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UserInfoResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_v1_admin_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UserListResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_v1_admin_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreateUserRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_v1_admin_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateUserRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_v1_admin_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteUserRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_v1_admin_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UserInfoRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_v1_admin_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UserListRequest); i {
 			case 0:
 				return &v.state
@@ -1261,7 +1954,7 @@ func file_v1_admin_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_v1_admin_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   14,
+			NumMessages:   21,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
