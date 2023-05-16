@@ -94,6 +94,16 @@ func (s *UserService) ListUser(ctx context.Context, req *v1.ListUserRequest) (*v
 	return usersResponse, nil
 }
 
+// SetUserRole 设置用户角色
+func (s *UserService) SetUserRole(ctx context.Context, req *v1.SetUserRoleRequest) (*v1.UserInfoResponse, error) {
+	user, err := s.uc.SetUserRole(ctx, req.UserId, req.RoleIds)
+	if err != nil {
+		return nil, err
+	}
+
+	return bizUserToProtoUser(user), nil
+}
+
 // 	bizUserToProtoUser 将biz层的user转换为pb层的user
 func bizUserToProtoUser(user *biz.User) *v1.UserInfoResponse {
 	return &v1.UserInfoResponse{

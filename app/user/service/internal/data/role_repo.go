@@ -140,3 +140,21 @@ func (r *roleRepo) List(ctx context.Context, where map[string]interface{}, order
 	}
 	return bizRole, count, nil
 }
+
+// All 获取所有角色
+func (r *roleRepo) All(ctx context.Context, where map[string]interface{}) ([]*biz.Role, error) {
+	var dbRole []*Role
+	db := r.data.db
+	for key, value := range where {
+		db = db.Where(fmt.Sprintf("%s ?", key), value)
+	}
+	res := db.Find(&dbRole)
+	if res.Error != nil {
+		return nil, status.Errorf(codes.Internal, res.Error.Error())
+	}
+	var bizRole []*biz.Role
+	for _, role := range dbRole {
+		bizRole = append(bizRole, r.RoleToBizRole(role))
+	}
+	return bizRole, nil
+}

@@ -45,6 +45,7 @@ func NewData(c *conf.Data, logger log.Logger, db *gorm.DB) (*Data, func(), error
 	return &Data{db: db}, cleanup, nil
 }
 
+// NewDB .
 func NewDB(c *conf.Data) (*gorm.DB, error) {
 	newLogger := logger.New(
 		slog.New(os.Stdout, "\r\n", slog.LstdFlags),

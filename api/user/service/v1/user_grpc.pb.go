@@ -34,6 +34,9 @@ const (
 	User_DeletePermission_FullMethodName = "/api.user.v1.User/DeletePermission"
 	User_GetPermission_FullMethodName    = "/api.user.v1.User/GetPermission"
 	User_ListPermission_FullMethodName   = "/api.user.v1.User/ListPermission"
+	User_SetUserRole_FullMethodName      = "/api.user.v1.User/SetUserRole"
+	User_GetUserRole_FullMethodName      = "/api.user.v1.User/GetUserRole"
+	User_DeleteUserRole_FullMethodName   = "/api.user.v1.User/DeleteUserRole"
 )
 
 // UserClient is the client API for User service.
@@ -55,6 +58,9 @@ type UserClient interface {
 	DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*PermissionInfoResponse, error)
 	GetPermission(ctx context.Context, in *GetPermissionRequest, opts ...grpc.CallOption) (*PermissionInfoResponse, error)
 	ListPermission(ctx context.Context, in *ListPermissionRequest, opts ...grpc.CallOption) (*ListPermissionResponse, error)
+	SetUserRole(ctx context.Context, in *SetUserRoleRequest, opts ...grpc.CallOption) (*UserRoleResponse, error)
+	GetUserRole(ctx context.Context, in *GetUserRoleRequest, opts ...grpc.CallOption) (*UserRoleResponse, error)
+	DeleteUserRole(ctx context.Context, in *DeleteUserRoleRequest, opts ...grpc.CallOption) (*UserRoleResponse, error)
 }
 
 type userClient struct {
@@ -200,6 +206,33 @@ func (c *userClient) ListPermission(ctx context.Context, in *ListPermissionReque
 	return out, nil
 }
 
+func (c *userClient) SetUserRole(ctx context.Context, in *SetUserRoleRequest, opts ...grpc.CallOption) (*UserRoleResponse, error) {
+	out := new(UserRoleResponse)
+	err := c.cc.Invoke(ctx, User_SetUserRole_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) GetUserRole(ctx context.Context, in *GetUserRoleRequest, opts ...grpc.CallOption) (*UserRoleResponse, error) {
+	out := new(UserRoleResponse)
+	err := c.cc.Invoke(ctx, User_GetUserRole_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) DeleteUserRole(ctx context.Context, in *DeleteUserRoleRequest, opts ...grpc.CallOption) (*UserRoleResponse, error) {
+	out := new(UserRoleResponse)
+	err := c.cc.Invoke(ctx, User_DeleteUserRole_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility
@@ -219,6 +252,9 @@ type UserServer interface {
 	DeletePermission(context.Context, *DeletePermissionRequest) (*PermissionInfoResponse, error)
 	GetPermission(context.Context, *GetPermissionRequest) (*PermissionInfoResponse, error)
 	ListPermission(context.Context, *ListPermissionRequest) (*ListPermissionResponse, error)
+	SetUserRole(context.Context, *SetUserRoleRequest) (*UserRoleResponse, error)
+	GetUserRole(context.Context, *GetUserRoleRequest) (*UserRoleResponse, error)
+	DeleteUserRole(context.Context, *DeleteUserRoleRequest) (*UserRoleResponse, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -270,6 +306,15 @@ func (UnimplementedUserServer) GetPermission(context.Context, *GetPermissionRequ
 }
 func (UnimplementedUserServer) ListPermission(context.Context, *ListPermissionRequest) (*ListPermissionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListPermission not implemented")
+}
+func (UnimplementedUserServer) SetUserRole(context.Context, *SetUserRoleRequest) (*UserRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetUserRole not implemented")
+}
+func (UnimplementedUserServer) GetUserRole(context.Context, *GetUserRoleRequest) (*UserRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserRole not implemented")
+}
+func (UnimplementedUserServer) DeleteUserRole(context.Context, *DeleteUserRoleRequest) (*UserRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteUserRole not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 
@@ -554,6 +599,60 @@ func _User_ListPermission_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_SetUserRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetUserRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).SetUserRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_SetUserRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).SetUserRole(ctx, req.(*SetUserRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_GetUserRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).GetUserRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_GetUserRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).GetUserRole(ctx, req.(*GetUserRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_DeleteUserRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteUserRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).DeleteUserRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_DeleteUserRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).DeleteUserRole(ctx, req.(*DeleteUserRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -620,6 +719,18 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListPermission",
 			Handler:    _User_ListPermission_Handler,
+		},
+		{
+			MethodName: "SetUserRole",
+			Handler:    _User_SetUserRole_Handler,
+		},
+		{
+			MethodName: "GetUserRole",
+			Handler:    _User_GetUserRole_Handler,
+		},
+		{
+			MethodName: "DeleteUserRole",
+			Handler:    _User_DeleteUserRole_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

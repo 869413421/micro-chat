@@ -23,6 +23,32 @@ service User {
   rpc DeletePermission (DeletePermissionRequest) returns (PermissionInfoResponse);
   rpc GetPermission (GetPermissionRequest) returns (PermissionInfoResponse);
   rpc ListPermission (ListPermissionRequest) returns (ListPermissionResponse);
+
+  rpc SetUserRole (SetUserRoleRequest) returns (UserRoleResponse);
+  rpc GetUserRole (GetUserRoleRequest) returns (UserRoleResponse);
+  rpc DeleteUserRole (DeleteUserRoleRequest) returns (UserRoleResponse);
+}
+
+// DeleteUserRoleRequest 删除用户角色请求
+message DeleteUserRoleRequest {
+  uint64 userId = 1;
+  repeated uint64 roleIds = 2;
+}
+
+// GetUserRoleRequest 获取用户角色请求
+message GetUserRoleRequest {
+  uint64 userId = 1;
+}
+
+// SetUserRoleRequest 设置用户角色请求
+message SetUserRoleRequest {
+  uint64 userId = 1;
+  repeated uint64 roleIds = 2;
+}
+
+// UserRoleResponse 用户角色响应
+message UserRoleResponse {
+  repeated RoleInfoResponse roles = 1;
 }
 
 // Permission 权限信息

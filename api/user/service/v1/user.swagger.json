@@ -176,6 +176,18 @@
         }
       },
       "title": "UserInfoResponse 用户信息"
+    },
+    "v1UserRoleResponse": {
+      "type": "object",
+      "properties": {
+        "roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1RoleInfoResponse"
+          }
+        }
+      },
+      "title": "UserRoleResponse 用户角色响应"
     }
   }
 }

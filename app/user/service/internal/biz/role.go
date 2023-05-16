@@ -26,6 +26,7 @@ type RoleRepo interface {
 	Update(context.Context, *Role) (*Role, error)
 	Delete(context.Context, uint64) (*Role, error)
 	Get(context.Context, map[string]interface{}) (*Role, error)
+	All(context.Context, map[string]interface{}) ([]*Role, error)
 	List(context.Context, map[string]interface{}, map[string]bool, int64, int64) ([]*Role, int64, error)
 }
 
