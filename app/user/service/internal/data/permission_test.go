@@ -117,7 +117,7 @@ func TestUpdatePermission_Err(t *testing.T) {
 		convey.So(st.Code(), convey.ShouldEqual, codes.NotFound)
 
 		// 测试更新权限名称重复
-		r2.Path = "/test1"
+		r2.Path = "/test"
 		_, err = permissionRepo.Update(context.Background(), r2)
 		st, _ = status.FromError(err)
 		convey.So(st.Code(), convey.ShouldEqual, codes.AlreadyExists)
@@ -217,7 +217,7 @@ func TestListPermission(t *testing.T) {
 		}
 		Permissions, total, err := permissionRepo.List(context.Background(), where, order, 0, 10)
 		convey.So(err, convey.ShouldBeNil)
-		convey.So(len(Permissions), convey.ShouldEqual, 1)
+		convey.So(len(Permissions), convey.ShouldEqual, 10)
 		convey.So(total, convey.ShouldEqual, 10)
 	}))
 }

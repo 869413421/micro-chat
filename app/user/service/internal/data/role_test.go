@@ -173,3 +173,29 @@ func TestListRole(t *testing.T) {
 		convey.So(roles[0].ID, convey.ShouldEqual, newRole.ID)
 	}))
 }
+
+// TestQueryRole 测试获取角色列表
+func TestQueryRole(t *testing.T) {
+	convey.Convey("Test Query Role", t, run(func() {
+		r := &biz.Role{
+			Name: "test",
+			Memo: "test",
+		}
+		newRole, err := roleRepo.Create(context.Background(), r)
+		convey.So(err, convey.ShouldBeNil)
+		convey.So(newRole.Name, convey.ShouldEqual, r.Name)
+		convey.So(newRole.ID, convey.ShouldNotEqual, 0)
+
+		// 测试获取角色列表
+		where := map[string]interface{}{
+			"id = ": newRole.ID,
+		}
+
+		roles, err := roleRepo.Query(context.Background(), where)
+		convey.So(err, convey.ShouldBeNil)
+		convey.So(len(roles), convey.ShouldEqual, 1)
+		convey.So(roles[0].Name, convey.ShouldEqual, r.Name)
+		convey.So(roles[0].Memo, convey.ShouldEqual, r.Memo)
+		convey.So(roles[0].ID, convey.ShouldEqual, newRole.ID)
+	}))
+}

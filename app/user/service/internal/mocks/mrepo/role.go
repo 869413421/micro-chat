@@ -97,6 +97,21 @@ func (mr *MockRoleRepoMockRecorder) List(arg0, arg1, arg2, arg3, arg4 interface{
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "List", reflect.TypeOf((*MockRoleRepo)(nil).List), arg0, arg1, arg2, arg3, arg4)
 }
 
+// Query mocks base method.
+func (m *MockRoleRepo) Query(arg0 context.Context, arg1 map[string]interface{}) ([]*biz.Role, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Query", arg0, arg1)
+	ret0, _ := ret[0].([]*biz.Role)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Query indicates an expected call of Query.
+func (mr *MockRoleRepoMockRecorder) Query(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Query", reflect.TypeOf((*MockRoleRepo)(nil).Query), arg0, arg1)
+}
+
 // Update mocks base method.
 func (m *MockRoleRepo) Update(arg0 context.Context, arg1 *biz.Role) (*biz.Role, error) {
 	m.ctrl.T.Helper()

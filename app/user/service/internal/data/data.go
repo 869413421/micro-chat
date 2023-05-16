@@ -1,6 +1,7 @@
 package data
 
 import (
+	schema2 "github.com/869413421/micro-chat/app/user/service/internal/data/ent/schema"
 	slog "log"
 	"os"
 	"time"
@@ -25,7 +26,7 @@ type Data struct {
 
 // migrate 模型迁移
 func migrate(db *gorm.DB) error {
-	err := db.AutoMigrate(&User{}, &UserRole{}, &Role{}, &RolePermission{}, &Permission{})
+	err := db.AutoMigrate(&schema2.User{}, &schema2.UserRole{}, &schema2.Role{}, &schema2.RolePermission{}, &schema2.Permission{})
 	if err != nil {
 		return err
 	}

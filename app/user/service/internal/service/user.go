@@ -36,7 +36,7 @@ func (s *UserService) CreateUser(ctx context.Context, req *v1.CreateUserRequest)
 		return nil, err
 	}
 
-	return bizUserToProtoUser(user), nil
+	return user.ToProtoUser(), nil
 }
 
 // UpdateUser 更新用户
@@ -51,7 +51,7 @@ func (s *UserService) UpdateUser(ctx context.Context, req *v1.UpdateUserRequest)
 		return nil, err
 	}
 
-	return bizUserToProtoUser(user), nil
+	return user.ToProtoUser(), nil
 }
 
 // DeleteUser 删除用户
@@ -61,7 +61,7 @@ func (s *UserService) DeleteUser(ctx context.Context, req *v1.DeleteUserRequest)
 		return nil, err
 	}
 
-	return bizUserToProtoUser(user), nil
+	return user.ToProtoUser(), nil
 }
 
 // GetUser 获取用户
@@ -71,7 +71,7 @@ func (s *UserService) GetUser(ctx context.Context, req *v1.GetUserRequest) (*v1.
 		return nil, err
 	}
 
-	return bizUserToProtoUser(user), nil
+	return user.ToProtoUser(), nil
 }
 
 // ListUser 获取用户列表
@@ -83,7 +83,7 @@ func (s *UserService) ListUser(ctx context.Context, req *v1.ListUserRequest) (*v
 
 	newUsers := make([]*v1.UserInfoResponse, 0)
 	for _, user := range users {
-		newUsers = append(newUsers, bizUserToProtoUser(user))
+		newUsers = append(newUsers, user.ToProtoUser())
 	}
 
 	var usersResponse = &v1.ListUserResponse{
@@ -92,26 +92,4 @@ func (s *UserService) ListUser(ctx context.Context, req *v1.ListUserRequest) (*v
 	}
 
 	return usersResponse, nil
-}
-
-// SetUserRole 设置用户角色
-func (s *UserService) SetUserRole(ctx context.Context, req *v1.SetUserRoleRequest) (*v1.UserInfoResponse, error) {
-	user, err := s.uc.SetUserRole(ctx, req.UserId, req.RoleIds)
-	if err != nil {
-		return nil, err
-	}
-
-	return bizUserToProtoUser(user), nil
-}
-
-// 	bizUserToProtoUser 将biz层的user转换为pb层的user
-func bizUserToProtoUser(user *biz.User) *v1.UserInfoResponse {
-	return &v1.UserInfoResponse{
-		Id:        user.ID,
-		Name:      user.Name,
-		Password:  user.Password,
-		Email:     user.Email,
-		CreatedAt: user.CreateAt,
-		UpdatedAt: user.UpdateAt,
-	}
 }

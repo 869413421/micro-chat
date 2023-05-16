@@ -2,6 +2,7 @@ package biz
 
 import (
 	"context"
+	v1 "github.com/869413421/micro-chat/api/user/service/v1"
 	"github.com/go-kratos/kratos/v2/log"
 )
 
@@ -13,8 +14,21 @@ type User struct {
 	Name     string
 	Email    string
 	Password string
+	Status   int
 	CreateAt string
 	UpdateAt string
+}
+
+// ToProtoUser 转换为proto结构体
+func (user *User) ToProtoUser() *v1.UserInfoResponse {
+	return &v1.UserInfoResponse{
+		Id:        user.ID,
+		Name:      user.Name,
+		Password:  user.Password,
+		Email:     user.Email,
+		CreatedAt: user.CreateAt,
+		UpdatedAt: user.UpdateAt,
+	}
 }
 
 // UserRole 定义返回数据结构体
@@ -22,12 +36,6 @@ type UserRole struct {
 	ID     uint64
 	UserID uint64
 	RoleID uint64
-}
-
-// UserRoleRepo 注意这一行新增的 mock 数据的命令
-//go:generate mockgen -source=user.go -destination=../mocks/mrepo/user.go -package=mrepo  UserRoleRepo
-type UserRoleRepo interface {
-	Get(where map[string]interface{}) (*UserRole, error)
 }
 
 // UserRepo 注意这一行新增的 mock 数据的命令
@@ -48,15 +56,14 @@ type UserUsecase interface {
 	Delete(ctx context.Context, id uint64) (*User, error)
 	Get(ctx context.Context, where map[string]interface{}) (*User, error)
 	List(ctx context.Context, where map[string]interface{}, page, pageSize int64) ([]*User, int64, error)
-	SetUserRole(ctx context.Context, userId uint64, roleIds []uint64) ([]Role, error)
+	//SetUserRole(ctx context.Context, userId uint64, roleIds []uint64) ([]Role, error)
 }
 
 // UserUsecase 用户业务逻辑接口
 type userUsecase struct {
-	repo         UserRepo
-	roleRepo     RoleRepo
-	userRoleRepo UserRoleRepo
-	log          *log.Helper
+	repo     UserRepo
+	roleRepo RoleRepo
+	log      *log.Helper
 }
 
 // NewUserUsecase 创建用户业务逻辑
@@ -87,23 +94,4 @@ func (uc *userUsecase) Get(ctx context.Context, where map[string]interface{}) (*
 // List 获取用户列表
 func (uc *userUsecase) List(ctx context.Context, where map[string]interface{}, page, pageSize int64) ([]*User, int64, error) {
 	return uc.repo.ListUser(ctx, where, page, pageSize)
-}
-
-// SetUserRole 设置用户角色
-func (uc *userUsecase) SetUserRole(ctx context.Context, userId uint64, roleIds []uint64) ([]Role, error) {
-	user, err := uc.Get(ctx, map[string]interface{}{"id": userId})
-	if err != nil {
-		return nil, err
-	}
-
-	roles, err := uc.roleRepo.All(ctx, map[string]interface{}{"id in": roleIds})
-	if err != nil {
-		return nil, err
-	}
-
-	for role := range roles {
-		uc.roleRepo.
-	}
-
-	panic("implement me")
 }

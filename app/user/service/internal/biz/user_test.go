@@ -18,7 +18,7 @@ func TestBizUserUsecaseCreate(t *testing.T) {
 	ctx := context.Background()
 
 	mUserRepo := mrepo.NewMockUserRepo(ctrl)
-	userCase := biz.NewUserUsecase(mUserRepo, nil)
+	userCase := biz.NewUserUsecase(mUserRepo, nil, nil)
 
 	Convey("Testing Biz UserUsecase Create Method", t, func() {
 		userInfo := &biz.User{
@@ -43,7 +43,7 @@ func TestBizUserUsecaseUpdate(t *testing.T) {
 	ctx := context.Background()
 
 	mUserRepo := mrepo.NewMockUserRepo(ctrl)
-	userCase := biz.NewUserUsecase(mUserRepo, nil)
+	userCase := biz.NewUserUsecase(mUserRepo, nil, nil)
 
 	Convey("Testing Biz UserUsecase Update Method", t, func() {
 		userInfo := &biz.User{
@@ -68,7 +68,7 @@ func TestBizUserUsecaseDelete(t *testing.T) {
 	ctx := context.Background()
 
 	mUserRepo := mrepo.NewMockUserRepo(ctrl)
-	userCase := biz.NewUserUsecase(mUserRepo, nil)
+	userCase := biz.NewUserUsecase(mUserRepo, nil, nil)
 
 	Convey("Testing Biz UserUsecase Delete Method", t, func() {
 		userInfo := &biz.User{
@@ -93,7 +93,7 @@ func TestBizUserUsecaseGet(t *testing.T) {
 	ctx := context.Background()
 
 	mUserRepo := mrepo.NewMockUserRepo(ctrl)
-	userCase := biz.NewUserUsecase(mUserRepo, nil)
+	userCase := biz.NewUserUsecase(mUserRepo, nil, nil)
 
 	Convey("Testing Biz UserUsecase Get Method", t, func() {
 		userInfo := &biz.User{
@@ -119,7 +119,7 @@ func TestBizUserUsecaseList(t *testing.T) {
 	ctx := context.Background()
 
 	mUserRepo := mrepo.NewMockUserRepo(ctrl)
-	userCase := biz.NewUserUsecase(mUserRepo, nil)
+	userCase := biz.NewUserUsecase(mUserRepo, nil, nil)
 
 	Convey("Testing Biz UserUsecase List Method", t, func() {
 		var list []*biz.User

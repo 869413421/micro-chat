@@ -1,6 +1,8 @@
-package data
+package schema
 
-import "github.com/869413421/micro-chat/pkg/db"
+import (
+	"github.com/869413421/micro-chat/pkg/db"
+)
 
 // UserRole 用户角色
 type UserRole struct {

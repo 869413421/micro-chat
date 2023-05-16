@@ -19,6 +19,17 @@ type Role struct {
 	UpdateAt string
 }
 
+// ToProtoRole 转换为proto结构体
+func (role Role) ToProtoRole() *v1.RoleInfoResponse {
+	return &v1.RoleInfoResponse{
+		Id:        role.ID,
+		Name:      role.Name,
+		Memo:      role.Memo,
+		CreatedAt: role.CreateAt,
+		UpdatedAt: role.UpdateAt,
+	}
+}
+
 // RoleRepo 注意这一行新增的 mock 数据的命令
 //go:generate mockgen -source=role.go -destination=../mocks/mrepo/role.go -package=mrepo  RoleRepo
 type RoleRepo interface {
@@ -26,7 +37,7 @@ type RoleRepo interface {
 	Update(context.Context, *Role) (*Role, error)
 	Delete(context.Context, uint64) (*Role, error)
 	Get(context.Context, map[string]interface{}) (*Role, error)
-	All(context.Context, map[string]interface{}) ([]*Role, error)
+	Query(context.Context, map[string]interface{}) ([]*Role, error)
 	List(context.Context, map[string]interface{}, map[string]bool, int64, int64) ([]*Role, int64, error)
 }
 

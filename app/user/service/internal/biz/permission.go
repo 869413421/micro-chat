@@ -23,6 +23,21 @@ type Permission struct {
 	UpdateAt  string
 }
 
+// ToProtoPermission 转换为proto结构体
+func (permission *Permission) ToProtoPermission() *v1.PermissionInfoResponse {
+	return &v1.PermissionInfoResponse{
+		Id:        permission.ID,
+		Name:      permission.Name,
+		Memo:      permission.Memo,
+		Path:      permission.Path,
+		Method:    permission.Method,
+		ParentId:  permission.ParentID,
+		ParentIds: permission.ParentIDS,
+		CreatedAt: permission.CreateAt,
+		UpdatedAt: permission.UpdateAt,
+	}
+}
+
 // PermissionRepo 注意这一行新增的 mock 数据的命令
 //go:generate mockgen -source=permission.go -destination=../mocks/mrepo/permission.go -package=mrepo  PermissionRepo
 type PermissionRepo interface {
