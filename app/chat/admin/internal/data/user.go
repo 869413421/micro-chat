@@ -85,6 +85,18 @@ func (u *userRepo) List(ctx context.Context, where map[string]interface{}, page,
 	return users, response.Total, nil
 }
 
+// CreateToken 用户登录
+func (u *userRepo) CreateToken(ctx context.Context, email, password string) (string, error) {
+	response, err := u.data.uc.CreateToken(ctx, &v1.CreateTokenRequest{
+		Email:    email,
+		Password: password,
+	})
+	if err != nil {
+		return "", err
+	}
+	return response.Token, nil
+}
+
 // UserResponseToBizUser 类型转换
 func UserResponseToBizUser(u *v1.UserInfoResponse) *biz.User {
 	if u == nil {

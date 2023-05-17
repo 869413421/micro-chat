@@ -37,7 +37,7 @@ const (
 	User_SetUserRole_FullMethodName      = "/api.user.v1.User/SetUserRole"
 	User_GetUserRole_FullMethodName      = "/api.user.v1.User/GetUserRole"
 	User_DeleteUserRole_FullMethodName   = "/api.user.v1.User/DeleteUserRole"
-	User_Login_FullMethodName            = "/api.user.v1.User/Login"
+	User_CreateToken_FullMethodName      = "/api.user.v1.User/CreateToken"
 )
 
 // UserClient is the client API for User service.
@@ -62,7 +62,7 @@ type UserClient interface {
 	SetUserRole(ctx context.Context, in *SetUserRoleRequest, opts ...grpc.CallOption) (*UserRoleResponse, error)
 	GetUserRole(ctx context.Context, in *GetUserRoleRequest, opts ...grpc.CallOption) (*UserRoleResponse, error)
 	DeleteUserRole(ctx context.Context, in *DeleteUserRoleRequest, opts ...grpc.CallOption) (*UserRoleResponse, error)
-	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	CreateToken(ctx context.Context, in *CreateTokenRequest, opts ...grpc.CallOption) (*CreateTokenResponse, error)
 }
 
 type userClient struct {
@@ -235,9 +235,9 @@ func (c *userClient) DeleteUserRole(ctx context.Context, in *DeleteUserRoleReque
 	return out, nil
 }
 
-func (c *userClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
-	out := new(LoginResponse)
-	err := c.cc.Invoke(ctx, User_Login_FullMethodName, in, out, opts...)
+func (c *userClient) CreateToken(ctx context.Context, in *CreateTokenRequest, opts ...grpc.CallOption) (*CreateTokenResponse, error) {
+	out := new(CreateTokenResponse)
+	err := c.cc.Invoke(ctx, User_CreateToken_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -266,7 +266,7 @@ type UserServer interface {
 	SetUserRole(context.Context, *SetUserRoleRequest) (*UserRoleResponse, error)
 	GetUserRole(context.Context, *GetUserRoleRequest) (*UserRoleResponse, error)
 	DeleteUserRole(context.Context, *DeleteUserRoleRequest) (*UserRoleResponse, error)
-	Login(context.Context, *LoginRequest) (*LoginResponse, error)
+	CreateToken(context.Context, *CreateTokenRequest) (*CreateTokenResponse, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -328,8 +328,8 @@ func (UnimplementedUserServer) GetUserRole(context.Context, *GetUserRoleRequest)
 func (UnimplementedUserServer) DeleteUserRole(context.Context, *DeleteUserRoleRequest) (*UserRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUserRole not implemented")
 }
-func (UnimplementedUserServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+func (UnimplementedUserServer) CreateToken(context.Context, *CreateTokenRequest) (*CreateTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateToken not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 
@@ -668,20 +668,20 @@ func _User_DeleteUserRole_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-func _User_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LoginRequest)
+func _User_CreateToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateTokenRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServer).Login(ctx, in)
+		return srv.(UserServer).CreateToken(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: User_Login_FullMethodName,
+		FullMethod: User_CreateToken_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServer).Login(ctx, req.(*LoginRequest))
+		return srv.(UserServer).CreateToken(ctx, req.(*CreateTokenRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -766,8 +766,8 @@ var User_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _User_DeleteUserRole_Handler,
 		},
 		{
-			MethodName: "Login",
-			Handler:    _User_Login_Handler,
+			MethodName: "CreateToken",
+			Handler:    _User_CreateToken_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

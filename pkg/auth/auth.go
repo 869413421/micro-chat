@@ -26,5 +26,5 @@ func GenerateToken(id uint64, name, key string) (string, error) {
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString(key)
+	return token.SignedString([]byte(key))
 }

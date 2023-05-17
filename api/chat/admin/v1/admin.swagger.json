@@ -16,6 +16,38 @@
     "application/json"
   ],
   "paths": {
+    "/admin/v1/login": {
+      "post": {
+        "operationId": "ChatAdmin_Login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1LoginResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1LoginRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ChatAdmin"
+        ]
+      }
+    },
     "/admin/v1/permission": {
       "get": {
         "operationId": "ChatAdmin_PermissionList",
@@ -631,6 +663,27 @@
         }
       },
       "title": "创建用户请求"
+    },
+    "v1LoginRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "登录请求"
+    },
+    "v1LoginResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "登录响应"
     },
     "v1PermissionInfoResponse": {
       "type": "object",

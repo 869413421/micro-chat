@@ -25,14 +25,14 @@ func NewUserService(uc biz.UserUsecase, ruc biz.RoleUsecase, puc biz.PermissionU
 	return &UserService{uc: uc, ruc: ruc, puc: puc, log: log.NewHelper(log.With(logger, "module", "service/user"))}
 }
 
-// Login 登录
-func (s *UserService) Login(ctx context.Context, req *v1.LoginRequest) (*v1.LoginResponse, error) {
-	token, err := s.uc.Login(ctx, req.Email, req.Password)
+// CreateToken 创建token
+func (s *UserService) CreateToken(ctx context.Context, req *v1.CreateTokenRequest) (*v1.CreateTokenResponse, error) {
+	token, err := s.uc.CreateToken(ctx, req.Email, req.Password)
 	if err != nil {
 		return nil, err
 	}
 
-	return &v1.LoginResponse{Token: token}, nil
+	return &v1.CreateTokenResponse{Token: token}, nil
 }
 
 // CreateUser 创建用户

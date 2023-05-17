@@ -7,6 +7,17 @@ import (
 	"github.com/869413421/micro-chat/app/chat/admin/internal/biz"
 )
 
+// Login 用户登录
+func (c *ChatAdmin) Login(ctx context.Context, request *v1.LoginRequest) (*v1.LoginResponse, error) {
+	token, err := c.uc.Login(ctx, request)
+	if err != nil {
+		return nil, err
+	}
+	return &v1.LoginResponse{
+		Token: token,
+	}, nil
+}
+
 // CreateUser 创建用户
 func (c *ChatAdmin) CreateUser(ctx context.Context, request *v1.CreateUserRequest) (*v1.UserInfoResponse, error) {
 	user, err := c.uc.Create(ctx, request)

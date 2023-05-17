@@ -8,6 +8,13 @@ import "validate/validate.proto";
 option go_package = "github.com/869413421/micro-chat/api/chat/server/v1;v1";
 
 service ChatAdmin {
+  rpc Login (LoginRequest) returns (LoginResponse) {
+    option (google.api.http) = {
+      post: "/admin/v1/login"
+      body: "*"
+    };
+  }
+
   rpc CreateUser (CreateUserRequest) returns (UserInfoResponse) {
     option (google.api.http) = {
       post: "/admin/v1/user"
@@ -103,6 +110,20 @@ service ChatAdmin {
       get: "/admin/v1/permission"
     };
   }
+}
+
+// 登录请求
+message LoginRequest {
+  string email = 1 [(validate.rules).string.email = true];
+  string password = 2 [(validate.rules).string = {
+    min_len:   2,
+    max_len: 12,
+  }];
+}
+
+// 登录响应
+message LoginResponse {
+  string token = 1;
 }
 
 // 权限创建请求

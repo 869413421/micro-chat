@@ -35,22 +35,22 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on LoginRequest with the rules defined in
-// the proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *LoginRequest) Validate() error {
+// Validate checks the field values on CreateTokenRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateTokenRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on LoginRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in LoginRequestMultiError, or
-// nil if none found.
-func (m *LoginRequest) ValidateAll() error {
+// ValidateAll checks the field values on CreateTokenRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateTokenRequestMultiError, or nil if none found.
+func (m *CreateTokenRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *LoginRequest) validate(all bool) error {
+func (m *CreateTokenRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -62,18 +62,19 @@ func (m *LoginRequest) validate(all bool) error {
 	// no validation rules for Password
 
 	if len(errors) > 0 {
-		return LoginRequestMultiError(errors)
+		return CreateTokenRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// LoginRequestMultiError is an error wrapping multiple validation errors
-// returned by LoginRequest.ValidateAll() if the designated constraints aren't met.
-type LoginRequestMultiError []error
+// CreateTokenRequestMultiError is an error wrapping multiple validation errors
+// returned by CreateTokenRequest.ValidateAll() if the designated constraints
+// aren't met.
+type CreateTokenRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m LoginRequestMultiError) Error() string {
+func (m CreateTokenRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -82,11 +83,11 @@ func (m LoginRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m LoginRequestMultiError) AllErrors() []error { return m }
+func (m CreateTokenRequestMultiError) AllErrors() []error { return m }
 
-// LoginRequestValidationError is the validation error returned by
-// LoginRequest.Validate if the designated constraints aren't met.
-type LoginRequestValidationError struct {
+// CreateTokenRequestValidationError is the validation error returned by
+// CreateTokenRequest.Validate if the designated constraints aren't met.
+type CreateTokenRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -94,22 +95,24 @@ type LoginRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e LoginRequestValidationError) Field() string { return e.field }
+func (e CreateTokenRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e LoginRequestValidationError) Reason() string { return e.reason }
+func (e CreateTokenRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e LoginRequestValidationError) Cause() error { return e.cause }
+func (e CreateTokenRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e LoginRequestValidationError) Key() bool { return e.key }
+func (e CreateTokenRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e LoginRequestValidationError) ErrorName() string { return "LoginRequestValidationError" }
+func (e CreateTokenRequestValidationError) ErrorName() string {
+	return "CreateTokenRequestValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e LoginRequestValidationError) Error() string {
+func (e CreateTokenRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -121,14 +124,14 @@ func (e LoginRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sLoginRequest.%s: %s%s",
+		"invalid %sCreateTokenRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = LoginRequestValidationError{}
+var _ error = CreateTokenRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -136,24 +139,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = LoginRequestValidationError{}
+} = CreateTokenRequestValidationError{}
 
-// Validate checks the field values on LoginResponse with the rules defined in
-// the proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *LoginResponse) Validate() error {
+// Validate checks the field values on CreateTokenResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateTokenResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on LoginResponse with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in LoginResponseMultiError, or
-// nil if none found.
-func (m *LoginResponse) ValidateAll() error {
+// ValidateAll checks the field values on CreateTokenResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateTokenResponseMultiError, or nil if none found.
+func (m *CreateTokenResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *LoginResponse) validate(all bool) error {
+func (m *CreateTokenResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -163,19 +166,19 @@ func (m *LoginResponse) validate(all bool) error {
 	// no validation rules for Token
 
 	if len(errors) > 0 {
-		return LoginResponseMultiError(errors)
+		return CreateTokenResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// LoginResponseMultiError is an error wrapping multiple validation errors
-// returned by LoginResponse.ValidateAll() if the designated constraints
-// aren't met.
-type LoginResponseMultiError []error
+// CreateTokenResponseMultiError is an error wrapping multiple validation
+// errors returned by CreateTokenResponse.ValidateAll() if the designated
+// constraints aren't met.
+type CreateTokenResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m LoginResponseMultiError) Error() string {
+func (m CreateTokenResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -184,11 +187,11 @@ func (m LoginResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m LoginResponseMultiError) AllErrors() []error { return m }
+func (m CreateTokenResponseMultiError) AllErrors() []error { return m }
 
-// LoginResponseValidationError is the validation error returned by
-// LoginResponse.Validate if the designated constraints aren't met.
-type LoginResponseValidationError struct {
+// CreateTokenResponseValidationError is the validation error returned by
+// CreateTokenResponse.Validate if the designated constraints aren't met.
+type CreateTokenResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -196,22 +199,24 @@ type LoginResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e LoginResponseValidationError) Field() string { return e.field }
+func (e CreateTokenResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e LoginResponseValidationError) Reason() string { return e.reason }
+func (e CreateTokenResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e LoginResponseValidationError) Cause() error { return e.cause }
+func (e CreateTokenResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e LoginResponseValidationError) Key() bool { return e.key }
+func (e CreateTokenResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e LoginResponseValidationError) ErrorName() string { return "LoginResponseValidationError" }
+func (e CreateTokenResponseValidationError) ErrorName() string {
+	return "CreateTokenResponseValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e LoginResponseValidationError) Error() string {
+func (e CreateTokenResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -223,14 +228,14 @@ func (e LoginResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sLoginResponse.%s: %s%s",
+		"invalid %sCreateTokenResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = LoginResponseValidationError{}
+var _ error = CreateTokenResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -238,7 +243,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = LoginResponseValidationError{}
+} = CreateTokenResponseValidationError{}
 
 // Validate checks the field values on DeleteUserRoleRequest with the rules
 // defined in the proto definition for this message. If any rules are

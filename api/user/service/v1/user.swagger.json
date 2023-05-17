@@ -47,6 +47,15 @@
         }
       }
     },
+    "v1CreateTokenResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "CreateTokenResponse 创建TOKEN响应"
+    },
     "v1ListPermissionResponse": {
       "type": "object",
       "properties": {
@@ -94,15 +103,6 @@
         }
       },
       "title": "ListUserReply 获取用户列表响应"
-    },
-    "v1LoginResponse": {
-      "type": "object",
-      "properties": {
-        "token": {
-          "type": "string"
-        }
-      },
-      "title": "LoginResponse 登录响应"
     },
     "v1PermissionInfoResponse": {
       "type": "object",

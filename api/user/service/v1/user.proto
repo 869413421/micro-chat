@@ -28,17 +28,17 @@ service User {
   rpc GetUserRole (GetUserRoleRequest) returns (UserRoleResponse);
   rpc DeleteUserRole (DeleteUserRoleRequest) returns (UserRoleResponse);
 
-  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc CreateToken (CreateTokenRequest) returns (CreateTokenResponse);
 }
 
-// LoginRequest 登录请求
-message LoginRequest {
+// CreateTokenRequest 创建TOKEN请求
+message CreateTokenRequest {
   string email = 1;
   string password = 2;
 }
 
-// LoginResponse 登录响应
-message LoginResponse {
+// CreateTokenResponse 创建TOKEN响应
+message CreateTokenResponse {
   string token = 1;
 }
 

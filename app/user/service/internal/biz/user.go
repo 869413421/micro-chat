@@ -61,7 +61,7 @@ type UserUsecase interface {
 	Delete(ctx context.Context, id uint64) (*User, error)
 	Get(ctx context.Context, where map[string]interface{}) (*User, error)
 	List(ctx context.Context, where map[string]interface{}, page, pageSize int64) ([]*User, int64, error)
-	Login(ctx context.Context, email, password string) (string, error)
+	CreateToken(ctx context.Context, email, password string) (string, error)
 	//SetUserRole(ctx context.Context, userId uint64, roleIds []uint64) ([]Role, error)
 }
 
@@ -78,10 +78,10 @@ func NewUserUsecase(repo UserRepo, roleRepo RoleRepo, ac *conf.Auth, logger log.
 	return &userUsecase{repo: repo, roleRepo: roleRepo, jwtSecret: ac.JwtSecret, log: log.NewHelper(log.With(logger, "module", "usecase/user"))}
 }
 
-// Login 用户登录
-func (uc *userUsecase) Login(ctx context.Context, email, password string) (string, error) {
+// CreateToken 用户登录
+func (uc *userUsecase) CreateToken(ctx context.Context, email, password string) (string, error) {
 	// 获取用户信息
-	user, err := uc.repo.GetUser(ctx, map[string]interface{}{"email": email})
+	user, err := uc.repo.GetUser(ctx, map[string]interface{}{"email = ": email})
 	if err != nil {
 		return "", err
 	}

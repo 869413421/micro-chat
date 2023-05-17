@@ -19,6 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
+	ChatAdmin_Login_FullMethodName            = "/api.chat.admin.v1.ChatAdmin/Login"
 	ChatAdmin_CreateUser_FullMethodName       = "/api.chat.admin.v1.ChatAdmin/CreateUser"
 	ChatAdmin_UpdateUser_FullMethodName       = "/api.chat.admin.v1.ChatAdmin/UpdateUser"
 	ChatAdmin_DeleteUser_FullMethodName       = "/api.chat.admin.v1.ChatAdmin/DeleteUser"
@@ -40,6 +41,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ChatAdminClient interface {
+	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*UserInfoResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UserInfoResponse, error)
 	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*UserInfoResponse, error)
@@ -63,6 +65,15 @@ type chatAdminClient struct {
 
 func NewChatAdminClient(cc grpc.ClientConnInterface) ChatAdminClient {
 	return &chatAdminClient{cc}
+}
+
+func (c *chatAdminClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
+	out := new(LoginResponse)
+	err := c.cc.Invoke(ctx, ChatAdmin_Login_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *chatAdminClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*UserInfoResponse, error) {
@@ -204,6 +215,7 @@ func (c *chatAdminClient) PermissionList(ctx context.Context, in *PermissionList
 // All implementations must embed UnimplementedChatAdminServer
 // for forward compatibility
 type ChatAdminServer interface {
+	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	CreateUser(context.Context, *CreateUserRequest) (*UserInfoResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UserInfoResponse, error)
 	DeleteUser(context.Context, *DeleteUserRequest) (*UserInfoResponse, error)
@@ -226,6 +238,9 @@ type ChatAdminServer interface {
 type UnimplementedChatAdminServer struct {
 }
 
+func (UnimplementedChatAdminServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
 func (UnimplementedChatAdminServer) CreateUser(context.Context, *CreateUserRequest) (*UserInfoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
 }
@@ -282,6 +297,24 @@ type UnsafeChatAdminServer interface {
 
 func RegisterChatAdminServer(s grpc.ServiceRegistrar, srv ChatAdminServer) {
 	s.RegisterService(&ChatAdmin_ServiceDesc, srv)
+}
+
+func _ChatAdmin_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChatAdminServer).Login(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ChatAdmin_Login_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChatAdminServer).Login(ctx, req.(*LoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _ChatAdmin_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -561,6 +594,10 @@ var ChatAdmin_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "api.chat.admin.v1.ChatAdmin",
 	HandlerType: (*ChatAdminServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Login",
+			Handler:    _ChatAdmin_Login_Handler,
+		},
 		{
 			MethodName: "CreateUser",
 			Handler:    _ChatAdmin_CreateUser_Handler,

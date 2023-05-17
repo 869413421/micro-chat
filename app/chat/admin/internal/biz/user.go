@@ -22,6 +22,7 @@ type UserRepo interface {
 	Update(ctx context.Context, user *User) (*User, error)
 	Delete(ctx context.Context, id uint64) (*User, error)
 	List(ctx context.Context, where map[string]interface{}, page, pageSize int64) ([]*User, int64, error)
+	CreateToken(ctx context.Context, email, password string) (string, error)
 }
 
 type UserUsecase interface {
@@ -30,6 +31,7 @@ type UserUsecase interface {
 	Delete(ctx context.Context, request *v1.DeleteUserRequest) (*User, error)
 	Get(ctx context.Context, request *v1.UserInfoRequest) (*User, error)
 	List(ctx context.Context, request *v1.UserListRequest) ([]*User, int64, error)
+	Login(ctx context.Context, request *v1.LoginRequest) (string, error)
 }
 
 type userUsecase struct {
@@ -37,14 +39,19 @@ type userUsecase struct {
 	log  *log.Helper
 }
 
+// Login 用户登录
+func (u *userUsecase) Login(ctx context.Context, request *v1.LoginRequest) (string, error) {
+	return u.repo.CreateToken(ctx, request.Email, request.Password)
+}
+
 var _ UserUsecase = (*userUsecase)(nil)
 
 // NewUserUseCase 创建用户用例
 func NewUserUseCase(repo UserRepo, logger log.Logger) UserUsecase {
-	log := log.NewHelper(log.With(logger, "module", "usecase/user"))
+	l := log.NewHelper(log.With(logger, "module", "usecase/user"))
 	return &userUsecase{
 		repo: repo,
-		log:  log,
+		log:  l,
 	}
 }
 

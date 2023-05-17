@@ -25,6 +25,7 @@ const OperationChatAdminCreateUser = "/api.chat.admin.v1.ChatAdmin/CreateUser"
 const OperationChatAdminDeletePermission = "/api.chat.admin.v1.ChatAdmin/DeletePermission"
 const OperationChatAdminDeleteRole = "/api.chat.admin.v1.ChatAdmin/DeleteRole"
 const OperationChatAdminDeleteUser = "/api.chat.admin.v1.ChatAdmin/DeleteUser"
+const OperationChatAdminLogin = "/api.chat.admin.v1.ChatAdmin/Login"
 const OperationChatAdminPermissionInfo = "/api.chat.admin.v1.ChatAdmin/PermissionInfo"
 const OperationChatAdminPermissionList = "/api.chat.admin.v1.ChatAdmin/PermissionList"
 const OperationChatAdminRoleInfo = "/api.chat.admin.v1.ChatAdmin/RoleInfo"
@@ -42,6 +43,7 @@ type ChatAdminHTTPServer interface {
 	DeletePermission(context.Context, *DeletePermissionRequest) (*PermissionInfoResponse, error)
 	DeleteRole(context.Context, *DeleteRoleRequest) (*RoleInfoResponse, error)
 	DeleteUser(context.Context, *DeleteUserRequest) (*UserInfoResponse, error)
+	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	PermissionInfo(context.Context, *PermissionInfoRequest) (*PermissionInfoResponse, error)
 	PermissionList(context.Context, *PermissionListRequest) (*PermissionListResponse, error)
 	RoleInfo(context.Context, *RoleInfoRequest) (*RoleInfoResponse, error)
@@ -55,6 +57,7 @@ type ChatAdminHTTPServer interface {
 
 func RegisterChatAdminHTTPServer(s *http.Server, srv ChatAdminHTTPServer) {
 	r := s.Route("/")
+	r.POST("/admin/v1/login", _ChatAdmin_Login0_HTTP_Handler(srv))
 	r.POST("/admin/v1/user", _ChatAdmin_CreateUser0_HTTP_Handler(srv))
 	r.PUT("/admin/v1/user/{id}", _ChatAdmin_UpdateUser0_HTTP_Handler(srv))
 	r.DELETE("/admin/v1/user/{id}", _ChatAdmin_DeleteUser0_HTTP_Handler(srv))
@@ -70,6 +73,25 @@ func RegisterChatAdminHTTPServer(s *http.Server, srv ChatAdminHTTPServer) {
 	r.DELETE("/admin/v1/permission/{id}", _ChatAdmin_DeletePermission0_HTTP_Handler(srv))
 	r.GET("/admin/v1/permission/{id}", _ChatAdmin_PermissionInfo0_HTTP_Handler(srv))
 	r.GET("/admin/v1/permission", _ChatAdmin_PermissionList0_HTTP_Handler(srv))
+}
+
+func _ChatAdmin_Login0_HTTP_Handler(srv ChatAdminHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in LoginRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationChatAdminLogin)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.Login(ctx, req.(*LoginRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*LoginResponse)
+		return ctx.Result(200, reply)
+	}
 }
 
 func _ChatAdmin_CreateUser0_HTTP_Handler(srv ChatAdminHTTPServer) func(ctx http.Context) error {
@@ -391,6 +413,7 @@ type ChatAdminHTTPClient interface {
 	DeletePermission(ctx context.Context, req *DeletePermissionRequest, opts ...http.CallOption) (rsp *PermissionInfoResponse, err error)
 	DeleteRole(ctx context.Context, req *DeleteRoleRequest, opts ...http.CallOption) (rsp *RoleInfoResponse, err error)
 	DeleteUser(ctx context.Context, req *DeleteUserRequest, opts ...http.CallOption) (rsp *UserInfoResponse, err error)
+	Login(ctx context.Context, req *LoginRequest, opts ...http.CallOption) (rsp *LoginResponse, err error)
 	PermissionInfo(ctx context.Context, req *PermissionInfoRequest, opts ...http.CallOption) (rsp *PermissionInfoResponse, err error)
 	PermissionList(ctx context.Context, req *PermissionListRequest, opts ...http.CallOption) (rsp *PermissionListResponse, err error)
 	RoleInfo(ctx context.Context, req *RoleInfoRequest, opts ...http.CallOption) (rsp *RoleInfoResponse, err error)
@@ -482,6 +505,19 @@ func (c *ChatAdminHTTPClientImpl) DeleteUser(ctx context.Context, in *DeleteUser
 	opts = append(opts, http.Operation(OperationChatAdminDeleteUser))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ChatAdminHTTPClientImpl) Login(ctx context.Context, in *LoginRequest, opts ...http.CallOption) (*LoginResponse, error) {
+	var out LoginResponse
+	pattern := "/admin/v1/login"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationChatAdminLogin))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}
