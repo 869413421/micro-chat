@@ -4,14 +4,42 @@ package api.chat.admin.v1;
 
 import "google/api/annotations.proto";
 import "validate/validate.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "github.com/869413421/micro-chat/api/chat/server/v1;v1";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info:{
+    title: "chat admin api"
+    version: "v1"
+    contact:{
+      name: "github.com/869413421/micro-chat/api/chat/server/v1"
+    }
+  };
+  security_definitions:{
+    security:{
+      key:"basicAuth",
+      value:{
+        type: TYPE_BASIC,
+        name: "Authorization", in: IN_HEADER,
+        description: "JWT"
+      };
+    };
+  };
+};
 
 service ChatAdmin {
   rpc Login (LoginRequest) returns (LoginResponse) {
     option (google.api.http) = {
       post: "/admin/v1/login"
       body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "登录",
+      description: "登录",
+      security : {
+        security_requirement:{key:"Authorization",value:{}};
+      };
     };
   }
 

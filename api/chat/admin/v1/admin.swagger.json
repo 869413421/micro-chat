@@ -1,8 +1,11 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "v1/admin.proto",
-    "version": "version not set"
+    "title": "chat admin api",
+    "version": "v1",
+    "contact": {
+      "name": "github.com/869413421/micro-chat/api/chat/server/v1"
+    }
   },
   "tags": [
     {
@@ -18,6 +21,8 @@
   "paths": {
     "/admin/v1/login": {
       "post": {
+        "summary": "登录",
+        "description": "登录",
         "operationId": "ChatAdmin_Login",
         "responses": {
           "200": {
@@ -45,6 +50,11 @@
         ],
         "tags": [
           "ChatAdmin"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
         ]
       }
     },
@@ -811,6 +821,14 @@
         }
       },
       "title": "用户列表响应"
+    }
+  },
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic",
+      "description": "JWT",
+      "name": "Authorization",
+      "in": "header"
     }
   }
 }
