@@ -40,7 +40,7 @@ func wireApp(confServer *conf.Server, confData *conf.Data, registry *conf.Regist
 	}
 	userRepo := data.NewUserRepo(dataData, casbinEnforcer, logger)
 	roleRepo := data.NewRoleRepo(dataData, casbinEnforcer, logger)
-	userUsecase := biz.NewUserUsecase(userRepo, roleRepo, logger)
+	userUsecase := biz.NewUserUsecase(userRepo, roleRepo, auth, logger)
 	roleUsecase := biz.NewRoleUsecase(roleRepo, logger)
 	permissionRepo := data.NewPermissionRepo(dataData, casbinEnforcer, logger)
 	permissionUsecase := biz.NewPermissionUsecase(permissionRepo, logger)

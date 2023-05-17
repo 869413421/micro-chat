@@ -35,8 +35,8 @@ func NewHTTPServer(c *conf.Server, ac *conf.Auth, svc *service.ChatAdmin, logger
 		opts = append(opts, http.Timeout(c.Http.Timeout.AsDuration()))
 	}
 	srv := http.NewServer(opts...)
-	openAPIhandler := openapiv2.NewHandler()
-	srv.HandlePrefix("/q/", openAPIhandler)
+	openAPIHandler := openapiv2.NewHandler()
+	srv.HandlePrefix("/q/", openAPIHandler)
 	v1.RegisterChatAdminHTTPServer(srv, svc)
 	return srv
 }
