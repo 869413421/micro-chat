@@ -17,17 +17,20 @@ func NewEnforcer(db *gorm.DB) (*casbin.Enforcer, error) {
 	}
 
 	m, err := model.NewModelFromString(`
-        [request_definition]
-        r = obj, act
-
-        [policy_definition]
-        p = obj, act, eft
-
-        [policy_effect]
-        e = some(where (p.eft == allow))
-
-        [matchers]
-        m = r.obj == p.obj && r.act == p.act
+       	[request_definition]
+		r = sub, obj, act
+		
+		[policy_definition]
+		p = sub, obj, act
+		
+		[role_definition]
+		g = _, _
+		
+		[policy_effect]
+		e = some(where (p.eft == allow))
+		
+		[matchers]
+		m = g(r.sub, p.sub) && r.obj == p.obj && r.act == p.act
     `)
 	if err != nil {
 		return nil, err

@@ -9,6 +9,7 @@ require (
 	github.com/go-kratos/kratos/contrib/registry/consul/v2 v2.0.0-20230424154814-520b321fe99b
 	github.com/go-kratos/kratos/v2 v2.6.1
 	github.com/go-kratos/swagger-api v1.0.1
+	github.com/golang-jwt/jwt/v4 v4.4.1
 	github.com/golang/mock v1.6.0
 	github.com/google/wire v0.5.0
 	github.com/hashicorp/consul/api v1.20.0

@@ -13,3 +13,5 @@ data:
     addr: redis:6379
     read_timeout: 0.2s
     write_timeout: 0.2s
+auth:
+  jwt_secret: micro-chat

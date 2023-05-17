@@ -3,13 +3,14 @@ package biz_test
 import (
 	"context"
 	"fmt"
-	"github.com/869413421/micro-chat/app/user/service/internal/biz"
 	"strconv"
 	"testing"
 
-	"github.com/869413421/micro-chat/app/user/service/internal/mocks/mrepo"
 	"github.com/golang/mock/gomock"
 	. "github.com/smartystreets/goconvey/convey"
+
+	"github.com/869413421/micro-chat/app/user/service/internal/biz"
+	"github.com/869413421/micro-chat/app/user/service/internal/mocks/mrepo"
 )
 
 func TestBizUserUsecaseCreate(t *testing.T) {
@@ -18,7 +19,7 @@ func TestBizUserUsecaseCreate(t *testing.T) {
 	ctx := context.Background()
 
 	mUserRepo := mrepo.NewMockUserRepo(ctrl)
-	userCase := biz.NewUserUsecase(mUserRepo, nil, nil)
+	userCase := biz.NewUserUsecase(mUserRepo, nil, nil, nil)
 
 	Convey("Testing Biz UserUsecase Create Method", t, func() {
 		userInfo := &biz.User{
@@ -43,7 +44,7 @@ func TestBizUserUsecaseUpdate(t *testing.T) {
 	ctx := context.Background()
 
 	mUserRepo := mrepo.NewMockUserRepo(ctrl)
-	userCase := biz.NewUserUsecase(mUserRepo, nil, nil)
+	userCase := biz.NewUserUsecase(mUserRepo, nil, nil, nil)
 
 	Convey("Testing Biz UserUsecase Update Method", t, func() {
 		userInfo := &biz.User{
@@ -68,7 +69,7 @@ func TestBizUserUsecaseDelete(t *testing.T) {
 	ctx := context.Background()
 
 	mUserRepo := mrepo.NewMockUserRepo(ctrl)
-	userCase := biz.NewUserUsecase(mUserRepo, nil, nil)
+	userCase := biz.NewUserUsecase(mUserRepo, nil, nil, nil)
 
 	Convey("Testing Biz UserUsecase Delete Method", t, func() {
 		userInfo := &biz.User{
@@ -93,7 +94,7 @@ func TestBizUserUsecaseGet(t *testing.T) {
 	ctx := context.Background()
 
 	mUserRepo := mrepo.NewMockUserRepo(ctrl)
-	userCase := biz.NewUserUsecase(mUserRepo, nil, nil)
+	userCase := biz.NewUserUsecase(mUserRepo, nil, nil, nil)
 
 	Convey("Testing Biz UserUsecase Get Method", t, func() {
 		userInfo := &biz.User{
@@ -119,7 +120,7 @@ func TestBizUserUsecaseList(t *testing.T) {
 	ctx := context.Background()
 
 	mUserRepo := mrepo.NewMockUserRepo(ctrl)
-	userCase := biz.NewUserUsecase(mUserRepo, nil, nil)
+	userCase := biz.NewUserUsecase(mUserRepo, nil, nil, nil)
 
 	Convey("Testing Biz UserUsecase List Method", t, func() {
 		var list []*biz.User

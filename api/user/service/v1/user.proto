@@ -27,6 +27,19 @@ service User {
   rpc SetUserRole (SetUserRoleRequest) returns (UserRoleResponse);
   rpc GetUserRole (GetUserRoleRequest) returns (UserRoleResponse);
   rpc DeleteUserRole (DeleteUserRoleRequest) returns (UserRoleResponse);
+
+  rpc Login (LoginRequest) returns (LoginResponse);
+}
+
+// LoginRequest 登录请求
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+// LoginResponse 登录响应
+message LoginResponse {
+  string token = 1;
 }
 
 // DeleteUserRoleRequest 删除用户角色请求

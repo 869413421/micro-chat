@@ -79,7 +79,13 @@ func main() {
 		panic(err)
 	}
 
-	app, cleanup, err := wireApp(bc.Server, bc.Data, &rc, logger)
+	// jwt
+	var ac conf.Auth
+	if err := c.Scan(&ac); err != nil {
+		panic(err)
+	}
+
+	app, cleanup, err := wireApp(bc.Server, bc.Data, &rc, &ac, logger)
 	if err != nil {
 		panic(err)
 	}

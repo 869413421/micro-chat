@@ -186,6 +186,53 @@ func (x *Data) GetRedis() *Data_Redis {
 	return nil
 }
 
+type Auth struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	JwtSecret string `protobuf:"bytes,1,opt,name=jwt_secret,json=jwtSecret,proto3" json:"jwt_secret,omitempty"`
+}
+
+func (x *Auth) Reset() {
+	*x = Auth{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_internal_conf_conf_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Auth) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Auth) ProtoMessage() {}
+
+func (x *Auth) ProtoReflect() protoreflect.Message {
+	mi := &file_internal_conf_conf_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Auth.ProtoReflect.Descriptor instead.
+func (*Auth) Descriptor() ([]byte, []int) {
+	return file_internal_conf_conf_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *Auth) GetJwtSecret() string {
+	if x != nil {
+		return x.JwtSecret
+	}
+	return ""
+}
+
 type Registry struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -197,7 +244,7 @@ type Registry struct {
 func (x *Registry) Reset() {
 	*x = Registry{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_internal_conf_conf_proto_msgTypes[3]
+		mi := &file_internal_conf_conf_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -210,7 +257,7 @@ func (x *Registry) String() string {
 func (*Registry) ProtoMessage() {}
 
 func (x *Registry) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_conf_conf_proto_msgTypes[3]
+	mi := &file_internal_conf_conf_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -223,7 +270,7 @@ func (x *Registry) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Registry.ProtoReflect.Descriptor instead.
 func (*Registry) Descriptor() ([]byte, []int) {
-	return file_internal_conf_conf_proto_rawDescGZIP(), []int{3}
+	return file_internal_conf_conf_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *Registry) GetConsul() *Registry_Consul {
@@ -246,7 +293,7 @@ type Server_HTTP struct {
 func (x *Server_HTTP) Reset() {
 	*x = Server_HTTP{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_internal_conf_conf_proto_msgTypes[4]
+		mi := &file_internal_conf_conf_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -259,7 +306,7 @@ func (x *Server_HTTP) String() string {
 func (*Server_HTTP) ProtoMessage() {}
 
 func (x *Server_HTTP) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_conf_conf_proto_msgTypes[4]
+	mi := &file_internal_conf_conf_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -309,7 +356,7 @@ type Server_GRPC struct {
 func (x *Server_GRPC) Reset() {
 	*x = Server_GRPC{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_internal_conf_conf_proto_msgTypes[5]
+		mi := &file_internal_conf_conf_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -322,7 +369,7 @@ func (x *Server_GRPC) String() string {
 func (*Server_GRPC) ProtoMessage() {}
 
 func (x *Server_GRPC) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_conf_conf_proto_msgTypes[5]
+	mi := &file_internal_conf_conf_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -371,7 +418,7 @@ type Data_Database struct {
 func (x *Data_Database) Reset() {
 	*x = Data_Database{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_internal_conf_conf_proto_msgTypes[6]
+		mi := &file_internal_conf_conf_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -384,7 +431,7 @@ func (x *Data_Database) String() string {
 func (*Data_Database) ProtoMessage() {}
 
 func (x *Data_Database) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_conf_conf_proto_msgTypes[6]
+	mi := &file_internal_conf_conf_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -428,7 +475,7 @@ type Data_Redis struct {
 func (x *Data_Redis) Reset() {
 	*x = Data_Redis{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_internal_conf_conf_proto_msgTypes[7]
+		mi := &file_internal_conf_conf_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -441,7 +488,7 @@ func (x *Data_Redis) String() string {
 func (*Data_Redis) ProtoMessage() {}
 
 func (x *Data_Redis) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_conf_conf_proto_msgTypes[7]
+	mi := &file_internal_conf_conf_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -497,7 +544,7 @@ type Registry_Consul struct {
 func (x *Registry_Consul) Reset() {
 	*x = Registry_Consul{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_internal_conf_conf_proto_msgTypes[8]
+		mi := &file_internal_conf_conf_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -510,7 +557,7 @@ func (x *Registry_Consul) String() string {
 func (*Registry_Consul) ProtoMessage() {}
 
 func (x *Registry_Consul) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_conf_conf_proto_msgTypes[8]
+	mi := &file_internal_conf_conf_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -523,7 +570,7 @@ func (x *Registry_Consul) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Registry_Consul.ProtoReflect.Descriptor instead.
 func (*Registry_Consul) Descriptor() ([]byte, []int) {
-	return file_internal_conf_conf_proto_rawDescGZIP(), []int{3, 0}
+	return file_internal_conf_conf_proto_rawDescGZIP(), []int{4, 0}
 }
 
 func (x *Registry_Consul) GetAddress() string {
@@ -595,17 +642,19 @@ var file_internal_conf_conf_proto_rawDesc = []byte{
 	0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65,
 	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x44, 0x75, 0x72, 0x61, 0x74, 0x69,
 	0x6f, 0x6e, 0x52, 0x0c, 0x77, 0x72, 0x69, 0x74, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x6f, 0x75, 0x74,
-	0x22, 0x7b, 0x0a, 0x08, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x72, 0x79, 0x12, 0x33, 0x0a, 0x06,
-	0x63, 0x6f, 0x6e, 0x73, 0x75, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x6b,
-	0x72, 0x61, 0x74, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74,
-	0x72, 0x79, 0x2e, 0x43, 0x6f, 0x6e, 0x73, 0x75, 0x6c, 0x52, 0x06, 0x63, 0x6f, 0x6e, 0x73, 0x75,
-	0x6c, 0x1a, 0x3a, 0x0a, 0x06, 0x43, 0x6f, 0x6e, 0x73, 0x75, 0x6c, 0x12, 0x18, 0x0a, 0x07, 0x61,
-	0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x61, 0x64,
-	0x64, 0x72, 0x65, 0x73, 0x73, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x65, 0x18,
-	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x65, 0x42, 0x1e, 0x5a,
-	0x1c, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2d, 0x64, 0x62, 0x2f, 0x69, 0x6e, 0x74, 0x65, 0x72,
-	0x6e, 0x61, 0x6c, 0x2f, 0x63, 0x6f, 0x6e, 0x66, 0x3b, 0x63, 0x6f, 0x6e, 0x66, 0x62, 0x06, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x22, 0x25, 0x0a, 0x04, 0x41, 0x75, 0x74, 0x68, 0x12, 0x1d, 0x0a, 0x0a, 0x6a, 0x77, 0x74, 0x5f,
+	0x73, 0x65, 0x63, 0x72, 0x65, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x6a, 0x77,
+	0x74, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x22, 0x7b, 0x0a, 0x08, 0x52, 0x65, 0x67, 0x69, 0x73,
+	0x74, 0x72, 0x79, 0x12, 0x33, 0x0a, 0x06, 0x63, 0x6f, 0x6e, 0x73, 0x75, 0x6c, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x72, 0x79, 0x2e, 0x43, 0x6f, 0x6e, 0x73, 0x75, 0x6c,
+	0x52, 0x06, 0x63, 0x6f, 0x6e, 0x73, 0x75, 0x6c, 0x1a, 0x3a, 0x0a, 0x06, 0x43, 0x6f, 0x6e, 0x73,
+	0x75, 0x6c, 0x12, 0x18, 0x0a, 0x07, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x07, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x12, 0x16, 0x0a, 0x06,
+	0x73, 0x63, 0x68, 0x65, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x63,
+	0x68, 0x65, 0x6d, 0x65, 0x42, 0x1e, 0x5a, 0x1c, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2d, 0x64,
+	0x62, 0x2f, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x2f, 0x63, 0x6f, 0x6e, 0x66, 0x3b,
+	0x63, 0x6f, 0x6e, 0x66, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -620,31 +669,32 @@ func file_internal_conf_conf_proto_rawDescGZIP() []byte {
 	return file_internal_conf_conf_proto_rawDescData
 }
 
-var file_internal_conf_conf_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_internal_conf_conf_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_internal_conf_conf_proto_goTypes = []interface{}{
 	(*Bootstrap)(nil),           // 0: kratos.api.Bootstrap
 	(*Server)(nil),              // 1: kratos.api.Server
 	(*Data)(nil),                // 2: kratos.api.Data
-	(*Registry)(nil),            // 3: kratos.api.Registry
-	(*Server_HTTP)(nil),         // 4: kratos.api.Server.HTTP
-	(*Server_GRPC)(nil),         // 5: kratos.api.Server.GRPC
-	(*Data_Database)(nil),       // 6: kratos.api.Data.Database
-	(*Data_Redis)(nil),          // 7: kratos.api.Data.Redis
-	(*Registry_Consul)(nil),     // 8: kratos.api.Registry.Consul
-	(*durationpb.Duration)(nil), // 9: google.protobuf.Duration
+	(*Auth)(nil),                // 3: kratos.api.Auth
+	(*Registry)(nil),            // 4: kratos.api.Registry
+	(*Server_HTTP)(nil),         // 5: kratos.api.Server.HTTP
+	(*Server_GRPC)(nil),         // 6: kratos.api.Server.GRPC
+	(*Data_Database)(nil),       // 7: kratos.api.Data.Database
+	(*Data_Redis)(nil),          // 8: kratos.api.Data.Redis
+	(*Registry_Consul)(nil),     // 9: kratos.api.Registry.Consul
+	(*durationpb.Duration)(nil), // 10: google.protobuf.Duration
 }
 var file_internal_conf_conf_proto_depIdxs = []int32{
 	1,  // 0: kratos.api.Bootstrap.server:type_name -> kratos.api.Server
 	2,  // 1: kratos.api.Bootstrap.data:type_name -> kratos.api.Data
-	4,  // 2: kratos.api.Server.http:type_name -> kratos.api.Server.HTTP
-	5,  // 3: kratos.api.Server.grpc:type_name -> kratos.api.Server.GRPC
-	6,  // 4: kratos.api.Data.database:type_name -> kratos.api.Data.Database
-	7,  // 5: kratos.api.Data.redis:type_name -> kratos.api.Data.Redis
-	8,  // 6: kratos.api.Registry.consul:type_name -> kratos.api.Registry.Consul
-	9,  // 7: kratos.api.Server.HTTP.timeout:type_name -> google.protobuf.Duration
-	9,  // 8: kratos.api.Server.GRPC.timeout:type_name -> google.protobuf.Duration
-	9,  // 9: kratos.api.Data.Redis.read_timeout:type_name -> google.protobuf.Duration
-	9,  // 10: kratos.api.Data.Redis.write_timeout:type_name -> google.protobuf.Duration
+	5,  // 2: kratos.api.Server.http:type_name -> kratos.api.Server.HTTP
+	6,  // 3: kratos.api.Server.grpc:type_name -> kratos.api.Server.GRPC
+	7,  // 4: kratos.api.Data.database:type_name -> kratos.api.Data.Database
+	8,  // 5: kratos.api.Data.redis:type_name -> kratos.api.Data.Redis
+	9,  // 6: kratos.api.Registry.consul:type_name -> kratos.api.Registry.Consul
+	10, // 7: kratos.api.Server.HTTP.timeout:type_name -> google.protobuf.Duration
+	10, // 8: kratos.api.Server.GRPC.timeout:type_name -> google.protobuf.Duration
+	10, // 9: kratos.api.Data.Redis.read_timeout:type_name -> google.protobuf.Duration
+	10, // 10: kratos.api.Data.Redis.write_timeout:type_name -> google.protobuf.Duration
 	11, // [11:11] is the sub-list for method output_type
 	11, // [11:11] is the sub-list for method input_type
 	11, // [11:11] is the sub-list for extension type_name
@@ -695,7 +745,7 @@ func file_internal_conf_conf_proto_init() {
 			}
 		}
 		file_internal_conf_conf_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Registry); i {
+			switch v := v.(*Auth); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -707,7 +757,7 @@ func file_internal_conf_conf_proto_init() {
 			}
 		}
 		file_internal_conf_conf_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Server_HTTP); i {
+			switch v := v.(*Registry); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -719,7 +769,7 @@ func file_internal_conf_conf_proto_init() {
 			}
 		}
 		file_internal_conf_conf_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Server_GRPC); i {
+			switch v := v.(*Server_HTTP); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -731,7 +781,7 @@ func file_internal_conf_conf_proto_init() {
 			}
 		}
 		file_internal_conf_conf_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Data_Database); i {
+			switch v := v.(*Server_GRPC); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -743,7 +793,7 @@ func file_internal_conf_conf_proto_init() {
 			}
 		}
 		file_internal_conf_conf_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Data_Redis); i {
+			switch v := v.(*Data_Database); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -755,6 +805,18 @@ func file_internal_conf_conf_proto_init() {
 			}
 		}
 		file_internal_conf_conf_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Data_Redis); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_internal_conf_conf_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Registry_Consul); i {
 			case 0:
 				return &v.state
@@ -773,7 +835,7 @@ func file_internal_conf_conf_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_internal_conf_conf_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

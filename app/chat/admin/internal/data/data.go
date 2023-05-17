@@ -33,6 +33,7 @@ func NewData(c *conf.Data, logger log.Logger, uc v1.UserClient) (*Data, func(), 
 	return &Data{log: l, uc: uc}, cleanup, nil
 }
 
+// NewDiscovery 服务发现
 func NewDiscovery(conf *conf.Registry) registry.Discovery {
 	c := consulAPI.DefaultConfig()
 	c.Address = conf.Consul.Address
@@ -45,6 +46,7 @@ func NewDiscovery(conf *conf.Registry) registry.Discovery {
 	return r
 }
 
+// NewRegistrar 服务注册
 func NewRegistrar(conf *conf.Registry) registry.Registrar {
 	c := consulAPI.DefaultConfig()
 	c.Address = conf.Consul.Address

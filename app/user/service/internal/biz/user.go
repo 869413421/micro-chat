@@ -3,7 +3,12 @@ package biz
 import (
 	"context"
 	v1 "github.com/869413421/micro-chat/api/user/service/v1"
+	"github.com/869413421/micro-chat/app/user/service/internal/conf"
+	"github.com/869413421/micro-chat/pkg/auth"
+	password2 "github.com/869413421/micro-chat/pkg/password"
 	"github.com/go-kratos/kratos/v2/log"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 var _ UserUsecase = (*userUsecase)(nil)
@@ -56,19 +61,40 @@ type UserUsecase interface {
 	Delete(ctx context.Context, id uint64) (*User, error)
 	Get(ctx context.Context, where map[string]interface{}) (*User, error)
 	List(ctx context.Context, where map[string]interface{}, page, pageSize int64) ([]*User, int64, error)
+	Login(ctx context.Context, email, password string) (string, error)
 	//SetUserRole(ctx context.Context, userId uint64, roleIds []uint64) ([]Role, error)
 }
 
 // UserUsecase 用户业务逻辑接口
 type userUsecase struct {
-	repo     UserRepo
-	roleRepo RoleRepo
-	log      *log.Helper
+	jwtSecret string
+	repo      UserRepo
+	roleRepo  RoleRepo
+	log       *log.Helper
 }
 
 // NewUserUsecase 创建用户业务逻辑
-func NewUserUsecase(repo UserRepo, roleRepo RoleRepo, logger log.Logger) UserUsecase {
-	return &userUsecase{repo: repo, roleRepo: roleRepo, log: log.NewHelper(log.With(logger, "module", "usecase/user"))}
+func NewUserUsecase(repo UserRepo, roleRepo RoleRepo, ac *conf.Auth, logger log.Logger) UserUsecase {
+	return &userUsecase{repo: repo, roleRepo: roleRepo, jwtSecret: ac.JwtSecret, log: log.NewHelper(log.With(logger, "module", "usecase/user"))}
+}
+
+// Login 用户登录
+func (uc *userUsecase) Login(ctx context.Context, email, password string) (string, error) {
+	// 获取用户信息
+	user, err := uc.repo.GetUser(ctx, map[string]interface{}{"email": email})
+	if err != nil {
+		return "", err
+	}
+
+	// 验证密码
+	if password2.CheckHash(password, user.Password) == false {
+		return "", status.Errorf(codes.Unauthenticated, "密码错误")
+	}
+	token, err := auth.GenerateToken(user.ID, user.Name, uc.jwtSecret)
+	if err != nil {
+		return "", err
+	}
+	return token, nil
 }
 
 // Create 创建用户
