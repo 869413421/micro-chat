@@ -50,6 +50,21 @@ func (mr *MockUserRepoMockRecorder) CreateUser(arg0, arg1 interface{}) *gomock.C
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockUserRepo)(nil).CreateUser), arg0, arg1)
 }
 
+// CreateUserRole mocks base method.
+func (m *MockUserRepo) CreateUserRole(ctx context.Context, ur *biz.UserRole) (*biz.UserRole, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateUserRole", ctx, ur)
+	ret0, _ := ret[0].(*biz.UserRole)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateUserRole indicates an expected call of CreateUserRole.
+func (mr *MockUserRepoMockRecorder) CreateUserRole(ctx, ur interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUserRole", reflect.TypeOf((*MockUserRepo)(nil).CreateUserRole), ctx, ur)
+}
+
 // DeleteUser mocks base method.
 func (m *MockUserRepo) DeleteUser(arg0 context.Context, arg1 uint64) (*biz.User, error) {
 	m.ctrl.T.Helper()
@@ -63,6 +78,20 @@ func (m *MockUserRepo) DeleteUser(arg0 context.Context, arg1 uint64) (*biz.User,
 func (mr *MockUserRepoMockRecorder) DeleteUser(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteUser", reflect.TypeOf((*MockUserRepo)(nil).DeleteUser), arg0, arg1)
+}
+
+// DeleteUserRole mocks base method.
+func (m *MockUserRepo) DeleteUserRole(ctx context.Context, id uint64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteUserRole", ctx, id)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteUserRole indicates an expected call of DeleteUserRole.
+func (mr *MockUserRepoMockRecorder) DeleteUserRole(ctx, id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteUserRole", reflect.TypeOf((*MockUserRepo)(nil).DeleteUserRole), ctx, id)
 }
 
 // GetUser mocks base method.
@@ -94,6 +123,21 @@ func (m *MockUserRepo) ListUser(ctx context.Context, where map[string]interface{
 func (mr *MockUserRepoMockRecorder) ListUser(ctx, where, page, pageSize interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListUser", reflect.TypeOf((*MockUserRepo)(nil).ListUser), ctx, where, page, pageSize)
+}
+
+// QueryUserRole mocks base method.
+func (m *MockUserRepo) QueryUserRole(ctx context.Context, where map[string]interface{}) (*biz.UserRole, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "QueryUserRole", ctx, where)
+	ret0, _ := ret[0].(*biz.UserRole)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// QueryUserRole indicates an expected call of QueryUserRole.
+func (mr *MockUserRepoMockRecorder) QueryUserRole(ctx, where interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "QueryUserRole", reflect.TypeOf((*MockUserRepo)(nil).QueryUserRole), ctx, where)
 }
 
 // UpdateUser mocks base method.
@@ -149,6 +193,21 @@ func (mr *MockUserUsecaseMockRecorder) Create(ctx, user interface{}) *gomock.Cal
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockUserUsecase)(nil).Create), ctx, user)
 }
 
+// CreateToken mocks base method.
+func (m *MockUserUsecase) CreateToken(ctx context.Context, email, password string) (string, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateToken", ctx, email, password)
+	ret0, _ := ret[0].(string)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateToken indicates an expected call of CreateToken.
+func (mr *MockUserUsecaseMockRecorder) CreateToken(ctx, email, password interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateToken", reflect.TypeOf((*MockUserUsecase)(nil).CreateToken), ctx, email, password)
+}
+
 // Delete mocks base method.
 func (m *MockUserUsecase) Delete(ctx context.Context, id uint64) (*biz.User, error) {
 	m.ctrl.T.Helper()
@@ -162,6 +221,20 @@ func (m *MockUserUsecase) Delete(ctx context.Context, id uint64) (*biz.User, err
 func (mr *MockUserUsecaseMockRecorder) Delete(ctx, id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockUserUsecase)(nil).Delete), ctx, id)
+}
+
+// DeleteUserRole mocks base method.
+func (m *MockUserUsecase) DeleteUserRole(ctx context.Context, userId uint64, roleIds []uint64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteUserRole", ctx, userId, roleIds)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteUserRole indicates an expected call of DeleteUserRole.
+func (mr *MockUserUsecaseMockRecorder) DeleteUserRole(ctx, userId, roleIds interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteUserRole", reflect.TypeOf((*MockUserUsecase)(nil).DeleteUserRole), ctx, userId, roleIds)
 }
 
 // Get mocks base method.
@@ -193,6 +266,20 @@ func (m *MockUserUsecase) List(ctx context.Context, where map[string]interface{}
 func (mr *MockUserUsecaseMockRecorder) List(ctx, where, page, pageSize interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "List", reflect.TypeOf((*MockUserUsecase)(nil).List), ctx, where, page, pageSize)
+}
+
+// SetUserRole mocks base method.
+func (m *MockUserUsecase) SetUserRole(ctx context.Context, userId uint64, roleIds []uint64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SetUserRole", ctx, userId, roleIds)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// SetUserRole indicates an expected call of SetUserRole.
+func (mr *MockUserUsecaseMockRecorder) SetUserRole(ctx, userId, roleIds interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetUserRole", reflect.TypeOf((*MockUserUsecase)(nil).SetUserRole), ctx, userId, roleIds)
 }
 
 // Update mocks base method.

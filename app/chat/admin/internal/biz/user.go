@@ -23,6 +23,8 @@ type UserRepo interface {
 	Delete(ctx context.Context, id uint64) (*User, error)
 	List(ctx context.Context, where map[string]interface{}, page, pageSize int64) ([]*User, int64, error)
 	CreateToken(ctx context.Context, email, password string) (string, error)
+	SetUserRole(ctx context.Context, userID uint64, roleIds []uint64) error
+	DeleteUserRole(ctx context.Context, userID uint64, roleIds []uint64) error
 }
 
 type UserUsecase interface {
@@ -32,6 +34,8 @@ type UserUsecase interface {
 	Get(ctx context.Context, request *v1.UserInfoRequest) (*User, error)
 	List(ctx context.Context, request *v1.UserListRequest) ([]*User, int64, error)
 	Login(ctx context.Context, request *v1.LoginRequest) (string, error)
+	SetUserRole(ctx context.Context, request *v1.SetUserRoleRequest) error
+	DeleteUserRole(ctx context.Context, request *v1.DeleteUserRoleRequest) error
 }
 
 type userUsecase struct {
@@ -91,4 +95,14 @@ func (u *userUsecase) Get(ctx context.Context, request *v1.UserInfoRequest) (*Us
 // List 获取用户列表
 func (u *userUsecase) List(ctx context.Context, request *v1.UserListRequest) ([]*User, int64, error) {
 	return u.repo.List(ctx, map[string]interface{}{}, request.Page, request.PageSize)
+}
+
+// SetUserRole 设置用户角色
+func (u *userUsecase) SetUserRole(ctx context.Context, request *v1.SetUserRoleRequest) error {
+	return u.repo.SetUserRole(ctx, request.UserId, request.RoleIds)
+}
+
+// DeleteUserRole 删除用户角色
+func (u *userUsecase) DeleteUserRole(ctx context.Context, request *v1.DeleteUserRoleRequest) error {
+	return u.repo.DeleteUserRole(ctx, request.UserId, request.RoleIds)
 }

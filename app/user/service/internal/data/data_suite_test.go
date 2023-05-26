@@ -1,14 +1,13 @@
 package data_test
 
 import (
-	"github.com/869413421/micro-chat/app/user/service/internal/data/ent/schema"
+	"github.com/869413421/micro-chat/app/user/service/internal/data/orm/schema"
 	"github.com/go-kratos/kratos/v2/log"
 	"gorm.io/gorm"
 
 	"github.com/869413421/micro-chat/app/user/service/internal/biz"
 	"github.com/869413421/micro-chat/app/user/service/internal/conf"
 	"github.com/869413421/micro-chat/app/user/service/internal/data"
-	"github.com/869413421/micro-chat/pkg/enforcer"
 )
 
 var userRepo biz.UserRepo
@@ -24,11 +23,11 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	enforcer, _ := enforcer.NewEnforcer(db)
+
 	newData, _, _ := data.NewData(config, nil, db)
-	userRepo = data.NewUserRepo(newData, enforcer, nil)
-	roleRepo = data.NewRoleRepo(newData, enforcer, nil)
-	permissionRepo = data.NewPermissionRepo(newData, enforcer, nil)
+	userRepo, _ = data.NewUserRepo(newData, nil)
+	roleRepo, _ = data.NewRoleRepo(newData, nil)
+	permissionRepo, _ = data.NewPermissionRepo(newData, nil)
 }
 
 // run 闭包用于删除测试数据

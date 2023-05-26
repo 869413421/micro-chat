@@ -5,6 +5,7 @@ import (
 	v1 "github.com/869413421/micro-chat/api/user/service/v1"
 	"github.com/869413421/micro-chat/app/user/service/internal/conf"
 	"github.com/869413421/micro-chat/pkg/auth"
+	"github.com/869413421/micro-chat/pkg/enforcer"
 	password2 "github.com/869413421/micro-chat/pkg/password"
 	"github.com/go-kratos/kratos/v2/log"
 	"google.golang.org/grpc/codes"
@@ -51,6 +52,9 @@ type UserRepo interface {
 	DeleteUser(context.Context, uint64) (*User, error)
 	GetUser(context.Context, map[string]interface{}) (*User, error)
 	ListUser(ctx context.Context, where map[string]interface{}, page, pageSize int64) ([]*User, int64, error)
+	QueryUserRole(ctx context.Context, where map[string]interface{}) (*UserRole, error)
+	CreateUserRole(ctx context.Context, ur *UserRole) (*UserRole, error)
+	DeleteUserRole(ctx context.Context, id uint64) error
 }
 
 // UserUsecase 用户业务逻辑接口
@@ -62,7 +66,8 @@ type UserUsecase interface {
 	Get(ctx context.Context, where map[string]interface{}) (*User, error)
 	List(ctx context.Context, where map[string]interface{}, page, pageSize int64) ([]*User, int64, error)
 	CreateToken(ctx context.Context, email, password string) (string, error)
-	//SetUserRole(ctx context.Context, userId uint64, roleIds []uint64) ([]Role, error)
+	SetUserRole(ctx context.Context, userId uint64, roleIds []uint64) error
+	DeleteUserRole(ctx context.Context, userId uint64, roleIds []uint64) error
 }
 
 // UserUsecase 用户业务逻辑接口
@@ -120,4 +125,85 @@ func (uc *userUsecase) Get(ctx context.Context, where map[string]interface{}) (*
 // List 获取用户列表
 func (uc *userUsecase) List(ctx context.Context, where map[string]interface{}, page, pageSize int64) ([]*User, int64, error) {
 	return uc.repo.ListUser(ctx, where, page, pageSize)
+}
+
+// SetUserRole 设置用户角色
+func (uc *userUsecase) SetUserRole(ctx context.Context, userId uint64, roleIds []uint64) error {
+	user, err := uc.repo.GetUser(ctx, map[string]interface{}{"id = ": userId})
+	if err != nil {
+		return err
+	}
+
+	roles, err := uc.roleRepo.Query(ctx, map[string]interface{}{"id in ": roleIds})
+	if err != nil {
+		return err
+	}
+
+	enf, err := enforcer.GetSyncedEnforcer()
+	if err != nil {
+		return err
+	}
+
+	for _, role := range roles {
+		_, err := uc.repo.QueryUserRole(ctx, map[string]interface{}{"user_id = ": user.ID, "role_id = ": role.ID})
+		if err != nil {
+			st, _ := status.FromError(err)
+			if st.Code() == codes.NotFound {
+				// 新增
+				_, err := uc.repo.CreateUserRole(ctx, &UserRole{UserID: user.ID, RoleID: role.ID})
+				if err != nil {
+					return err
+				}
+				_, err = enf.AddRoleForUser(user.Name, role.Name)
+				if err != nil {
+					return err
+				}
+			} else {
+				return err
+			}
+		}
+	}
+
+	return nil
+}
+
+// DeleteUserRole 设置用户角色
+func (uc *userUsecase) DeleteUserRole(ctx context.Context, userId uint64, roleIds []uint64) error {
+	user, err := uc.repo.GetUser(ctx, map[string]interface{}{"id = ": userId})
+	if err != nil {
+		return err
+	}
+
+	roles, err := uc.roleRepo.Query(ctx, map[string]interface{}{"id in ": roleIds})
+	if err != nil {
+		return err
+	}
+
+	enf, err := enforcer.GetSyncedEnforcer()
+	if err != nil {
+		return err
+	}
+
+	for _, role := range roles {
+		userRole, err := uc.repo.QueryUserRole(ctx, map[string]interface{}{"user_id = ": user.ID, "role_id = ": role.ID})
+		if err != nil {
+			st, _ := status.FromError(err)
+			if st.Code() == codes.NotFound {
+				continue
+			} else {
+				return err
+			}
+		}
+		err = uc.repo.DeleteUserRole(ctx, userRole.ID)
+		if err != nil {
+			return err
+		}
+
+		_, err = enf.DeleteRoleForUser(user.Name, role.Name)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

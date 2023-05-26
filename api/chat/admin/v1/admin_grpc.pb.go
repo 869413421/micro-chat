@@ -35,6 +35,8 @@ const (
 	ChatAdmin_DeletePermission_FullMethodName = "/api.chat.admin.v1.ChatAdmin/DeletePermission"
 	ChatAdmin_PermissionInfo_FullMethodName   = "/api.chat.admin.v1.ChatAdmin/PermissionInfo"
 	ChatAdmin_PermissionList_FullMethodName   = "/api.chat.admin.v1.ChatAdmin/PermissionList"
+	ChatAdmin_SetUserRole_FullMethodName      = "/api.chat.admin.v1.ChatAdmin/SetUserRole"
+	ChatAdmin_DeleteUserRole_FullMethodName   = "/api.chat.admin.v1.ChatAdmin/DeleteUserRole"
 )
 
 // ChatAdminClient is the client API for ChatAdmin service.
@@ -57,6 +59,8 @@ type ChatAdminClient interface {
 	DeletePermission(ctx context.Context, in *DeletePermissionRequest, opts ...grpc.CallOption) (*PermissionInfoResponse, error)
 	PermissionInfo(ctx context.Context, in *PermissionInfoRequest, opts ...grpc.CallOption) (*PermissionInfoResponse, error)
 	PermissionList(ctx context.Context, in *PermissionListRequest, opts ...grpc.CallOption) (*PermissionListResponse, error)
+	SetUserRole(ctx context.Context, in *SetUserRoleRequest, opts ...grpc.CallOption) (*SetUserRoleResponse, error)
+	DeleteUserRole(ctx context.Context, in *DeleteUserRoleRequest, opts ...grpc.CallOption) (*DeleteUserRoleResponse, error)
 }
 
 type chatAdminClient struct {
@@ -211,6 +215,24 @@ func (c *chatAdminClient) PermissionList(ctx context.Context, in *PermissionList
 	return out, nil
 }
 
+func (c *chatAdminClient) SetUserRole(ctx context.Context, in *SetUserRoleRequest, opts ...grpc.CallOption) (*SetUserRoleResponse, error) {
+	out := new(SetUserRoleResponse)
+	err := c.cc.Invoke(ctx, ChatAdmin_SetUserRole_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *chatAdminClient) DeleteUserRole(ctx context.Context, in *DeleteUserRoleRequest, opts ...grpc.CallOption) (*DeleteUserRoleResponse, error) {
+	out := new(DeleteUserRoleResponse)
+	err := c.cc.Invoke(ctx, ChatAdmin_DeleteUserRole_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ChatAdminServer is the server API for ChatAdmin service.
 // All implementations must embed UnimplementedChatAdminServer
 // for forward compatibility
@@ -231,6 +253,8 @@ type ChatAdminServer interface {
 	DeletePermission(context.Context, *DeletePermissionRequest) (*PermissionInfoResponse, error)
 	PermissionInfo(context.Context, *PermissionInfoRequest) (*PermissionInfoResponse, error)
 	PermissionList(context.Context, *PermissionListRequest) (*PermissionListResponse, error)
+	SetUserRole(context.Context, *SetUserRoleRequest) (*SetUserRoleResponse, error)
+	DeleteUserRole(context.Context, *DeleteUserRoleRequest) (*DeleteUserRoleResponse, error)
 	mustEmbedUnimplementedChatAdminServer()
 }
 
@@ -285,6 +309,12 @@ func (UnimplementedChatAdminServer) PermissionInfo(context.Context, *PermissionI
 }
 func (UnimplementedChatAdminServer) PermissionList(context.Context, *PermissionListRequest) (*PermissionListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PermissionList not implemented")
+}
+func (UnimplementedChatAdminServer) SetUserRole(context.Context, *SetUserRoleRequest) (*SetUserRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetUserRole not implemented")
+}
+func (UnimplementedChatAdminServer) DeleteUserRole(context.Context, *DeleteUserRoleRequest) (*DeleteUserRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteUserRole not implemented")
 }
 func (UnimplementedChatAdminServer) mustEmbedUnimplementedChatAdminServer() {}
 
@@ -587,6 +617,42 @@ func _ChatAdmin_PermissionList_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ChatAdmin_SetUserRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetUserRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChatAdminServer).SetUserRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ChatAdmin_SetUserRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChatAdminServer).SetUserRole(ctx, req.(*SetUserRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ChatAdmin_DeleteUserRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteUserRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChatAdminServer).DeleteUserRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ChatAdmin_DeleteUserRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChatAdminServer).DeleteUserRole(ctx, req.(*DeleteUserRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ChatAdmin_ServiceDesc is the grpc.ServiceDesc for ChatAdmin service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -657,6 +723,14 @@ var ChatAdmin_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PermissionList",
 			Handler:    _ChatAdmin_PermissionList_Handler,
+		},
+		{
+			MethodName: "SetUserRole",
+			Handler:    _ChatAdmin_SetUserRole_Handler,
+		},
+		{
+			MethodName: "DeleteUserRole",
+			Handler:    _ChatAdmin_DeleteUserRole_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

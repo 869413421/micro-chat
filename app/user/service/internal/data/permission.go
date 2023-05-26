@@ -3,6 +3,7 @@ package data
 import (
 	"context"
 	"fmt"
+	"github.com/869413421/micro-chat/pkg/enforcer"
 
 	"github.com/casbin/casbin/v2"
 	"github.com/go-kratos/kratos/v2/log"
@@ -10,7 +11,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/869413421/micro-chat/app/user/service/internal/biz"
-	"github.com/869413421/micro-chat/app/user/service/internal/data/ent/schema"
+	"github.com/869413421/micro-chat/app/user/service/internal/data/orm/schema"
 )
 
 var _ biz.PermissionRepo = (*permissionRepo)(nil)
@@ -18,17 +19,21 @@ var _ biz.PermissionRepo = (*permissionRepo)(nil)
 // permissionRepo 数据库操作层
 type permissionRepo struct {
 	data     *Data
-	enforcer *casbin.Enforcer
+	enforcer *casbin.SyncedEnforcer
 	log      *log.Helper
 }
 
 // NewPermissionRepo 新建DAO操作仓库
-func NewPermissionRepo(data *Data, enforcer *casbin.Enforcer, logger log.Logger) biz.PermissionRepo {
+func NewPermissionRepo(data *Data, logger log.Logger) (biz.PermissionRepo, error) {
+	syncedEnforcer, err := enforcer.GetSyncedEnforcer()
+	if err != nil {
+		return nil, err
+	}
 	return &permissionRepo{
 		data:     data,
-		enforcer: enforcer,
+		enforcer: syncedEnforcer,
 		log:      log.NewHelper(log.With(logger, "module", "repo/permission")),
-	}
+	}, nil
 }
 
 // Create 创建权限

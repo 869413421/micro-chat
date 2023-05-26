@@ -24,11 +24,20 @@ service User {
   rpc GetPermission (GetPermissionRequest) returns (PermissionInfoResponse);
   rpc ListPermission (ListPermissionRequest) returns (ListPermissionResponse);
 
-  rpc SetUserRole (SetUserRoleRequest) returns (UserRoleResponse);
-  rpc GetUserRole (GetUserRoleRequest) returns (UserRoleResponse);
-  rpc DeleteUserRole (DeleteUserRoleRequest) returns (UserRoleResponse);
+  rpc SetUserRole (SetUserRoleRequest) returns (SetUserRoleResponse);
+  rpc DeleteUserRole (DeleteUserRoleRequest) returns (DeleteUserRoleResponse);
 
   rpc CreateToken (CreateTokenRequest) returns (CreateTokenResponse);
+}
+
+// SetUserRoleResponse 设置用户角色响应
+message SetUserRoleResponse {
+  bool ok = 1;
+}
+
+// DeleteUserRoleResponse 删除用户角色响应
+message DeleteUserRoleResponse {
+  bool ok = 1;
 }
 
 // CreateTokenRequest 创建TOKEN请求

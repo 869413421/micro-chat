@@ -1,7 +1,6 @@
 package data
 
 import (
-	schema2 "github.com/869413421/micro-chat/app/user/service/internal/data/ent/schema"
 	slog "log"
 	"os"
 	"time"
@@ -14,6 +13,7 @@ import (
 	"gorm.io/gorm/schema"
 
 	"github.com/869413421/micro-chat/app/user/service/internal/conf"
+	schema2 "github.com/869413421/micro-chat/app/user/service/internal/data/orm/schema"
 )
 
 // ProviderSet is data providers.

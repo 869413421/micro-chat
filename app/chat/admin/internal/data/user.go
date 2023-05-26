@@ -97,6 +97,30 @@ func (u *userRepo) CreateToken(ctx context.Context, email, password string) (str
 	return response.Token, nil
 }
 
+// SetUserRole 设置用户角色
+func (u *userRepo) SetUserRole(ctx context.Context, userID uint64, roleIds []uint64) error {
+	_, err := u.data.uc.SetUserRole(ctx, &v1.SetUserRoleRequest{
+		UserId:  userID,
+		RoleIds: roleIds,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteUserRole 删除用户角色
+func (u *userRepo) DeleteUserRole(ctx context.Context, userID uint64, roleIds []uint64) error {
+	_, err := u.data.uc.DeleteUserRole(ctx, &v1.DeleteUserRoleRequest{
+		UserId:  userID,
+		RoleIds: roleIds,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // UserResponseToBizUser 类型转换
 func UserResponseToBizUser(u *v1.UserInfoResponse) *biz.User {
 	if u == nil {

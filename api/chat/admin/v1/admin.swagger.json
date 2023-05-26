@@ -592,20 +592,106 @@
           "ChatAdmin"
         ]
       }
+    },
+    "/admin/v1/user/{userId}/role": {
+      "delete": {
+        "operationId": "ChatAdmin_DeleteUserRole",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteUserRoleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "roleIds",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uint64"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "ChatAdmin"
+        ]
+      },
+      "post": {
+        "operationId": "ChatAdmin_SetUserRole",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SetUserRoleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "roleIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uint64"
+                  }
+                }
+              },
+              "title": "SetUserRoleRequest 设置用户角色请求"
+            }
+          }
+        ],
+        "tags": [
+          "ChatAdmin"
+        ]
+      }
     }
   },
   "definitions": {
     "protobufAny": {
       "type": "object",
       "properties": {
-        "typeUrl": {
+        "@type": {
           "type": "string"
-        },
-        "value": {
-          "type": "string",
-          "format": "byte"
         }
-      }
+      },
+      "additionalProperties": {}
     },
     "rpcStatus": {
       "type": "object",
@@ -620,6 +706,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
@@ -673,6 +760,15 @@
         }
       },
       "title": "创建用户请求"
+    },
+    "v1DeleteUserRoleResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "title": "DeleteUserRoleResponse 删除用户角色响应"
     },
     "v1LoginRequest": {
       "type": "object",
@@ -740,6 +836,7 @@
         "permissions": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1PermissionInfoResponse"
           }
         }
@@ -778,11 +875,21 @@
         "roles": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1RoleInfoResponse"
           }
         }
       },
       "title": "角色列表响应"
+    },
+    "v1SetUserRoleResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "title": "SetUserRoleResponse 设置用户角色响应"
     },
     "v1UserInfoResponse": {
       "type": "object",
@@ -816,6 +923,7 @@
         "users": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1UserInfoResponse"
           }
         }

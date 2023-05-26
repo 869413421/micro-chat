@@ -3,6 +3,7 @@ package data
 import (
 	"context"
 	"fmt"
+	"github.com/869413421/micro-chat/pkg/enforcer"
 
 	"github.com/casbin/casbin/v2"
 	"github.com/go-kratos/kratos/v2/log"
@@ -10,7 +11,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/869413421/micro-chat/app/user/service/internal/biz"
-	"github.com/869413421/micro-chat/app/user/service/internal/data/ent/schema"
+	"github.com/869413421/micro-chat/app/user/service/internal/data/orm/schema"
 )
 
 var _ biz.RoleRepo = (*roleRepo)(nil)
@@ -18,17 +19,21 @@ var _ biz.RoleRepo = (*roleRepo)(nil)
 // roleRepo 数据库操作层
 type roleRepo struct {
 	data     *Data
-	enforcer *casbin.Enforcer
+	enforcer *casbin.SyncedEnforcer
 	log      *log.Helper
 }
 
 // NewRoleRepo 新建DAO操作仓库
-func NewRoleRepo(data *Data, enforcer *casbin.Enforcer, logger log.Logger) biz.RoleRepo {
+func NewRoleRepo(data *Data, logger log.Logger) (biz.RoleRepo, error) {
+	syncedEnforcer, err := enforcer.GetSyncedEnforcer()
+	if err != nil {
+		return nil, err
+	}
 	return &roleRepo{
 		data:     data,
-		enforcer: enforcer,
+		enforcer: syncedEnforcer,
 		log:      log.NewHelper(log.With(logger, "module", "repo/role")),
-	}
+	}, nil
 }
 
 // Create 创建角色

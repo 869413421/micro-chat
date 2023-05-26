@@ -103,3 +103,27 @@ func (s *UserService) ListUser(ctx context.Context, req *v1.ListUserRequest) (*v
 
 	return usersResponse, nil
 }
+
+// SetUserRole 设置用户角色
+func (s *UserService) SetUserRole(ctx context.Context, req *v1.SetUserRoleRequest) (*v1.SetUserRoleResponse, error) {
+	err := s.uc.SetUserRole(ctx, req.UserId, req.RoleIds)
+	if err != nil {
+		return nil, err
+	}
+
+	return &v1.SetUserRoleResponse{
+		Ok: true,
+	}, nil
+}
+
+// DeleteUserRole 删除用户角色
+func (s *UserService) DeleteUserRole(ctx context.Context, req *v1.DeleteUserRoleRequest) (*v1.DeleteUserRoleResponse, error) {
+	err := s.uc.DeleteUserRole(ctx, req.UserId, req.RoleIds)
+	if err != nil {
+		return nil, err
+	}
+
+	return &v1.DeleteUserRoleResponse{
+		Ok: true,
+	}, nil
+}

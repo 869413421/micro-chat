@@ -2,9 +2,10 @@ package service
 
 import (
 	"context"
-
+	"fmt"
 	v1 "github.com/869413421/micro-chat/api/chat/admin/v1"
 	"github.com/869413421/micro-chat/app/chat/admin/internal/biz"
+	"github.com/869413421/micro-chat/pkg/auth"
 )
 
 // Login 用户登录
@@ -20,6 +21,8 @@ func (c *ChatAdmin) Login(ctx context.Context, request *v1.LoginRequest) (*v1.Lo
 
 // CreateUser 创建用户
 func (c *ChatAdmin) CreateUser(ctx context.Context, request *v1.CreateUserRequest) (*v1.UserInfoResponse, error) {
+	claims, ok := auth.FromContext(ctx)
+	fmt.Println(claims, ok)
 	user, err := c.uc.Create(ctx, request)
 	if err != nil {
 		return nil, err
@@ -70,6 +73,24 @@ func (c *ChatAdmin) UserList(ctx context.Context, request *v1.UserListRequest) (
 		Total: total,
 		Users: newUsers,
 	}, nil
+}
+
+// SetUserRole 设置用户角色
+func (c *ChatAdmin) SetUserRole(ctx context.Context, request *v1.SetUserRoleRequest) (*v1.SetUserRoleResponse, error) {
+	err := c.uc.SetUserRole(ctx, request)
+	if err != nil {
+		return nil, err
+	}
+	return &v1.SetUserRoleResponse{Success: true}, nil
+}
+
+// DeleteUserRole 删除用户角色
+func (c *ChatAdmin) DeleteUserRole(ctx context.Context, request *v1.DeleteUserRoleRequest) (*v1.DeleteUserRoleResponse, error) {
+	err := c.uc.DeleteUserRole(ctx, request)
+	if err != nil {
+		return nil, err
+	}
+	return &v1.DeleteUserRoleResponse{Success: true}, nil
 }
 
 // 	bizUserToProtoUser 将biz层的user转换为pb层的user

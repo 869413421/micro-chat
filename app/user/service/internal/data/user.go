@@ -3,6 +3,7 @@ package data
 import (
 	"context"
 	"fmt"
+	"github.com/869413421/micro-chat/pkg/enforcer"
 
 	"github.com/casbin/casbin/v2"
 	"github.com/go-kratos/kratos/v2/log"
@@ -10,23 +11,27 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/869413421/micro-chat/app/user/service/internal/biz"
-	"github.com/869413421/micro-chat/app/user/service/internal/data/ent/schema"
+	"github.com/869413421/micro-chat/app/user/service/internal/data/orm/schema"
 )
 
 // userRepo 数据库操作层
 type userRepo struct {
 	data     *Data
-	enforcer *casbin.Enforcer
+	enforcer *casbin.SyncedEnforcer
 	log      *log.Helper
 }
 
 // NewUserRepo 新建DAO操作仓库
-func NewUserRepo(data *Data, enforcer *casbin.Enforcer, logger log.Logger) biz.UserRepo {
+func NewUserRepo(data *Data, logger log.Logger) (biz.UserRepo, error) {
+	syncedEnforcer, err := enforcer.GetSyncedEnforcer()
+	if err != nil {
+		return nil, err
+	}
 	return &userRepo{
 		data:     data,
-		enforcer: enforcer,
+		enforcer: syncedEnforcer,
 		log:      log.NewHelper(log.With(logger, "module", "data/user")),
-	}
+	}, nil
 }
 
 // CreateUser 创建用户
@@ -123,4 +128,47 @@ func (r *userRepo) ListUser(ctx context.Context, where map[string]interface{}, p
 		bizUser = append(bizUser, u.ToBizUser())
 	}
 	return bizUser, count, nil
+}
+
+// QueryUserRole 查询用户角色
+func (r *userRepo) QueryUserRole(ctx context.Context, where map[string]interface{}) (*biz.UserRole, error) {
+	var dbUserRole schema.UserRole
+	db := r.data.db
+	for key, value := range where {
+		db = db.Where(fmt.Sprintf("%s ?", key), value)
+	}
+	res := db.First(&dbUserRole)
+	if res.RowsAffected == 0 {
+		return nil, status.Errorf(codes.NotFound, "用户角色不存在")
+	}
+	return dbUserRole.ToBizUserRole(), nil
+}
+
+// CreateUserRole 创建用户角色
+func (r *userRepo) CreateUserRole(ctx context.Context, userRole *biz.UserRole) (*biz.UserRole, error) {
+	var dbUserRole schema.UserRole
+	res := r.data.db.Where("user_id = ?", userRole.UserID).Where("role_id = ?", userRole.RoleID).First(&dbUserRole)
+	if res.RowsAffected > 0 {
+		return nil, status.Errorf(codes.AlreadyExists, "用户角色已存在")
+	}
+	dbUserRole.UserID = userRole.UserID
+	dbUserRole.RoleID = userRole.RoleID
+	res = r.data.db.Create(&dbUserRole)
+	if res.Error != nil {
+		return nil, status.Errorf(codes.Internal, res.Error.Error())
+	}
+	return dbUserRole.ToBizUserRole(), nil
+}
+
+// DeleteUserRole 删除用户角色
+func (r *userRepo) DeleteUserRole(ctx context.Context, id uint64) error {
+	var dbUserRole schema.UserRole
+	res := r.data.db.Where("id = ?", id).First(&dbUserRole)
+	if res.RowsAffected == 0 {
+		return status.Errorf(codes.NotFound, "用户角色不存在")
+	}
+	if err := r.data.db.Delete(&dbUserRole).Error; err != nil {
+		return status.Errorf(codes.Internal, err.Error())
+	}
+	return nil
 }

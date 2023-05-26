@@ -138,6 +138,41 @@ service ChatAdmin {
       get: "/admin/v1/permission"
     };
   }
+
+  rpc SetUserRole (SetUserRoleRequest) returns (SetUserRoleResponse) {
+    option (google.api.http) = {
+      post: "/admin/v1/user/{userId}/role"
+      body: "*"
+    };
+  }
+
+    rpc DeleteUserRole (DeleteUserRoleRequest) returns (DeleteUserRoleResponse) {
+      option (google.api.http) = {
+        delete: "/admin/v1/user/{userId}/role"
+      };
+    }
+}
+
+// SetUserRoleRequest 设置用户角色请求
+message SetUserRoleRequest {
+  uint64 userId = 1 [(validate.rules).uint64.gt = 0];
+  repeated uint64 roleIds = 2;
+}
+
+// SetUserRoleResponse 设置用户角色响应
+message SetUserRoleResponse {
+  bool success = 1;
+}
+
+// DeleteUserRoleRequest 删除用户角色请求
+message DeleteUserRoleRequest {
+  uint64 userId = 1 [(validate.rules).uint64.gt = 0];
+  repeated uint64 roleIds = 2 ;
+}
+
+// DeleteUserRoleResponse 删除用户角色响应
+message DeleteUserRoleResponse {
+  bool success = 1;
 }
 
 // 登录请求
